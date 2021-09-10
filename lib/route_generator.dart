@@ -1,3 +1,8 @@
+import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
+import 'package:bus_io/ui/pages/login_page/login_page.dart';
+import 'package:bus_io/ui/pages/main_page/main_page.dart';
+import 'package:bus_io/ui/pages/onboarding_page/onboarding_page.dart';
+import 'package:bus_io/ui/pages/sign_up_page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
 class RouteGenerator {
@@ -5,7 +10,16 @@ class RouteGenerator {
     final args = settings.arguments;
 
     switch (settings.name) {
-      //shows when user newly installs the application
+      case ConfigPage.routeName:
+        return MaterialPageRoute(builder: (_) => ConfigPage());
+      case OnboardingPage.routeName:
+        return MaterialPageRoute(builder: (_) => OnboardingPage());
+      case LoginPage.routeName:
+        return MaterialPageRoute(builder: (_) => LoginPage());
+      case SignupPage.routeName:
+        return MaterialPageRoute(builder: (_) => SignupPage());
+      case MainPage.routeName:
+        return MaterialPageRoute(builder: (_) => MainPage());
 
       default:
         return _errorRoute();

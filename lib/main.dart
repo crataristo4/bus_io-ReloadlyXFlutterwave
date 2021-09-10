@@ -1,4 +1,8 @@
+import 'package:bus_io/route_generator.dart';
+import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
+import 'package:bus_io/ui/pages/onboarding_page/onboarding_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 int? initScreen;
@@ -8,7 +12,8 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   initScreen = prefs.getInt("initScreen");
   await prefs.setInt("initScreen", 1);
-  runApp(EntryPoint());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((value) => runApp(EntryPoint()));
 }
 
 class EntryPoint extends StatelessWidget {
@@ -20,6 +25,11 @@ class EntryPoint extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      initialRoute: initScreen == 0 || initScreen == null
+          ? OnboardingPage
+              .routeName //shows when app data is cleared or newly installed
+          : ConfigPage.routeName,
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }
