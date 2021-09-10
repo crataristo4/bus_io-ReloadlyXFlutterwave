@@ -102,7 +102,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
               lineWidth: 2.5,
               percent: 1,
               animation: true,
-              animationDuration: 1000,
+              animationDuration: 3000,
               onAnimationEnd: () => Navigator.of(context)
                   .pushNamedAndRemoveUntil(
                       ConfigPage.routeName, (route) => false),

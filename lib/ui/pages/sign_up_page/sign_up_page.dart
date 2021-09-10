@@ -1,6 +1,10 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/ui/pages/login_page/login_page.dart';
+import 'package:bus_io/ui/widgets/button_controller.dart';
+import 'package:bus_io/ui/widgets/email_input_widget.dart';
+import 'package:bus_io/ui/widgets/password_input_widget.dart';
 import 'package:country_code_picker/country_code.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:email_validator/email_validator.dart';
@@ -25,7 +29,6 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   String selectedCountryCode = '+233';
-  bool isVisible = true;
 
   //method to select country code when changed
   void _onCountryChange(CountryCode countryCode) {
@@ -146,40 +149,6 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  //password input
-  Widget buildPasswordInput(TextEditingController controller) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: sixteenDp),
-      child: TextFormField(
-          keyboardType: TextInputType.text,
-          obscureText: isVisible ? true : false,
-          controller: controller,
-          validator: (value) =>
-              value!.trim().isNotEmpty || value.length > 9 ? null : requireD,
-          decoration: InputDecoration(
-            suffixIcon: GestureDetector(
-                // onTapDown: hidePass,
-                //onTapUp: showPass,
-                onTap: setVisibility,
-                child: isVisible
-                    ? Image.asset('assets/icons/eye-slash.png')
-                    : Image.asset('assets/icons/eye.png')),
-            hintText: password,
-            fillColor: CustomColors.lightTeal.withOpacity(0.4),
-            filled: true,
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.teal.shade400, width: 1),
-            ),
-            contentPadding:
-                EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
-            enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFF5F5F5))),
-            border: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFF5F5F5))),
-          )),
-    );
-  }
-
   //---
   Widget displayPasswordConfirmation(bool isValid, String description) {
     return Container(
@@ -233,7 +202,9 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(
                 height: twentyDp,
               ),
-              buildEmailInput(emailController),
+              EmailInput(
+                emailController: emailController,
+              ),
               SizedBox(
                 height: twentyDp,
               ),
@@ -260,7 +231,7 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(
                 height: twentyDp,
               ),
-              buildPasswordInput(passwordController),
+              PasswordInput(passwordController: passwordController),
               SizedBox(
                 height: twentyDp,
               ),
@@ -275,17 +246,6 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ),
     );
-  }
-
-  //toggle password visibility
-  void setVisibility() {
-    setState(() {
-      if (isVisible) {
-        isVisible = false;
-      } else {
-        isVisible = true;
-      }
-    });
   }
 
   Widget buildSecondColumn() {
@@ -304,13 +264,17 @@ class _SignupPageState extends State<SignupPage> {
                       fontFamily: 'Mulish',
                       fontSize: sixteenDp)),
               WidgetSpan(
-                child: Text(
-                  login,
-                  //superscript is usually smaller in size
-                  style: TextStyle(
-                      color: Colors.teal,
-                      fontWeight: FontWeight.bold,
-                      fontSize: sixteenDp),
+                child: GestureDetector(
+                  onTap: () =>
+                      Navigator.of(context).pushNamed(LoginPage.routeName),
+                  child: Text(
+                    login,
+                    //superscript is usually smaller in size
+                    style: TextStyle(
+                        color: Colors.teal,
+                        fontWeight: FontWeight.bold,
+                        fontSize: sixteenDp),
+                  ),
                 ),
               ),
             ]),
@@ -319,18 +283,11 @@ class _SignupPageState extends State<SignupPage> {
         SizedBox(
           height: eightDp,
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: sixteenDp),
-          child: MaterialButton(
-            minWidth: MediaQuery.of(context).size.width,
-            height: fiftyDp,
-            onPressed: () {},
-            child: Text(
-              signup,
-              style: TextStyle(color: Colors.white, fontSize: eighteenDp),
-            ),
-            color: Colors.teal,
-          ),
+        ButtonWidget(
+          buttonName: signup,
+          onButtonTapped: () {
+            print('sign up');
+          },
         ),
         SizedBox(
           height: twentyDp,

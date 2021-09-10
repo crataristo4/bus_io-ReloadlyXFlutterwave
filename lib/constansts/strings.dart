@@ -3,7 +3,7 @@ const welcomeBack = 'Welcome Back';
 const alreadyHaveAccount = 'Already have an account? ';
 const login = 'Log in';
 const signup = 'Sign Up';
-const newUser = 'New user';
+const newUser = 'New user?  ';
 const firstName = 'First name';
 const lastName = 'Last name';
 const email = 'Email';
@@ -15,7 +15,7 @@ const oneSpecial = 'One unique character (e.g: @#\&*?!)';
 const requireD = 'required*';
 const tm = 'TM';
 const createAnAccount = 'Create an Account';
-const forgotPassword = 'Forgot password';
+const forgotPassword = 'Forgot password?';
 const bookABusDes =
     'Book a bus for your next journey. Enjoy seamless rides 👌🏽';
 const busBookingMadeEasy = 'Bus booking made easy';
