@@ -265,8 +265,8 @@ class _SignupPageState extends State<SignupPage> {
                       fontSize: sixteenDp)),
               WidgetSpan(
                 child: GestureDetector(
-                  onTap: () =>
-                      Navigator.of(context).pushNamed(LoginPage.routeName),
+                  onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                      LoginPage.routeName, (route) => false),
                   child: Text(
                     login,
                     //superscript is usually smaller in size
