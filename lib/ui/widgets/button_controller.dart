@@ -12,7 +12,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: sixteenDp),
+     // margin: EdgeInsets.symmetric(horizontal: sixteenDp),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         height: fiftyDp,
