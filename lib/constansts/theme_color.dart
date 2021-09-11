@@ -7,7 +7,7 @@ class CustomColors {
 
   static Color lightTeal = Color(0xFFE6F5F6);
   static Color inactiveButton = Color(0xFF0898A0).withOpacity(0.1);
-  static Color c4 = Color(0xFF748EF6);
+  static Color llColor = Color(0xFF811C48);
   static Color c5 = Color(0xFF77DDFF);
   static Color c6 = Color(0xFFC279FB);
   static Color c7 = Color(0xFFEA74AB);
