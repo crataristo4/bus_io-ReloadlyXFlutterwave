@@ -1,4 +1,8 @@
 const appName = 'bus.io';
+const home = 'Home';
+const bookings = 'Bookings';
+const wallet = 'Wallet';
+const profile = 'Profile';
 const welcomeBack = 'Welcome Back';
 const alreadyHaveAccount = 'Already have an account? ';
 const login = 'Log in';
