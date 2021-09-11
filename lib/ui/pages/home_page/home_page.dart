@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               ),
               Wrap(
                 direction: Axis.horizontal,
-                spacing: sixDp,
+                spacing: 0,
                 children: [
                   buildSecondCard(
                       date, 'assets/icons/calender.png', Text("17/02/21")),
@@ -311,7 +311,7 @@ class _HomePageState extends State<HomePage> {
           Row(
             children: [
               Padding(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.all(10),
                 child: Image.asset('assets/icons/loyalty.png'),
               ),
               Column(
