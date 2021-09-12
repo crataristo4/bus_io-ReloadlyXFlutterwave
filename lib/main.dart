@@ -1,6 +1,6 @@
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/route_generator.dart';
-import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
+import 'package:bus_io/ui/pages/main_page/main_page.dart';
 import 'package:bus_io/ui/pages/onboarding_page/onboarding_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,9 +29,9 @@ class EntryPoint extends StatelessWidget {
       initialRoute: initScreen == 0 || initScreen == null
           ? OnboardingPage
               .routeName //shows when app data is cleared or newly installed
-          : ConfigPage.routeName,
+          : MainPage.routeName,
       onGenerateRoute: RouteGenerator.generateRoute,
-      //  home: OnboardingPage(),
+      //  home: MainPage(),
     );
   }
 }
