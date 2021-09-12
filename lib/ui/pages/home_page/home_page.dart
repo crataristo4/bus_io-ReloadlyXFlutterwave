@@ -1,11 +1,18 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/ui/pages/search_results/search_results_page.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
+import 'package:bus_io/ui/widgets/destination_card.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
+  static String fromLocation = whereAreYouLeavingFrom;
+  static String toLocation = whereAreYouGoingTo;
+
   const HomePage({Key? key}) : super(key: key);
 
   @override
@@ -14,6 +21,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController noOfPassengerController = TextEditingController();
+  String? today;
+  DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
+  DateTime _dateTime = DateTime.now();
+
+  //get date
+  Future<DateTime?> _selectDate(BuildContext context) => showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(seconds: 1)),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100));
+
+  @override
+  void initState() {
+    today = _dateFormat.format(_dateTime);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +73,11 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: twentyDp,
               ),
-              buildDestinationCard(),
+              DestinationCard(
+                from: whereAreYouLeavingFrom,
+                to: whereAreYouGoingTo,
+                color: Colors.grey,
+              ),
               SizedBox(
                 height: twentyDp,
               ),
@@ -58,8 +85,22 @@ class _HomePageState extends State<HomePage> {
                 direction: Axis.horizontal,
                 spacing: 0,
                 children: [
-                  buildSecondCard(
-                      date, 'assets/icons/calender.png', Text("17/02/21")),
+                  GestureDetector(
+                    onTap: () async {
+                      final selectedDate = await _selectDate(context);
+                      if (selectedDate == null) return;
+                      _dateTime = DateTime(
+                        selectedDate.day,
+                        selectedDate.month,
+                        selectedDate.year,
+                      );
+                      today = _dateFormat.format(_dateTime);
+
+                      setState(() {});
+                    },
+                    child: buildSecondCard(
+                        date, 'assets/icons/calender.png', Text('$today')),
+                  ),
                   buildSecondCard(noOfPassengers, 'assets/icons/person.png',
                       buildNoOfPassengerInput()),
                 ],
@@ -67,7 +108,12 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: twentyDp,
               ),
-              ButtonWidget(buttonName: findBuses, onButtonTapped: () {}),
+              ButtonWidget(
+                  buttonName: findBuses,
+                  onButtonTapped: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SearchResultsPage()));
+                  }),
               SizedBox(
                 height: twentyDp,
               ),
@@ -114,6 +160,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+/*
   //destination card
   Widget buildDestinationCard() {
     return Card(
@@ -151,10 +198,18 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: twelveDp),
-                        child: Text(
-                          whereAreYouLeavingFrom,
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        child: GestureDetector(
+                          onTap: () {
+                            //push to search page
+                            Navigator.of(context).pushNamed(SearchBus.routeName,
+                                arguments: false);
+                          },
+                          child: Text(
+                            HomePage.fromLocation,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                       Padding(
@@ -168,10 +223,18 @@ class _HomePageState extends State<HomePage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: twelveDp),
-                        child: Text(
-                          whereAreYouGoingTo,
-                          style: TextStyle(
-                              color: Colors.grey, fontWeight: FontWeight.bold),
+                        child: GestureDetector(
+                          onTap: () {
+                            //push to search page
+                            Navigator.of(context).pushNamed(SearchBus.routeName,
+                                arguments: true);
+                          },
+                          child: Text(
+                            HomePage.toLocation,
+                            style: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
                     ],
@@ -188,6 +251,7 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+*/
 
   Widget buildNoOfPassengerInput() {
     return Container(
