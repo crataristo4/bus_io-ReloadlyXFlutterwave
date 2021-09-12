@@ -1,7 +1,7 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
-import 'package:bus_io/model/bus.dart';
+import 'package:bus_io/model/places.dart';
 import 'package:bus_io/ui/pages/home_page/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -52,10 +52,10 @@ class _SearchBusState extends State<SearchBus> {
             flex: 1,
             child: ListView.builder(
               itemBuilder: (context, index) {
-                Bus bus = busList[index];
+                Places bus = placeList[index];
                 return buildBusResults(bus);
               },
-              itemCount: busList.length,
+              itemCount: placeList.length,
               shrinkWrap: true,
               physics: ClampingScrollPhysics(),
               primary: true,
@@ -106,7 +106,7 @@ class _SearchBusState extends State<SearchBus> {
     );
   }
 
-  Widget buildBusResults(Bus bus) {
+  Widget buildBusResults(Places bus) {
     return GestureDetector(
       onTap: () {
         if (!widget.isFrom) {
