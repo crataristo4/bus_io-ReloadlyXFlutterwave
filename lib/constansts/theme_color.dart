@@ -8,9 +8,10 @@ class CustomColors {
   static Color lightTeal = Color(0xFFE6F5F6);
   static Color inactiveButton = Color(0xFF0898A0).withOpacity(0.1);
   static Color llColor = Color(0xFF811C48);
-  static Color c5 = Color(0xFF77DDFF);
-  static Color c6 = Color(0xFFC279FB);
-  static Color c7 = Color(0xFFEA74AB);
+  static Color focusBorder = Color(0xFF0898A0);
+  static Color grayMedium = Color(0xFF969696);
+  static Color orange = Color(0xFFE4572E);
+  static Color black = Color(0xFF000000);
 }
 
 class GradientColors {
