@@ -74,6 +74,7 @@ class _HomePageState extends State<HomePage> {
                 height: twentyDp,
               ),
               DestinationCard(
+                isCard: true,
                 from: whereAreYouLeavingFrom,
                 to: whereAreYouGoingTo,
                 color: Colors.grey,
