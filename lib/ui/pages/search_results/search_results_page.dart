@@ -1,3 +1,4 @@
+import 'package:bus_io/actions/actions.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
@@ -52,6 +53,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               from: placeList[1].placeName,
               to: placeList[1].placeLocation,
               color: Colors.black,
+              isCard: true,
             ),
             SizedBox(
               height: sixteenDp,
@@ -59,8 +61,18 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                modifyOrFilterCard(
-                    modifyResults, '$iconAssetPrefix$edit', () {}),
+                modifyOrFilterCard(modifyResults, '$iconAssetPrefix$edit', () {
+                  ShowAction.showAlertDialog(
+                      DestinationCard(
+                          from: placeList[1].placeName,
+                          to: placeList[1].placeLocation,
+                          color: Colors.black,
+                          isCard: false),
+                      context,
+                      alertButton(cancel, Colors.teal,
+                          Colors.teal.withOpacity(0.04), 0),
+                      alertButton(done, Colors.white, Colors.teal, 1.2));
+                }),
                 modifyOrFilterCard(filterResults, '$iconAssetPrefix$filter',
                     () {
                   showModalBottomSheet(
@@ -82,16 +94,16 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             ),
             Expanded(
                 child: ListView.builder(
-              itemBuilder: (context, index) {
-                Bus bus = busList[index];
+                  itemBuilder: (context, index) {
+                    Bus bus = busList[index];
 
-                return buildBusList(bus);
-              },
-              itemCount: busList.length,
-              shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
-              primary: true,
-            ))
+                    return buildBusList(bus);
+                  },
+                  itemCount: busList.length,
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  primary: true,
+                ))
           ],
         ),
       ),
@@ -117,7 +129,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               child: Text(
                 title,
                 style:
-                    TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
+                TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
               ),
             ),
             Image.asset(
@@ -156,7 +168,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: sixDp, top: fourteenDp),
+                    const EdgeInsets.only(left: sixDp, top: fourteenDp),
                     child: Text(
                       bus.source.toString().toUpperCase(),
                       style: TextStyle(
@@ -178,7 +190,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: fourDp, right: fourDp),
+                      const EdgeInsets.only(top: fourDp, right: fourDp),
                       child: Text(
                         "${bus.rating}",
                         style: TextStyle(
@@ -188,7 +200,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                     ),
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: fourDp, right: sixteenDp),
+                      const EdgeInsets.only(top: fourDp, right: sixteenDp),
                       child: Text(
                         '(${bus.numberOfRating})',
                         style: TextStyle(
@@ -428,6 +440,35 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
           )
         ],
       ),
+    );
+  }
+
+  Widget alertButton(
+      title, Color titleColor, Color bgColor, double borderWidth) {
+    return GestureDetector(
+      onTap: () {
+        if (title.toString().contains(cancel)) {
+          Navigator.of(context).pop();
+        } else {
+          //todo
+        }
+      },
+      child: Container(
+          margin:
+              EdgeInsets.symmetric(horizontal: sixteenDp, vertical: sixteenDp),
+          height: 40,
+          width: 80,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(eightDp),
+            color: bgColor,
+          ),
+          // margin: EdgeInsets.symmetric(horizontal: sixteenDp),
+          child: Center(
+            child: Text(
+              title,
+              style: TextStyle(color: titleColor, fontWeight: FontWeight.w400),
+            ),
+          )),
     );
   }
 }
