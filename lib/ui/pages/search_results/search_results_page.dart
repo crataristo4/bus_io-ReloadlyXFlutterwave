@@ -6,6 +6,7 @@ import 'package:bus_io/model/bus.dart';
 import 'package:bus_io/model/places.dart';
 import 'package:bus_io/ui/bottom_sheets/filter.dart';
 import 'package:bus_io/ui/pages/search_bus/search_bus_page.dart';
+import 'package:bus_io/ui/pages/select_seat/select_seat.dart';
 import 'package:bus_io/ui/widgets/destination_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -428,7 +429,10 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                       borderRadius: BorderRadius.circular(eightDp)),
                   minWidth: oneTwentyDp,
                   height: fiftyDp,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => SelectSeat()));
+                  },
                   child: Text(
                     viewSeats,
                     style: TextStyle(color: Colors.white, fontSize: eighteenDp),
