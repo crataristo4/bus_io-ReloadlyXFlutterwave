@@ -35,8 +35,13 @@ class ShowAction {
   static void showDetails(
       String title, String content, BuildContext context, Widget widgetA) {
     var alertDialog = AlertDialog(
-      title: Text(title),
-      content: Text(content),
+      title: Text(title,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center),
+      content: Text(content,
+          style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500)),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       actions: <Widget>[widgetA],
     );
