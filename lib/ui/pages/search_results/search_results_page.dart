@@ -3,6 +3,7 @@ import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bus.dart';
 import 'package:bus_io/model/places.dart';
+import 'package:bus_io/ui/bottom_sheets/filter.dart';
 import 'package:bus_io/ui/pages/search_bus/search_bus_page.dart';
 import 'package:bus_io/ui/widgets/destination_card.dart';
 import 'package:flutter/cupertino.dart';
@@ -58,8 +59,15 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                modifyOrFilterCard(modifyResults, '$iconAssetPrefix$edit'),
-                modifyOrFilterCard(filterResults, '$iconAssetPrefix$filter')
+                modifyOrFilterCard(
+                    modifyResults, '$iconAssetPrefix$edit', () {}),
+                modifyOrFilterCard(filterResults, '$iconAssetPrefix$filter',
+                    () {
+                  showModalBottomSheet(
+                    context: context,
+                    builder: (context) => FilterBottomSheet(),
+                  );
+                })
               ],
             ),
             SizedBox(
@@ -90,30 +98,34 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     );
   }
 
-  Widget modifyOrFilterCard(title, icon) {
-    return Container(
-      width: oneSixtyDp,
-      // margin: EdgeInsets.symmetric(horizontal: tenDp),
-      padding: EdgeInsets.all(twelveDp),
-      decoration: BoxDecoration(
-          color: Colors.teal.withOpacity(0.02),
-          borderRadius: BorderRadius.circular(tenDp)),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: eightDp, right: fourDp),
-            child: Text(
-              title,
-              style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
+  Widget modifyOrFilterCard(title, icon, Function()? onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: oneSixtyDp,
+        // margin: EdgeInsets.symmetric(horizontal: tenDp),
+        padding: EdgeInsets.all(twelveDp),
+        decoration: BoxDecoration(
+            color: Colors.teal.withOpacity(0.02),
+            borderRadius: BorderRadius.circular(tenDp)),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: eightDp, right: fourDp),
+              child: Text(
+                title,
+                style:
+                    TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
+              ),
             ),
-          ),
-          Image.asset(
-            icon,
-            width: thirtyDp,
-          )
-        ],
+            Image.asset(
+              icon,
+              width: thirtyDp,
+            )
+          ],
+        ),
       ),
     );
   }
@@ -155,7 +167,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 8),
+                padding: const EdgeInsets.only(top: eightDp),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
