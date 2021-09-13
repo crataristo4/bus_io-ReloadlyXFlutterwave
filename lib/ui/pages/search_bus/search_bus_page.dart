@@ -3,9 +3,8 @@ import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/places.dart';
 import 'package:bus_io/ui/pages/home_page/home_page.dart';
+import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
-
-String backBtn = 'back_arrow.png';
 
 class SearchBus extends StatefulWidget {
   final bool isFrom;
@@ -32,13 +31,9 @@ class _SearchBusState extends State<SearchBus> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Image.asset('$iconAssetPrefix$backBtn')),
-      ),
+      appBar: appBar('', () {
+        Navigator.pop(context);
+      }),
       body: Column(
         children: [
           //search input

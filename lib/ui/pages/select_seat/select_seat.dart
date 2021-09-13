@@ -1,11 +1,14 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
-import 'package:bus_io/ui/pages/search_bus/search_bus_page.dart';
+import 'package:bus_io/ui/pages/add_passenger_details/add_passenger_details.dart';
+import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SelectSeat extends StatefulWidget {
+  static const routeName = '/selectSeat';
+
   const SelectSeat({Key? key}) : super(key: key);
 
   @override
@@ -24,20 +27,9 @@ class _SelectSeatState extends State<SelectSeat> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Text(
-          selectSeat,
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-        leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Image.asset('$iconAssetPrefix$backBtn')),
-      ),
+      appBar: appBar(selectSeat, () {
+        Navigator.pop(context);
+      }),
       body: CustomScrollView(
         slivers: [
           SliverFillRemaining(
@@ -370,7 +362,38 @@ class _SelectSeatState extends State<SelectSeat> {
                                 borderRadius: BorderRadius.circular(tenDp)),
                             minWidth: oneTwentyDp,
                             height: fiftyDp,
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => AddPassengerDetails(),
+                              ));
+                              /*ShowAction.showDetails(
+                                  oops,
+                                  oopsDes,
+                                  context,
+                                  Center(
+                                    child: Container(
+                                      margin:
+                                          EdgeInsets.symmetric(vertical: sixDp),
+                                      child: MaterialButton(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(tenDp)),
+                                        minWidth: ninetyDp,
+                                        height: thirtyEightDp,
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: Text(
+                                          ok,
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: sixteenDp),
+                                        ),
+                                        color: Colors.teal,
+                                      ),
+                                    ),
+                                  ));*/
+                            },
                             child: Text(
                               conTiNue,
                               style: TextStyle(

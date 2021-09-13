@@ -5,14 +5,16 @@ import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bus.dart';
 import 'package:bus_io/model/places.dart';
 import 'package:bus_io/ui/bottom_sheets/filter.dart';
-import 'package:bus_io/ui/pages/search_bus/search_bus_page.dart';
 import 'package:bus_io/ui/pages/select_seat/select_seat.dart';
+import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:bus_io/ui/widgets/destination_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class SearchResultsPage extends StatefulWidget {
+  static const routeName = '/searchBusResultsPage';
+
   const SearchResultsPage({Key? key}) : super(key: key);
 
   @override
@@ -27,21 +29,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: true,
-        title: Text(
-          searchResults,
-          style: TextStyle(
-              fontSize: twentyFourDp,
-              fontWeight: FontWeight.bold,
-              color: Colors.black),
-        ),
-        backgroundColor: Colors.white,
-        leading: GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Image.asset('$iconAssetPrefix$backBtn')),
-      ),
+      appBar: appBar(searchResults, () {
+        Navigator.pop(context);
+      }),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: sixteenDp),
         child: Column(
