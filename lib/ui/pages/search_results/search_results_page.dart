@@ -1,12 +1,12 @@
 import 'package:bus_io/actions/actions.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
-import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bus.dart';
 import 'package:bus_io/model/places.dart';
 import 'package:bus_io/ui/bottom_sheets/filter.dart';
 import 'package:bus_io/ui/pages/select_seat/select_seat.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
+import 'package:bus_io/ui/widgets/bus_item.dart';
 import 'package:bus_io/ui/widgets/destination_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -88,8 +88,16 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   itemBuilder: (context, index) {
                     Bus bus = busList[index];
 
-                    return buildBusList(bus);
-                  },
+                return BusItem(
+                  bus: bus,
+                  isBus: true,
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => SelectSeat(
+                            bus: bus,
+                          ))),
+                  seatsBooked: 0,
+                );
+              },
                   itemCount: busList.length,
                   shrinkWrap: true,
                   physics: ClampingScrollPhysics(),
@@ -133,7 +141,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     );
   }
 
-  Widget buildBusList(Bus bus) {
+  /*Widget buildBusList(Bus bus) {
     return Container(
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.withOpacity(0.5), width: 0.69),
@@ -435,7 +443,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget alertButton(
       title, Color titleColor, Color bgColor, double borderWidth) {
