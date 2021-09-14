@@ -373,7 +373,7 @@ class _SelectSeatState extends State<SelectSeat> {
                                     // todo -- get from controllers
                                     'Tobiloba Adekunle',
                                     'Mildred Egenti',
-                                    'Mildred Egenti'
+                                    'Max Luvran'
                                   ],
                                   seatNumberSelectedList: [1, 8, 16],
                                 ),
