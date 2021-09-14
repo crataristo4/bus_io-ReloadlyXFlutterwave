@@ -8,6 +8,7 @@ import 'package:bus_io/ui/pages/select_seat/select_seat.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:bus_io/ui/widgets/bus_item.dart';
 import 'package:bus_io/ui/widgets/destination_card.dart';
+import 'package:bus_io/ui/widgets/modify_filter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -52,25 +53,30 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                modifyOrFilterCard(modifyResults, '$iconAssetPrefix$edit', () {
-                  ShowAction.showAlertDialog(
-                      DestinationCard(
-                          from: placeList[1].placeName,
-                          to: placeList[1].placeLocation,
-                          color: Colors.black,
-                          isCard: false),
-                      context,
-                      alertButton(cancel, Colors.teal,
-                          Colors.teal.withOpacity(0.04), 0),
-                      alertButton(done, Colors.white, Colors.teal, 1.2));
-                }),
-                modifyOrFilterCard(filterResults, '$iconAssetPrefix$filter',
-                    () {
-                  showModalBottomSheet(
-                    context: context,
-                    builder: (context) => FilterBottomSheet(),
-                  );
-                })
+                ModifyOrFilter(
+                    title: modifyResults,
+                    icon: '$iconAssetPrefix$edit',
+                    onTap: () {
+                      ShowAction.showAlertDialog(
+                          DestinationCard(
+                              from: placeList[1].placeName,
+                              to: placeList[1].placeLocation,
+                              color: Colors.black,
+                              isCard: false),
+                          context,
+                          alertButton(cancel, Colors.teal,
+                              Colors.teal.withOpacity(0.04), 0),
+                          alertButton(done, Colors.white, Colors.teal, 1.2));
+                    }),
+                ModifyOrFilter(
+                    title: filterResults,
+                    icon: '$iconAssetPrefix$filter',
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) => FilterBottomSheet(),
+                      );
+                    })
               ],
             ),
             SizedBox(
@@ -109,7 +115,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     );
   }
 
-  Widget modifyOrFilterCard(title, icon, Function()? onTap) {
+  /* Widget modifyOrFilterCard(title, icon, Function()? onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -139,7 +145,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
         ),
       ),
     );
-  }
+  }*/
 
   /*Widget buildBusList(Bus bus) {
     return Container(
