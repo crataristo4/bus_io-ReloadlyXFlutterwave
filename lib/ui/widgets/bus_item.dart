@@ -189,7 +189,6 @@ class _BusItemState extends State<BusItem> {
                 WidgetSpan(
                   child: Text(
                     widget.bus.estimatedTime,
-                    //superscript is usually smaller in size
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -263,7 +262,7 @@ class _BusItemState extends State<BusItem> {
                                 fontWeight: FontWeight.w500,
                                 decoration: TextDecoration.lineThrough,
                                 // fontFamily: 'Mulish',
-                                fontSize: eighteenDp)),
+                                fontSize: sixteenDp)),
                         WidgetSpan(
                           child: Text(
                             '${widget.bus.price}',
@@ -271,7 +270,7 @@ class _BusItemState extends State<BusItem> {
                             style: TextStyle(
                                 color: Colors.teal,
                                 fontWeight: FontWeight.w500,
-                                fontSize: eighteenDp),
+                                fontSize: fifteenDp),
                           ),
                         ),
                       ]),
