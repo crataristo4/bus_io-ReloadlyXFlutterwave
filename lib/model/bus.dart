@@ -58,7 +58,7 @@ List<Bus> busList = [
       estimatedTime: '15 hrs',
       numberOfSeats: 14,
       remainingSeats: [2, 5, 8, 9, 10, 12, 1, 3, 6],
-      price: '20,500'),
+      price: 20500),
   Bus(
       busImage: 'assets/images/a.png',
       source: "CHISCO MOTORS",
@@ -86,7 +86,7 @@ List<Bus> busList = [
         10,
         12,
       ],
-      price: '24,500'),
+      price: 24500),
   Bus(
       busImage: 'assets/images/b.png',
       source: "LIBRA MOTORS",
@@ -98,5 +98,5 @@ List<Bus> busList = [
       estimatedTime: '14 hrs',
       numberOfSeats: 26,
       remainingSeats: [2, 5, 8, 9, 10, 12, 17, 20, 22],
-      price: '28,500'),
+      price: 28500),
 ];
