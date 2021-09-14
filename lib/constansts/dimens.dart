@@ -18,6 +18,7 @@ const seventyDp = 70.0;
 const eightyDp = 80.0;
 const tenDp = 10.0;
 const fifteenDp = 15.0;
+const seventeenDp = 17.0;
 const sixDp = 6.0;
 const twelveDp = 12.0;
 const fourteenDp = 14.0;
