@@ -1,6 +1,8 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/model/bus.dart';
+import 'package:bus_io/ui/pages/review_booking/review_booking_details.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:bus_io/ui/widgets/passenger_details.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +10,20 @@ import 'package:flutter/material.dart';
 class AddPassengerDetails extends StatefulWidget {
   static const routeName = '/addPassengerDetails';
   final seatsSelected;
+  final Bus bus;
+  final List<String> passengerList;
+  final List<int> seatNumberSelectedList;
 
-  const AddPassengerDetails({Key? key, required this.seatsSelected})
-      : super(key: key);
+//  final double ticketPrice;
+
+  const AddPassengerDetails({
+    Key? key,
+    //required this.ticketPrice
+    required this.seatsSelected,
+    required this.bus,
+    required this.passengerList,
+    required this.seatNumberSelectedList,
+  }) : super(key: key);
 
   @override
   _AddPassengerDetailsState createState() => _AddPassengerDetailsState();
@@ -151,14 +164,14 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                         color: Colors.grey,
                                         fontWeight: FontWeight.w400,
                                         // fontFamily: 'Mulish',
-                                        fontSize: eighteenDp)),
+                                        fontSize: sixteenDp)),
                                 WidgetSpan(
                                   child: Text(
                                     'N73,500',
                                     style: TextStyle(
                                         color: Colors.teal,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: eighteenDp),
+                                        fontSize: fifteenDp),
                                   ),
                                 ),
                               ]),
@@ -202,11 +215,19 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                       ),
                                     ),
                                   ));*/
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ReviewBookingDetails(
+                                    bus: widget.bus,
+                                    seatNumberSelectedList:
+                                        widget.seatNumberSelectedList,
+                                    passengerList: widget.passengerList,
+                                  ),
+                                ));
                               },
                               child: Text(
                                 reviewBookingDetails,
                                 style: TextStyle(
-                                    color: Colors.white, fontSize: sixteenDp),
+                                    color: Colors.white, fontSize: fourteenDp),
                               ),
                               color: CustomColors.teal,
                             ),
@@ -224,6 +245,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
     );
   }
 
+  //todo not dynamic
   //list of passenger details
   pl(int seatSelected) {
     switch (seatSelected) {
