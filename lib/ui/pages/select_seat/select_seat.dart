@@ -364,7 +364,9 @@ class _SelectSeatState extends State<SelectSeat> {
                             height: fiftyDp,
                             onPressed: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => AddPassengerDetails(),
+                                builder: (context) => AddPassengerDetails(
+                                  seatsSelected: 2,
+                                ),
                               ));
                               /*ShowAction.showDetails(
                                   oops,
@@ -399,7 +401,7 @@ class _SelectSeatState extends State<SelectSeat> {
                               style: TextStyle(
                                   color: Colors.white, fontSize: sixteenDp),
                             ),
-                            color: Colors.teal,
+                            color: CustomColors.teal,
                           ),
                         )
                       ],

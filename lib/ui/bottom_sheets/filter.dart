@@ -15,6 +15,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
   int? _selectedIndex = 0;
+  double lowestPricesValue = 2000;
   List<Map<String, dynamic>> data = [
     {
       'title': earlyMorning,
@@ -154,10 +155,16 @@ class _FilterBottomSheetState extends State<FilterBottomSheet>
                     ),
                   ),
                   Slider(
-                    value: 100,
-                    onChanged: (double value) {},
-                    min: 0.0,
-                    max: 100,
+                    value: lowestPricesValue,
+                    onChanged: (double value) {
+                      print('$value');
+                      setState(() {
+                        lowestPricesValue = value;
+                      });
+                    },
+                    min: 2000.0,
+                    max: 10000.0,
+                    divisions: 10,
                     activeColor: Colors.teal,
                     inactiveColor: Colors.grey,
                   ),
@@ -252,8 +259,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet>
       },
       child: AnimatedContainer(
         margin: EdgeInsets.symmetric(horizontal: sixteenDp),
-        width: 120,
-        height: 90,
+        width: oneTwentyDp,
+        height: ninetyDp,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(eightDp),
             border: Border.all(

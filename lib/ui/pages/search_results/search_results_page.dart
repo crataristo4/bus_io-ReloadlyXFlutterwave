@@ -425,9 +425,9 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   },
                   child: Text(
                     viewSeats,
-                    style: TextStyle(color: Colors.white, fontSize: eighteenDp),
+                    style: TextStyle(color: Colors.white, fontSize: sixteenDp),
                   ),
-                  color: Colors.teal.withOpacity(0.7),
+                  color: CustomColors.teal,
                 ),
               )
             ],
