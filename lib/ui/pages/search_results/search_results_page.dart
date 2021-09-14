@@ -23,9 +23,6 @@ class SearchResultsPage extends StatefulWidget {
 }
 
 class _SearchResultsPageState extends State<SearchResultsPage> {
-  String edit = 'edit.png';
-  String filter = 'filter.png';
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,7 +52,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               children: [
                 ModifyOrFilter(
                     title: modifyResults,
-                    icon: '$iconAssetPrefix$edit',
+                    icon: '$iconAssetPrefix$editIcon',
                     onTap: () {
                       ShowAction.showAlertDialog(
                           DestinationCard(
@@ -70,7 +67,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                     }),
                 ModifyOrFilter(
                     title: filterResults,
-                    icon: '$iconAssetPrefix$filter',
+                    icon: '$iconAssetPrefix$filterIcon',
                     onTap: () {
                       showModalBottomSheet(
                         context: context,

@@ -42,23 +42,30 @@ class _SelectSeatState extends State<SelectSeat> {
               children: [
                 Column(
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(twelveDp),
+                    Card(
+                      elevation: 0.5,
+                      semanticContainer: true,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(eightDp),
+                      ),
                       margin: EdgeInsets.symmetric(horizontal: sixteenDp),
-                      decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey, width: 0.4),
-                          borderRadius: BorderRadius.circular(eightDp)),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          buildSeatStatus(
-                              Colors.teal, selected, 0, Colors.teal),
-                          buildSeatStatus(
-                              Colors.white, available, 1.2, Colors.teal),
-                          buildSeatStatus(Colors.grey.withOpacity(0.4), booked,
-                              0, Colors.grey),
-                        ],
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(eightDp),
+                            border: Border.all(width: 0.5, color: Colors.grey)),
+                        padding: EdgeInsets.all(twelveDp),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            buildSeatStatus(
+                                Colors.teal, selected, 0, Colors.teal),
+                            buildSeatStatus(
+                                Colors.white, available, 1.2, Colors.teal),
+                            buildSeatStatus(Colors.grey.withOpacity(0.4),
+                                booked, 0, Colors.grey),
+                          ],
+                        ),
                       ),
                     ),
                     //second row
@@ -267,14 +274,18 @@ class _SelectSeatState extends State<SelectSeat> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                '$seatsSelected $seats',
-                                style: TextStyle(
-                                    color: CustomColors.grayMedium,
-                                    fontWeight: FontWeight.w400),
+                              Padding(
+                                padding: const EdgeInsets.only(left: sixteenDp),
+                                child: Text(
+                                  '$seatsSelected $seats',
+                                  style: TextStyle(
+                                      color: CustomColors.grayMedium,
+                                      fontWeight: FontWeight.w400),
+                                ),
                               ),
                               Padding(
-                                padding: const EdgeInsets.only(top: fourDp),
+                                padding: const EdgeInsets.only(
+                                    top: fourDp, left: sixteenDp),
                                 child: Text(
                                   '1,8,16',
                                   style: TextStyle(
@@ -290,11 +301,12 @@ class _SelectSeatState extends State<SelectSeat> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: sixteenDp),
                             child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text(
                                   priceTicket,
                                   style: TextStyle(
+                                      fontSize: fourteenDp,
                                       color: CustomColors.grayMedium,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -308,7 +320,7 @@ class _SelectSeatState extends State<SelectSeat> {
                                             decoration:
                                                 TextDecoration.lineThrough,
                                             // fontFamily: 'Mulish',
-                                            fontSize: eighteenDp)),
+                                            fontSize: sixteenDp)),
                                     WidgetSpan(
                                       child: Text(
                                         '24,500',
@@ -317,7 +329,7 @@ class _SelectSeatState extends State<SelectSeat> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 1.5,
-                                            fontSize: eighteenDp),
+                                            fontSize: fifteenDp),
                                       ),
                                     ),
                                   ]),
@@ -333,7 +345,8 @@ class _SelectSeatState extends State<SelectSeat> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: thirtyDp),
+                          padding: const EdgeInsets.only(
+                              top: thirtyDp, left: sixteenDp),
                           child: RichText(
                             text: TextSpan(children: [
                               TextSpan(
@@ -342,14 +355,14 @@ class _SelectSeatState extends State<SelectSeat> {
                                       color: Colors.grey,
                                       fontWeight: FontWeight.w400,
                                       // fontFamily: 'Mulish',
-                                      fontSize: eighteenDp)),
+                                      fontSize: sixteenDp)),
                               WidgetSpan(
                                 child: Text(
                                   'N73,500',
                                   style: TextStyle(
                                       color: Colors.teal,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: eighteenDp),
+                                      fontSize: fifteenDp),
                                 ),
                               ),
                             ]),

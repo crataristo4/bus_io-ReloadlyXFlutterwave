@@ -89,14 +89,19 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  '3 $seats',
-                                  style: TextStyle(
-                                      color: CustomColors.grayMedium,
-                                      fontWeight: FontWeight.w400),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: sixteenDp),
+                                  child: Text(
+                                    '3 $seats',
+                                    style: TextStyle(
+                                        color: CustomColors.grayMedium,
+                                        fontWeight: FontWeight.w400),
+                                  ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(top: fourDp),
+                                  padding: const EdgeInsets.only(
+                                      left: sixteenDp, top: fourDp),
                                   child: Text(
                                     '1,8,16',
                                     style: TextStyle(
@@ -112,12 +117,13 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: sixteenDp),
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
                                     priceTicket,
                                     style: TextStyle(
                                         color: CustomColors.grayMedium,
+                                        fontSize: fourteenDp,
                                         fontWeight: FontWeight.w400),
                                   ),
                                   RichText(
@@ -130,7 +136,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                               decoration:
                                                   TextDecoration.lineThrough,
                                               // fontFamily: 'Mulish',
-                                              fontSize: eighteenDp)),
+                                              fontSize: sixteenDp)),
                                       WidgetSpan(
                                         child: Text(
                                           '24,500',
@@ -139,7 +145,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
                                               letterSpacing: 1.5,
-                                              fontSize: eighteenDp),
+                                              fontSize: fourteenDp),
                                         ),
                                       ),
                                     ]),
@@ -155,7 +161,8 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: thirtyDp),
+                            padding: const EdgeInsets.only(
+                                top: thirtyDp, left: sixteenDp),
                             child: RichText(
                               text: TextSpan(children: [
                                 TextSpan(
