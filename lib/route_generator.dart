@@ -1,12 +1,9 @@
-import 'package:bus_io/ui/pages/add_passenger_details/add_passenger_details.dart';
 import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
 import 'package:bus_io/ui/pages/login_page/login_page.dart';
 import 'package:bus_io/ui/pages/main_page/main_page.dart';
 import 'package:bus_io/ui/pages/onboarding_page/onboarding_page.dart';
-import 'package:bus_io/ui/pages/review_booking/review_booking_details.dart';
 import 'package:bus_io/ui/pages/search_bus/search_bus_page.dart';
 import 'package:bus_io/ui/pages/search_results/search_results_page.dart';
-import 'package:bus_io/ui/pages/select_seat/select_seat.dart';
 import 'package:bus_io/ui/pages/sign_up_page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
@@ -30,22 +27,22 @@ class RouteGenerator {
       case MainPage.routeName:
         return MaterialPageRoute(builder: (_) => MainPage());
       //REVIEW BOOKING
-      case ReviewBookingDetails.routeName:
-        return MaterialPageRoute(builder: (_) => ReviewBookingDetails());
+      /*case ReviewBookingDetails.routeName:
+        return MaterialPageRoute(builder: (_) => ReviewBookingDetails());*/
 //search results
       case SearchResultsPage.routeName:
         return MaterialPageRoute(builder: (_) => SearchResultsPage());
 
       //select seats
-      case SelectSeat.routeName:
-        return MaterialPageRoute(builder: (_) => SelectSeat());
+      /*   case SelectSeat.routeName:
+        return MaterialPageRoute(builder: (_) => SelectSeat());*/
       //add passenger details
-      case AddPassengerDetails.routeName:
+      /* case AddPassengerDetails.routeName:
         final data = args as List<String>;
         return MaterialPageRoute(
             builder: (_) => AddPassengerDetails(
                   seatsSelected: data,
-                ));
+                ));*/
       //SEARCH BUS
       case SearchBus.routeName:
         bool data = args as bool;
