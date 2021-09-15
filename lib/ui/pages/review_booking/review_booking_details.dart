@@ -51,100 +51,101 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 //todo - check overflow
-                SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //contains bus details
-                      BusItem(
-                        bus: widget.bus,
-                        isBus: false,
-                        onTap: () {},
-                        seatsBooked: widget.seatNumberSelectedList.length,
-                      ),
+                ListView(
+                  shrinkWrap: true,
+                  primary: true,
+                  //crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //contains bus details
+                    BusItem(
+                      bus: widget.bus,
+                      isBus: false,
+                      onTap: () {},
+                      seatsBooked: widget.seatNumberSelectedList.length,
+                    ),
 
-                      //total passengers
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            left: sixteenDp, top: sixteenDp),
-                        child: RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
-                                text: '$totalPassengers ',
-                                style: TextStyle(
-                                    color: CustomColors.grayMedium,
-                                    fontWeight: FontWeight.w500,
-                                    fontFamily: 'Mulish',
-                                    fontSize: sixteenDp)),
-                            WidgetSpan(
-                              child: Text(
-                                '${widget.passengerList.length}',
-                                //superscript is usually smaller in size
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: fifteenDp),
-                              ),
-                            ),
-                          ]),
-                        ),
-                      ),
-
-                      //passenger details
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: sixteenDp, top: sixteenDp),
-                            child: Text(
-                              passengerDetails,
+                    //total passengers
+                    Padding(
+                      padding: const EdgeInsets.only(
+                          left: sixteenDp, top: sixteenDp),
+                      child: RichText(
+                        text: TextSpan(children: [
+                          TextSpan(
+                              text: '$totalPassengers ',
                               style: TextStyle(
-                                  color: CustomColors.teal,
-                                  fontSize: sixteenDp,
-                                  fontWeight: FontWeight.bold),
+                                  color: CustomColors.grayMedium,
+                                  fontWeight: FontWeight.w500,
+                                  fontFamily: 'Mulish',
+                                  fontSize: sixteenDp)),
+                          WidgetSpan(
+                            child: Text(
+                              '${widget.passengerList.length}',
+                              //superscript is usually smaller in size
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: fifteenDp),
                             ),
                           ),
-                          Container(
-                            height: fiftyDp,
-                            width: oneThirtyDp,
-                            margin: EdgeInsets.symmetric(horizontal: tenDp),
-                            child: ModifyOrFilter(
-                                title: editDetails,
-                                icon: '$iconAssetPrefix$editIcon',
-                                onTap: () => Navigator.of(context).pop()),
-                          )
-                        ],
+                        ]),
                       ),
+                    ),
 
-                      //list of passenger name and seat number
-                      ListView.builder(
-                        itemBuilder: (context, index) {
-                          return getNameAndSeatNumber(index);
-                        },
-                        itemCount: widget.passengerList.length,
-                        shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
-                      ),
-
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(top: tenDp, left: sixteenDp),
-                        child: Text(
-                          fareSummary,
-                          style: TextStyle(
-                              color: CustomColors.teal,
-                              fontWeight: FontWeight.bold),
+                    //passenger details
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: sixteenDp, top: sixteenDp),
+                          child: Text(
+                            passengerDetails,
+                            style: TextStyle(
+                                color: CustomColors.teal,
+                                fontSize: sixteenDp,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
+                        Container(
+                          height: fiftyDp,
+                          width: oneThirtyDp,
+                          margin: EdgeInsets.symmetric(horizontal: tenDp),
+                          child: ModifyOrFilter(
+                              title: editDetails,
+                              icon: '$iconAssetPrefix$editIcon',
+                              onTap: () => Navigator.of(context).pop()),
+                        )
+                      ],
+                    ),
 
-                      fareItems('$ticketPrice x ${widget.passengerList.length}',
-                          '$totalPrice'),
-                      fareItems('$tax ${widget.passengerList.length}', '${0}'),
-                      fareItems('$totalFare', '$totalPrice'),
-                    ],
-                  ),
+                    //list of passenger name and seat number
+                    ListView.builder(
+                      itemBuilder: (context, index) {
+                        return getNameAndSeatNumber(index);
+                      },
+                      itemCount: widget.passengerList.length,
+                      shrinkWrap: true,
+                      primary: true,
+                      physics: ClampingScrollPhysics(),
+                    ),
+
+                    Padding(
+                      padding:
+                          const EdgeInsets.only(top: tenDp, left: sixteenDp),
+                      child: Text(
+                        fareSummary,
+                        style: TextStyle(
+                            color: CustomColors.teal,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+
+                    fareItems('$ticketPrice x ${widget.passengerList.length}',
+                        '$totalPrice'),
+                    fareItems('$tax ${widget.passengerList.length}', '${0}'),
+                    fareItems('$totalFare', '$totalPrice'),
+                  ],
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(
