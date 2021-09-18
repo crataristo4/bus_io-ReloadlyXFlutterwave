@@ -7,6 +7,10 @@ import 'package:bus_io/ui/widgets/bus_item.dart';
 import 'package:bus_io/ui/widgets/modify_filter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterwave/core/flutterwave.dart';
+import 'package:flutterwave/models/responses/charge_response.dart';
+import 'package:flutterwave/utils/flutterwave_constants.dart';
+import 'package:flutterwave/utils/flutterwave_currency.dart';
 
 class ReviewBookingDetails extends StatefulWidget {
   static const routeName = '/reviewBookingDetails';
@@ -28,6 +32,9 @@ class ReviewBookingDetails extends StatefulWidget {
 class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
   int? index;
   int? totalPrice;
+  final String txtRef = "busPayment";
+  final String amount = "200";
+  final String currency = FlutterwaveCurrency.NGN;
 
   @override
   void initState() {
@@ -263,7 +270,10 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                                 borderRadius: BorderRadius.circular(tenDp)),
                             minWidth: oneTwentyDp,
                             height: fiftyTwoDp,
-                            onPressed: () {},
+                            onPressed: () async {
+                              //make payment through flutter wave
+                              await beginPayment();
+                            },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               //  crossAxisAlignment: CrossAxisAlignment.start,
@@ -400,5 +410,59 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
         ],
       ),
     );
+  }
+
+  beginPayment() async {
+    final Flutterwave flutterWave = Flutterwave.forUIPayment(
+        context: this.context,
+        encryptionKey: "FLWSECK_TEST8f7d02feca66",
+        publicKey: "FLWPUBK_TEST-c6f888566a3c8cf190f42cf02ac40eb3-X",
+        currency: this.currency,
+        amount: this.amount,
+        email: "valid@email.com",
+        fullName: "Valid Full Name",
+        txRef: this.txtRef,
+        isDebugMode: true,
+        phoneNumber: "0123456789",
+        acceptCardPayment: true,
+        acceptUSSDPayment: true,
+        acceptAccountPayment: true,
+        acceptFrancophoneMobileMoney: false,
+        acceptGhanaPayment: true,
+        acceptMpesaPayment: false,
+        acceptRwandaMoneyPayment: true,
+        acceptUgandaPayment: false,
+        acceptZambiaPayment: false);
+
+    try {
+      final ChargeResponse response =
+          await flutterWave.initializeForUiPayments();
+      if (response == null) {
+        // user didn't complete the transaction.
+      } else {
+        final isSuccessful = checkPaymentIsSuccessful(response);
+        if (isSuccessful) {
+          // provide value to customer
+        } else {
+          // check message
+          print(response.message);
+
+          // check status
+          print(response.status);
+
+          // check processor error
+          print(response.data!.processorResponse);
+        }
+      }
+    } catch (error, stacktrace) {
+      // handleError(error);
+    }
+  }
+
+  bool checkPaymentIsSuccessful(final ChargeResponse response) {
+    return response.data!.status == FlutterwaveConstants.SUCCESSFUL &&
+        response.data!.currency == this.currency &&
+        response.data!.amount == '${widget.bus.price}' &&
+        response.data!.txRef == this.txtRef;
   }
 }
