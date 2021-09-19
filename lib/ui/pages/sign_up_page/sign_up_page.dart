@@ -7,7 +7,6 @@ import 'package:bus_io/ui/widgets/email_input_widget.dart';
 import 'package:bus_io/ui/widgets/password_input_widget.dart';
 import 'package:country_code_picker/country_code.dart';
 import 'package:country_code_picker/country_code_picker.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -97,7 +96,7 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  //email input
+  /* //email input
   Widget buildEmailInput(TextEditingController controller) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: sixteenDp),
@@ -105,7 +104,7 @@ class _SignupPageState extends State<SignupPage> {
           keyboardType: TextInputType.emailAddress,
           controller: controller,
           validator: (value) =>
-              EmailValidator.validate(value!) == true ? null : requireD,
+          EmailValidator.validate(value!) == true ? null : requireD,
           decoration: InputDecoration(
             hintText: email,
             fillColor: CustomColors.lightTeal.withOpacity(0.4),
@@ -114,7 +113,7 @@ class _SignupPageState extends State<SignupPage> {
               borderSide: BorderSide(color: Colors.teal.shade400, width: 1),
             ),
             contentPadding:
-                EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
+            EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFF5F5F5))),
             border: OutlineInputBorder(
@@ -122,7 +121,7 @@ class _SignupPageState extends State<SignupPage> {
           )),
     );
   }
-
+*/
   //phone number input
   Widget buildPhoneNumberInput(TextEditingController controller) {
     return Container(
@@ -283,11 +282,14 @@ class _SignupPageState extends State<SignupPage> {
         SizedBox(
           height: eightDp,
         ),
-        ButtonWidget(
-          buttonName: signup,
-          onButtonTapped: () {
-            print('sign up');
-          },
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: sixteenDp),
+          child: ButtonWidget(
+            buttonName: signup,
+            onButtonTapped: () {
+              print('sign up');
+            },
+          ),
         ),
         SizedBox(
           height: twentyDp,

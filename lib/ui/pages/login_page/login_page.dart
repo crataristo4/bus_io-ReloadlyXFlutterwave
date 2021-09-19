@@ -64,11 +64,14 @@ class _LoginPageState extends State<LoginPage> {
             height: sixteenDp,
           ),
 
-          ButtonWidget(
-            buttonName: login,
-            onButtonTapped: () {
-              print('log in up');
-            },
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: sixteenDp),
+            child: ButtonWidget(
+              buttonName: login,
+              onButtonTapped: () {
+                print('log in up');
+              },
+            ),
           ),
           SizedBox(
             height: thirtyDp,
