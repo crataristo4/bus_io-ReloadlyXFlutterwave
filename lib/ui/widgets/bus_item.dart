@@ -8,12 +8,14 @@ class BusItem extends StatefulWidget {
   final Bus bus;
   final Function()? onTap;
   final bool isBus;
+  final bool isTicket;
   final int seatsBooked;
 
   BusItem(
       {Key? key,
       required this.bus,
       required this.isBus,
+      required this.isTicket,
       required this.seatsBooked,
       required this.onTap})
       : super(key: key);
@@ -27,7 +29,9 @@ class _BusItemState extends State<BusItem> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.withOpacity(0.5), width: 0.69),
+          border: widget.isTicket
+              ? null
+              : Border.all(color: Colors.grey.withOpacity(0.5), width: 0.69),
           borderRadius: BorderRadius.circular(twentyDp)),
       margin: EdgeInsets.symmetric(
           vertical: widget.isBus ? sixteenDp : 0,
@@ -210,28 +214,32 @@ class _BusItemState extends State<BusItem> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        left: sixteenDp, top: twentyFourDp, bottom: tenDp),
+                    padding: EdgeInsets.only(
+                        left: sixteenDp,
+                        top: widget.isTicket ? fortyDp : twentyFourDp,
+                        bottom: tenDp),
                     child: Row(
                       children: [
                         Image.asset(
                           'assets/images/free.png',
-                          width: 120,
+                          width: oneTwentyDp,
                         )
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: sixteenDp),
-                    child: Text(
-                      '${widget.bus.remainingSeats.length} $seatsAvailable',
-                      //superscript is usually smaller in size
-                      style: TextStyle(
-                          color: CustomColors.orange,
-                          fontWeight: FontWeight.bold,
-                          fontSize: fifteenDp),
-                    ),
-                  ),
+                  widget.isTicket
+                      ? Container()
+                      : Padding(
+                          padding: EdgeInsets.symmetric(horizontal: sixteenDp),
+                          child: Text(
+                            '${widget.bus.remainingSeats.length} $seatsAvailable',
+                            //superscript is usually smaller in size
+                            style: TextStyle(
+                                color: CustomColors.orange,
+                                fontWeight: FontWeight.bold,
+                                fontSize: fifteenDp),
+                          ),
+                        ),
                 ],
               ),
               Padding(
@@ -332,15 +340,17 @@ class _BusItemState extends State<BusItem> {
                     )
                   ],
                 )
-              : Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: twelveDp),
-                    child: Text(
-                      '$bookedSeat ${widget.seatsBooked}',
-                      style: TextStyle(color: Colors.red),
-                    ),
-                  ),
-                )
+              : widget.isTicket
+                  ? Container()
+                  : Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: twelveDp),
+                        child: Text(
+                          '$bookedSeat ${widget.seatsBooked}',
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                    )
         ],
       ),
     );
