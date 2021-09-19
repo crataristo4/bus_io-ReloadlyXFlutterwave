@@ -44,6 +44,20 @@ class Bus {
         price: json["price"],
         remainingSeats: List<String>.from(json["remainingSeats"].map((x) => x)),
       );
+
+  Map<String, dynamic> toJson() => {
+        "busImage": busImage,
+        "source": source,
+        "busName": busName,
+        "rating": rating,
+        "numberOfRating": numberOfRating,
+        "departureDay": departureDay,
+        "departureTime": departureTime,
+        "estimatedTime": estimatedTime,
+        "numberOfSeats": numberOfSeats,
+        "remainingSeats": List<dynamic>.from(remainingSeats.map((x) => x)),
+        "price": price,
+      };
 }
 
 List<Bus> busList = [
