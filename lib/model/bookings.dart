@@ -43,8 +43,13 @@ class Bookings {
         "details": List<dynamic>.from(details.map((x) => x.toJson())),
         "bus": bus.toJson(),
       };
+
+  int getTotalFair() {
+    return bus.price * details.length;
+  }
 }
 
+///class contains passenger's name and seat number
 class Details {
   Details({
     required this.passengerName,
