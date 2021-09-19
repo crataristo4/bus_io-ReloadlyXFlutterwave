@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 
 class BookingHistory extends StatefulWidget {
   const BookingHistory({Key? key}) : super(key: key);
@@ -90,18 +91,17 @@ class _BookingHistoryState extends State<BookingHistory> {
             padding: const EdgeInsets.symmetric(horizontal: sixteenDp),
             child: ButtonWidget(buttonName: search, onButtonTapped: () {}),
           ),
-          /*  Padding(
+          Padding(
             padding: const EdgeInsets.only(top: thirtyDp, bottom: sixteenDp),
             child: Center(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(
-                      'assets/svg/nobooking.svg',
-                      placeholderBuilder: (BuildContext context) =>
-                          Container(),
-                    ),
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/svg/nobooking.svg',
+                  placeholderBuilder: (BuildContext context) => Container(),
+                ),
                     SizedBox(height: twentyDp,),
                     Text(
                       noPreviousBooking,
@@ -113,17 +113,18 @@ class _BookingHistoryState extends State<BookingHistory> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: thirtyDp),
                       child: Text(
-                        whenBusesAreBooked,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.black45, fontSize: sixteenDp),
-                      ),
-                    ),
-                  ],
-                )),
-          )*/
+                    whenBusesAreBooked,
+                    textAlign: TextAlign.center,
+                    style:
+                        TextStyle(color: Colors.black45, fontSize: sixteenDp),
+                  ),
+                ),
+              ],
+            )),
+          )
 
-          Expanded(
+          //todo fetched once user books
+          /* Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
                 Bookings bookings = bookingList[index];
@@ -134,7 +135,7 @@ class _BookingHistoryState extends State<BookingHistory> {
               itemCount: bookingList.length,
               physics: ClampingScrollPhysics(),
             ),
-          )
+          )*/
         ],
       ),
     );
