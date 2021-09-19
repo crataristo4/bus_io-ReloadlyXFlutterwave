@@ -6,6 +6,13 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ShowAction {
+  //get date
+  Future<DateTime?> selectDate(BuildContext context) => showDatePicker(
+      context: context,
+      initialDate: DateTime.now().add(Duration(seconds: 1)),
+      firstDate: DateTime.now(),
+      lastDate: DateTime(2100));
+
   void showToast(message, Color color) {
     Fluttertoast.showToast(
         msg: message,
@@ -17,8 +24,7 @@ class ShowAction {
         fontSize: sixteenDp);
   }
 
-  static void showAlertDialog(
-      Widget content, BuildContext context, Widget widgetA, Widget widgetB) {
+  static void showAlertDialog(Widget content, BuildContext context, Widget widgetA, Widget widgetB) {
     var alertDialog = AlertDialog(
       content: content,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -32,8 +38,7 @@ class ShowAction {
     );
   }
 
-  static void showDetails(
-      String title, String content, BuildContext context, Widget widgetA) {
+  static void showDetails(String title, String content, BuildContext context, Widget widgetA) {
     var alertDialog = AlertDialog(
       title: Text(title,
           style: TextStyle(

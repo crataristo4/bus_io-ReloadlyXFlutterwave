@@ -5,6 +5,12 @@ const enterPhoneNumber = 'Enter Phone Number';
 const enterAge = 'Enter Age';
 const phone = 'Phone';
 const age = 'Age';
+const upcoming = 'Upcoming';
+const history = 'History';
+const search = 'Search';
+const noPreviousBooking = 'No previous bookings!';
+const whenBusesAreBooked =
+    'When buses have been successfully booked,they will appear here';
 const reviewBookingDetails = 'Review Booking Details';
 const passenger = 'Passenger';
 const iconAssetPrefix = 'assets/icons/';
