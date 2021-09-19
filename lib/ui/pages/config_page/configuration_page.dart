@@ -29,7 +29,6 @@ class _ConfigPageState extends State<ConfigPage> {
 
   getCurrentUser() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('isLoggedIn', false);
     isLoggedIn = prefs.getBool("isLoggedIn")!;
   }
 }
