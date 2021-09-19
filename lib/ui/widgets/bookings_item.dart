@@ -317,7 +317,7 @@ class _BookingsItemState extends State<BookingsItem> {
                       child: GestureDetector(
                         onTap: widget.onTap,
                         child: Container(
-                          height: fortyEightDp,
+                          height: fortyDp,
                           width: twoHundredDp,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(tenDp),
@@ -338,8 +338,8 @@ class _BookingsItemState extends State<BookingsItem> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                width: thirtyDp,
-                                height: thirtyDp,
+                                width: twentyFourDp,
+                                height: twentyFourDp,
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.circular(twentyDp),

@@ -36,9 +36,10 @@ class TicketWidget extends StatelessWidget {
                           containerBgColor: Colors.transparent,
                           iconData: null,
                           iconDataColor: Colors.transparent,
-                          textExtra: "",
+                          textExtra:
+                              "${bookings.bus.departureTime} - ${bookings.bus.departureDay}",
                           isTicket: true,
-                          text: "",
+                          text: departs,
                           onTap: () {}),
 
                       //total passengers
@@ -268,7 +269,7 @@ class TicketWidget extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            color: Colors.red,
+                            color: CustomColors.customRed,
                           ),
                         )
                       ],

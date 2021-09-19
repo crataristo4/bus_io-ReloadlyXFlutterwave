@@ -134,7 +134,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                   iconData: "\$",
                   iconDataColor: Colors.tealAccent.withOpacity(0.4),
                   onTap: () {
-                    print('hi');
+                   //todo
                   },
                   textExtra: "",
                   buttonName: reviewThisTicket,
