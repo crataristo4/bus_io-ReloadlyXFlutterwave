@@ -13,6 +13,7 @@ class CustomColors {
   static Color orange = Color(0xFFE4572E);
   static Color black = Color(0xFF000000);
   static Color blackCurrency = Color(0xFF171717);
+  static Color customRed = Color(0xFFC5292A);
 }
 
 class GradientColors {
