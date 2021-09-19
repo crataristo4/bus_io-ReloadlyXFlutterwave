@@ -2,6 +2,7 @@ import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bookings.dart';
+import 'package:bus_io/ui/pages/bookings/ticket_details.dart';
 import 'package:flutter/material.dart';
 
 class BookingsItem extends StatefulWidget {
@@ -12,6 +13,7 @@ class BookingsItem extends StatefulWidget {
   final buttonName;
   final text;
   final textExtra;
+  final bool isTicket;
   final Function()? onTap;
 
   const BookingsItem(
@@ -22,6 +24,7 @@ class BookingsItem extends StatefulWidget {
       required this.iconData,
       required this.iconDataColor,
       required this.textExtra,
+      required this.isTicket,
       required this.text,
       required this.onTap})
       : super(key: key);
@@ -35,9 +38,13 @@ class _BookingsItemState extends State<BookingsItem> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey.withOpacity(0.5), width: 0.69),
+          border: widget.isTicket
+              ? null
+              : Border.all(color: Colors.grey.withOpacity(0.5), width: 0.69),
           borderRadius: BorderRadius.circular(twentyDp)),
-      margin: EdgeInsets.symmetric(vertical: sixteenDp, horizontal: sixteenDp),
+      margin: EdgeInsets.symmetric(
+          vertical: widget.isTicket ? 0 : sixteenDp,
+          horizontal: widget.isTicket ? 0 : sixteenDp),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -192,46 +199,46 @@ class _BookingsItemState extends State<BookingsItem> {
                   ],
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: tenDp,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: sixteenDp),
-                    child: Text(
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: sixteenDp),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: tenDp,
+                    ),
+                    Text(
                       priceTicket,
                       style: TextStyle(color: CustomColors.grayMedium),
                     ),
-                  ),
-                  SizedBox(
-                    height: fourDp,
-                  ),
-                  RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                          text: 'N',
-                          style: TextStyle(
-                              color: Colors.teal,
-                              fontWeight: FontWeight.w500,
-                              decoration: TextDecoration.lineThrough,
-                              // fontFamily: 'Mulish',
-                              fontSize: sixteenDp)),
-                      WidgetSpan(
-                        child: Text(
-                          '${widget.bookings.bus.price}',
-                          //superscript is usually smaller in size
-                          style: TextStyle(
-                              color: Colors.teal,
-                              fontWeight: FontWeight.w500,
-                              fontSize: fifteenDp),
+                    SizedBox(
+                      height: fourDp,
+                    ),
+                    RichText(
+                      text: TextSpan(children: [
+                        TextSpan(
+                            text: 'N',
+                            style: TextStyle(
+                                color: Colors.teal,
+                                fontWeight: FontWeight.w500,
+                                decoration: TextDecoration.lineThrough,
+                                // fontFamily: 'Mulish',
+                                fontSize: sixteenDp)),
+                        WidgetSpan(
+                          child: Text(
+                            '${widget.bookings.bus.price}',
+                            //superscript is usually smaller in size
+                            style: TextStyle(
+                                color: Colors.teal,
+                                fontWeight: FontWeight.w500,
+                                fontSize: fifteenDp),
+                          ),
                         ),
-                      ),
-                    ]),
-                  ),
-                ],
+                      ]),
+                    ),
+                  ],
+                ),
               )
             ],
           ),
@@ -244,101 +251,119 @@ class _BookingsItemState extends State<BookingsItem> {
           SizedBox(
             height: twelveDp,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: sixteenDp),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+
+          //hide when it is ticket
+          widget.isTicket
+              ? Container()
+              : Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(
-                        bottom: fourDp,
-                      ),
-                      child: Text(
-                        "${widget.bookings.details.length} $seats",
-                        style: TextStyle(
-                            color: CustomColors.grayMedium,
-                            fontSize: fourteenDp),
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: sixteenDp),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: fourDp,
+                                ),
+                                child: Text(
+                                  "${widget.bookings.details.length} $seats",
+                                  style: TextStyle(
+                                      color: CustomColors.grayMedium,
+                                      fontSize: fourteenDp),
+                                ),
+                              ),
+                              Text(
+                                "${widget.bookings.details.map((e) => e.seatNo)}",
+                                style: TextStyle(
+                                    color: CustomColors.black,
+                                    fontSize: sixteenDp,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                right: sixteenDp, bottom: tenDp, top: tenDp),
+                            child: GestureDetector(
+                              onTap: () {
+                                //go to ticketing page
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      TicketDetails(bookings: widget.bookings),
+                                ));
+                              },
+                              child: Text(
+                                ticketDetails,
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: sixteenDp,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    Text(
-                      "${widget.bookings.details.map((e) => e.seatNo)}",
-                      style: TextStyle(
-                          color: CustomColors.black,
-                          fontSize: sixteenDp,
-                          fontWeight: FontWeight.bold),
+                    SizedBox(
+                      height: tenDp,
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      right: sixteenDp, bottom: tenDp, top: tenDp),
-                  child: Text(
-                    ticketDetails,
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: sixteenDp,
-                        fontWeight: FontWeight.w500),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(
-            height: tenDp,
-          ),
-          Center(
-            child: GestureDetector(
-              onTap: widget.onTap
-              //proceed to review bookings
-              ,
-              child: Container(
-                height: fortyEightDp,
-                width: twoHundredDp,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(tenDp),
-                    color: widget.containerBgColor),
-                margin: EdgeInsets.symmetric(
-                    horizontal: sixteenDp, vertical: tenDp),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      child: Center(
-                        child: Text(
-                          widget.iconData,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: sixteenDp,
-                              fontWeight: FontWeight.bold),
+                    Center(
+                      child: GestureDetector(
+                        onTap: widget.onTap,
+                        child: Container(
+                          height: fortyEightDp,
+                          width: twoHundredDp,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(tenDp),
+                              color: widget.containerBgColor),
+                          margin: EdgeInsets.symmetric(
+                              horizontal: sixteenDp, vertical: tenDp),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                child: Center(
+                                  child: Text(
+                                    widget.iconData,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: sixteenDp,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                width: thirtyDp,
+                                height: thirtyDp,
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.circular(twentyDp),
+                                    color: widget.iconDataColor),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: eightDp),
+                                child: Text(
+                                  widget.buttonName,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: fourteenDp),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                      width: thirtyDp,
-                      height: thirtyDp,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(twentyDp),
-                          color: widget.iconDataColor),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: eightDp),
-                      child: Text(
-                        widget.buttonName,
-                        style: TextStyle(
-                            color: Colors.white, fontSize: fourteenDp),
-                      ),
-                    )
+                    SizedBox(
+                      height: eightDp,
+                    ),
                   ],
                 ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: eightDp,
-          ),
         ],
       ),
     );
