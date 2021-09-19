@@ -1,4 +1,5 @@
 import 'package:bus_io/constansts/dimens.dart';
+import 'package:bus_io/constansts/theme_color.dart';
 import 'package:flutter/material.dart';
 
 class ButtonWidget extends StatelessWidget {
@@ -12,7 +13,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-     // margin: EdgeInsets.symmetric(horizontal: sixteenDp),
+      // margin: EdgeInsets.symmetric(horizontal: sixteenDp),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         height: fiftyDp,
@@ -21,7 +22,7 @@ class ButtonWidget extends StatelessWidget {
           buttonName,
           style: TextStyle(color: Colors.white, fontSize: eighteenDp),
         ),
-        color: Colors.teal,
+        color: CustomColors.teal,
       ),
     );
   }
