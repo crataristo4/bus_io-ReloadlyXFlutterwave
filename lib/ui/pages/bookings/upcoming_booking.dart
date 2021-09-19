@@ -74,11 +74,12 @@ class _UpcomingBookingState extends State<UpcomingBooking> {
                   ],
                 ));
           },
-              textExtra:
+          textExtra:
               "${bookings.bus.departureTime} - ${bookings.bus.departureDay}  ",
-              buttonName: cancelThisTicket,
-              text: "Departs",
-            );
+          buttonName: cancelThisTicket,
+          text: "Departs",
+          isTicket: false,
+        );
           },
           shrinkWrap: true,
           primary: true,

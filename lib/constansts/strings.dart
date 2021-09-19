@@ -10,6 +10,7 @@ const history = 'History';
 const ticketDetails = 'Ticket Details';
 const reviewThisTicket = 'Rebook This Ticket';
 const cancelThisTicket = 'Cancel This Ticket';
+const cancelTicketBooking = 'Cancel Ticket Booking';
 const youAreAboutToCancelBookings = 'You are about to cancel a booking';
 const youAreAboutToCancelBookingsDes =
     'Canceling this will delete the booking.Are you sure?';

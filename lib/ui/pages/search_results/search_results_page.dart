@@ -94,6 +94,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                 return BusItem(
                   bus: bus,
                   isBus: true,
+                  isTicket: false,
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => SelectSeat(
                             bus: bus,

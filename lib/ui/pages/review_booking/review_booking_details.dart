@@ -67,6 +67,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                     BusItem(
                       bus: widget.bus,
                       isBus: false,
+                      isTicket: false,
                       onTap: () {},
                       seatsBooked: widget.seatNumberSelectedList.length,
                     ),

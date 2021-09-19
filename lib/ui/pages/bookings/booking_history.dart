@@ -139,6 +139,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                   textExtra: "",
                   buttonName: reviewThisTicket,
                   text: "${bookings.bookingDate}",
+                  isTicket: false,
                 );
               },
               shrinkWrap: true,
