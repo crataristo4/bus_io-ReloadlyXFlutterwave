@@ -1,13 +1,18 @@
+import 'package:bus_io/actions/actions.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/ui/pages/search_results/search_results_page.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
 import 'package:bus_io/ui/widgets/destination_card.dart';
+import 'package:bus_io/ui/widgets/option_selector_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+DateTime dateTime = DateTime.now();
 
 class HomePage extends StatefulWidget {
   static String fromLocation = whereAreYouLeavingFrom;
@@ -22,19 +27,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController noOfPassengerController = TextEditingController();
   String? today;
-  DateFormat _dateFormat = DateFormat('dd/MM/yyyy');
-  DateTime _dateTime = DateTime.now();
-
-  //get date
-  Future<DateTime?> _selectDate(BuildContext context) => showDatePicker(
-      context: context,
-      initialDate: DateTime.now().add(Duration(seconds: 1)),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100));
 
   @override
   void initState() {
-    today = _dateFormat.format(_dateTime);
+    today = dateFormat.format(dateTime);
     super.initState();
   }
 
@@ -88,22 +84,33 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   GestureDetector(
                     onTap: () async {
-                      final selectedDate = await _selectDate(context);
+                      final selectedDate =
+                          await ShowAction().selectDate(context);
                       if (selectedDate == null) return;
-                      _dateTime = DateTime(
+                      dateTime = DateTime(
                         selectedDate.day,
                         selectedDate.month,
                         selectedDate.year,
                       );
-                      today = _dateFormat.format(_dateTime);
+                      setState(() {
+                        today = dateFormat.format(dateTime);
+                      });
 
-                      setState(() {});
+                      print('?? $today');
                     },
-                    child: buildSecondCard(
-                        date, 'assets/icons/calender.png', Text('$today')),
+                    child: OptionSelector(
+                      title: date,
+                      icon: 'assets/icons/calender.png',
+                      widget: Text('$today'),
+                      textColor: Colors.black,
+                    ),
                   ),
-                  buildSecondCard(noOfPassengers, 'assets/icons/person.png',
-                      buildNoOfPassengerInput()),
+                  OptionSelector(
+                    title: noOfPassengers,
+                    icon: 'assets/icons/person.png',
+                    widget: buildNoOfPassengerInput(),
+                    textColor: Colors.black,
+                  ),
                 ],
               ),
               SizedBox(
@@ -125,7 +132,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 quickBookings,
                 style:
-                    TextStyle(fontSize: twentyDp, fontWeight: FontWeight.bold),
+                TextStyle(fontSize: twentyDp, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: sixteenDp,
@@ -274,7 +281,7 @@ class _HomePageState extends State<HomePage> {
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
             contentPadding:
-                EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
+            EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
           )),
     );
   }
