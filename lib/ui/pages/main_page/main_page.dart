@@ -5,6 +5,7 @@ import 'package:bus_io/ui/pages/home_page/home_page.dart';
 import 'package:bus_io/ui/pages/profile/profile_page.dart';
 import 'package:bus_io/ui/pages/wallet/wallet_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class MainPage extends StatefulWidget {
   static const routeName = '/';
@@ -32,6 +33,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("?? $_selectedIndex");
     return Scaffold(
       body: Container(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -42,9 +44,10 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Container(
               padding: EdgeInsets.all(eightDp),
-              child: Image.asset(
-                'assets/icons/home.png',
-                width: twentyFourDp,
+              child: SvgPicture.asset(
+                _selectedIndex == 0
+                    ? 'assets/svg/home_color.svg'
+                    : 'assets/svg/home_grey.svg',
               ),
             ),
             label: home,
@@ -53,9 +56,11 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
               icon: Container(
                 padding: EdgeInsets.all(eightDp),
-                child: Image.asset(
-                  'assets/icons/bookings.png',
-                  width: twentyFourDp,
+                child: SvgPicture.asset(
+                  _selectedIndex == 1
+                      ? 'assets/svg/ticket_color.svg'
+                      : 'assets/svg/ticket_grey.svg',
+                  // placeholderBuilder: (BuildContext context) => Container(),
                 ),
               ),
               label: bookings,
@@ -63,9 +68,12 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Container(
               padding: EdgeInsets.all(eightDp),
-              child: Image.asset(
-                'assets/icons/wallet.png',
-                width: twentyFourDp,
+              child: SvgPicture.asset(
+                //todo add wallet_color.svg
+                _selectedIndex == 2
+                    ? 'assets/svg/wallet_color.svg'
+                    : 'assets/svg/wallet_grey.svg',
+                // placeholderBuilder: (BuildContext context) => Container(),
               ),
             ),
             label: wallet,
@@ -74,9 +82,11 @@ class _MainPageState extends State<MainPage> {
           BottomNavigationBarItem(
             icon: Container(
               padding: EdgeInsets.all(eightDp),
-              child: Image.asset(
-                'assets/icons/profile.png',
-                width: twentyFourDp,
+              child: SvgPicture.asset(
+                _selectedIndex == 3
+                    ? 'assets/svg/profile_color.svg'
+                    : 'assets/svg/profile_grey.svg',
+                // placeholderBuilder: (BuildContext context) => Container(),
               ),
             ),
             label: profile,
@@ -91,6 +101,7 @@ class _MainPageState extends State<MainPage> {
         type: BottomNavigationBarType.fixed,
         onTap: _onItemTapped,
         elevation: 0,
+        // selectedIconTheme: IconThemeData(color: Colors.teal),
       ),
     );
   }

@@ -25,7 +25,7 @@ class EntryPoint extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primaryColor: Colors.teal,
-      ),
+        primarySwatch: Colors.teal),
       initialRoute: initScreen == 0 || initScreen == null
           ? OnboardingPage
               .routeName //shows when app data is cleared or newly installed
