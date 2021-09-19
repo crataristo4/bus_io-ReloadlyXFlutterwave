@@ -9,6 +9,7 @@ const upcoming = 'Upcoming';
 const history = 'History';
 const ticketDetails = 'Ticket Details';
 const reviewThisTicket = 'Rebook This Ticket';
+const cancelThisTicket = 'Cancel This Ticket';
 const search = 'Search';
 const noPreviousBooking = 'No previous bookings!';
 const whenBusesAreBooked =

@@ -4,6 +4,7 @@ import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bookings.dart';
 import 'package:bus_io/ui/pages/home_page/home_page.dart';
+import 'package:bus_io/ui/widgets/bookings_item.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
 import 'package:bus_io/ui/widgets/option_selector_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
 
 class BookingHistory extends StatefulWidget {
   const BookingHistory({Key? key}) : super(key: key);
@@ -91,7 +91,7 @@ class _BookingHistoryState extends State<BookingHistory> {
             padding: const EdgeInsets.symmetric(horizontal: sixteenDp),
             child: ButtonWidget(buttonName: search, onButtonTapped: () {}),
           ),
-          Padding(
+          /*Padding(
             padding: const EdgeInsets.only(top: thirtyDp, bottom: sixteenDp),
             child: Center(
                 child: Column(
@@ -121,21 +121,32 @@ class _BookingHistoryState extends State<BookingHistory> {
                 ),
               ],
             )),
-          )
+          )*/
 
           //todo fetched once user books
-          /* Expanded(
+          Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
                 Bookings bookings = bookingList[index];
-                return bookingWidget(bookings);
+                return BookingsItem(
+                  bookings: bookings,
+                  containerBgColor: CustomColors.teal,
+                  iconData: "\$",
+                  iconDataColor: Colors.tealAccent.withOpacity(0.4),
+                  onTap: () {
+                    print('hi');
+                  },
+                  textExtra: "",
+                  buttonName: reviewThisTicket,
+                  text: "${bookings.bookingDate}",
+                );
               },
               shrinkWrap: true,
               primary: true,
               itemCount: bookingList.length,
               physics: ClampingScrollPhysics(),
             ),
-          )*/
+          )
         ],
       ),
     );
