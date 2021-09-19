@@ -10,6 +10,9 @@ const history = 'History';
 const ticketDetails = 'Ticket Details';
 const reviewThisTicket = 'Rebook This Ticket';
 const cancelThisTicket = 'Cancel This Ticket';
+const youAreAboutToCancelBookings = 'You are about to cancel a booking';
+const youAreAboutToCancelBookingsDes =
+    'Canceling this will delete the booking.Are you sure?';
 const search = 'Search';
 const noPreviousBooking = 'No previous bookings!';
 const whenBusesAreBooked =
@@ -43,6 +46,7 @@ const whereAreYouHeaded = 'Where are you headed today?';
 const from = 'From';
 const to = 'To';
 const cancel = 'Cancel';
+const delete = 'Delete';
 const done = 'Done';
 const seats = 'Seats';
 const totalPrices = 'Total Price';

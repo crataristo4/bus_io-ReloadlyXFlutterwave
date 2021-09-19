@@ -281,7 +281,7 @@ class _BookingsItemState extends State<BookingsItem> {
                     style: TextStyle(
                         color: Colors.red,
                         fontSize: sixteenDp,
-                        fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.w500),
                   ),
                 ),
               ],

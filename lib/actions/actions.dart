@@ -24,7 +24,8 @@ class ShowAction {
         fontSize: sixteenDp);
   }
 
-  static void showAlertDialog(Widget content, BuildContext context, Widget widgetA, Widget widgetB) {
+  static void showAlertDialog(
+      Widget content, BuildContext context, Widget widgetA, Widget widgetB) {
     var alertDialog = AlertDialog(
       content: content,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
@@ -38,23 +39,30 @@ class ShowAction {
     );
   }
 
-  static void showDetails(String title, String content, BuildContext context, Widget widgetA) {
+  static void showDetails(String title, Color titleColor, String content,
+      Color contentColor, BuildContext context, Widget widgetA) {
     var alertDialog = AlertDialog(
       title: Text(title,
           style: TextStyle(
-            fontWeight: FontWeight.bold,
-          ),
+              fontWeight: FontWeight.bold,
+              color: titleColor,
+              fontSize: fourteenDp),
           textAlign: TextAlign.center),
       content: Text(content,
-          style: TextStyle(color: Colors.red, fontWeight: FontWeight.w500)),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+          style: TextStyle(
+              color: contentColor,
+              fontWeight: FontWeight.w500,
+              fontSize: fourteenDp),
+          textAlign: TextAlign.center),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(twentyDp)),
       actions: <Widget>[widgetA],
     );
 
     showDialog(
       context: context,
       builder: (_) => alertDialog,
-      barrierDismissible: true,
+      barrierDismissible: false,
     );
   }
 
