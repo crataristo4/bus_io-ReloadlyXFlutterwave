@@ -289,7 +289,9 @@ class _SignupPageState extends State<SignupPage> {
             email: emailController.text,
             firstName: firstNameController.text,
             lastName: lastNameController.text,
-            phoneNumber: "$selectedCountryCode${phoneNumberController.text}");
+            phoneNumber: "$selectedCountryCode${phoneNumberController.text}",
+            from: '',
+            to: '');
 
         FirebaseFirestore.instance
             .collection("Users")
