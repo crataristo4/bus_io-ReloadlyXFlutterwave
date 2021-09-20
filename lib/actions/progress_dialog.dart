@@ -1,4 +1,5 @@
 import 'package:bus_io/constansts/strings.dart';
+import 'package:bus_io/constansts/theme_color.dart';
 import 'package:flutter/material.dart';
 
 class Dialogs {
@@ -18,7 +19,7 @@ class Dialogs {
                       child: Column(children: [
                         Text(title,
                             style: TextStyle(
-                                color: Colors.blueAccent,
+                                color: CustomColors.teal,
                                 fontWeight: FontWeight.w700)),
                         SizedBox(
                           height: 15,
@@ -29,7 +30,7 @@ class Dialogs {
                         ),
                         Text(
                           pleaseWait,
-                          style: TextStyle(color: Colors.blueAccent),
+                          style: TextStyle(color: CustomColors.teal),
                         )
                       ]),
                     )
