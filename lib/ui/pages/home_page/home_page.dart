@@ -2,6 +2,8 @@ import 'package:bus_io/actions/actions.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/model/user.dart';
+import 'package:bus_io/services/user_service.dart';
 import 'package:bus_io/ui/pages/search_results/search_results_page.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
 import 'package:bus_io/ui/widgets/destination_card.dart';
@@ -15,6 +17,7 @@ DateFormat dateFormat = DateFormat('dd/MM/yyyy');
 DateTime dateTime = DateTime.now();
 
 class HomePage extends StatefulWidget {
+  static const String routeName = "/homepage";
   static String fromLocation = whereAreYouLeavingFrom;
   static String toLocation = whereAreYouGoingTo;
 
@@ -27,11 +30,35 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController noOfPassengerController = TextEditingController();
   String? today;
+  String? message;
 
   @override
   void initState() {
     today = dateFormat.format(dateTime);
+    greetingMessage();
     super.initState();
+  }
+
+  //greeting message to user
+  greetingMessage() {
+    var timeNow = DateTime.now().hour;
+    if (timeNow < 12) {
+      setState(() {
+        message = goodMorning;
+      });
+    } else if ((timeNow >= 12) && (timeNow <= 16)) {
+      setState(() {
+        message = goodAfternoon;
+      });
+    } else if ((timeNow > 16) && (timeNow <= 20)) {
+      setState(() {
+        message = goodEvening;
+      });
+    } else {
+      setState(() {
+        message = goodNight;
+      });
+    }
   }
 
   @override
@@ -42,129 +69,146 @@ class _HomePageState extends State<HomePage> {
         toolbarHeight: 0,
         backgroundColor: Colors.white,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: sixteenDp),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: sixteenDp,
-              ),
-              Text(
-                goodDay,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: twentyFourDp,
-                    color: Colors.black),
-              ),
-              SizedBox(
-                height: fourDp,
-              ),
-              Text(
-                whereAreYouHeaded,
-                style: TextStyle(fontSize: fourteenDp, color: Colors.black),
-              ),
-              SizedBox(
-                height: twentyDp,
-              ),
-              DestinationCard(
-                isCard: true,
-                from: whereAreYouLeavingFrom,
-                to: whereAreYouGoingTo,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                height: twentyDp,
-              ),
-              Wrap(
-                direction: Axis.horizontal,
-                spacing: 0,
-                children: [
-                  GestureDetector(
-                    onTap: () async {
-                      final selectedDate =
-                          await ShowAction().selectDate(context);
-                      if (selectedDate == null) return;
-                      dateTime = DateTime(
-                        selectedDate.day,
-                        selectedDate.month,
-                        selectedDate.year,
-                      );
-                      setState(() {
-                        today = dateFormat.format(dateTime);
-                      });
+      body: StreamBuilder<Users>(
+          stream: UserService.instance.getUser(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              Users users = Users.fromJson(snapshot.data!.toJson());
 
-                      print('?? $today');
-                    },
-                    child: OptionSelector(
-                      title: date,
-                      icon: 'assets/icons/calender.png',
-                      widget: Text('$today'),
-                      textColor: Colors.black,
-                    ),
+              return SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: sixteenDp),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: sixteenDp,
+                      ),
+                      Text(
+                        "$message ${users.firstName}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: twentyFourDp,
+                            color: Colors.black),
+                      ),
+                      SizedBox(
+                        height: fourDp,
+                      ),
+                      Text(
+                        whereAreYouHeaded,
+                        style: TextStyle(
+                            fontSize: fourteenDp, color: Colors.black),
+                      ),
+                      SizedBox(
+                        height: twentyDp,
+                      ),
+                      DestinationCard(
+                        isCard: true,
+                        from: users.from.toString().isEmpty
+                            ? whereAreYouLeavingFrom
+                            : users.from.toString(),
+                        to: users.to.toString().isEmpty
+                            ? whereAreYouGoingTo
+                            : users.to.toString(),
+                        color: Colors.grey,
+                      ),
+                      SizedBox(
+                        height: twentyDp,
+                      ),
+                      Wrap(
+                        direction: Axis.horizontal,
+                        spacing: 0,
+                        children: [
+                          GestureDetector(
+                            onTap: () async {
+                              final selectedDate =
+                                  await ShowAction().selectDate(context);
+                              if (selectedDate == null) return;
+                              dateTime = DateTime(
+                                selectedDate.day,
+                                selectedDate.month,
+                                selectedDate.year,
+                              );
+                              setState(() {
+                                today = dateFormat.format(dateTime);
+                              });
+
+                              print('?? $today');
+                            },
+                            child: OptionSelector(
+                              title: date,
+                              icon: 'assets/icons/calender.png',
+                              widget: Text('$today'),
+                              textColor: Colors.black,
+                            ),
+                          ),
+                          OptionSelector(
+                            title: noOfPassengers,
+                            icon: 'assets/icons/person.png',
+                            widget: buildNoOfPassengerInput(),
+                            textColor: Colors.black,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: twentyDp,
+                      ),
+                      ButtonWidget(
+                          buttonName: findBuses,
+                          onButtonTapped: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SearchResultsPage()));
+                          }),
+                      SizedBox(
+                        height: twentyDp,
+                      ),
+                      Divider(),
+                      SizedBox(
+                        height: tenDp,
+                      ),
+                      Text(
+                        quickBookings,
+                        style: TextStyle(
+                            fontSize: twentyDp, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: sixteenDp,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildQuickBookings(lagosToAccra, '09/10/2021'),
+                          buildQuickBookings(lagosToBenin, '09/10/2021'),
+                        ],
+                      ),
+                      SizedBox(
+                        height: sixteenDp,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          buildQuickBookings(accraToLome, '09/10/2021'),
+                          buildQuickBookings(lomeToYaounde, '09/10/2021'),
+                        ],
+                      ),
+                      SizedBox(
+                        height: sixteenDp,
+                      ),
+                      buildLoyaltyCard(),
+                      SizedBox(
+                        height: sixteenDp,
+                      ),
+                    ],
                   ),
-                  OptionSelector(
-                    title: noOfPassengers,
-                    icon: 'assets/icons/person.png',
-                    widget: buildNoOfPassengerInput(),
-                    textColor: Colors.black,
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: twentyDp,
-              ),
-              ButtonWidget(
-                  buttonName: findBuses,
-                  onButtonTapped: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => SearchResultsPage()));
-                  }),
-              SizedBox(
-                height: twentyDp,
-              ),
-              Divider(),
-              SizedBox(
-                height: tenDp,
-              ),
-              Text(
-                quickBookings,
-                style:
-                TextStyle(fontSize: twentyDp, fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                height: sixteenDp,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildQuickBookings(lagosToAccra, '09/10/2021'),
-                  buildQuickBookings(lagosToBenin, '09/10/2021'),
-                ],
-              ),
-              SizedBox(
-                height: sixteenDp,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  buildQuickBookings(accraToLome, '09/10/2021'),
-                  buildQuickBookings(lomeToYaounde, '09/10/2021'),
-                ],
-              ),
-              SizedBox(
-                height: sixteenDp,
-              ),
-              buildLoyaltyCard(),
-              SizedBox(
-                height: sixteenDp,
-              ),
-            ],
-          ),
-        ),
-      ),
+                ),
+              );
+            }
+          }),
     );
   }
 
@@ -281,7 +325,7 @@ class _HomePageState extends State<HomePage> {
             errorBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
             contentPadding:
-            EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
+                EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
           )),
     );
   }
