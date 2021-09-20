@@ -25,7 +25,7 @@ class _EmailInputState extends State<EmailInput> {
           keyboardType: TextInputType.emailAddress,
           controller: widget.emailController,
           validator: (value) =>
-              EmailValidator.validate(value!) == true ? null : requireD,
+              EmailValidator.validate(value!) == true ? null : invalidEmail,
           decoration: InputDecoration(
             hintText: email,
             fillColor: CustomColors.lightTeal.withOpacity(0.4),
