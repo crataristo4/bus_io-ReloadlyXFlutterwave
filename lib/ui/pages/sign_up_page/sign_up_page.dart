@@ -1,12 +1,20 @@
+import 'package:bus_io/actions/progress_dialog.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/model/user.dart';
+import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
 import 'package:bus_io/ui/pages/login_page/login_page.dart';
+import 'package:bus_io/ui/pages/main_page/main_page.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
 import 'package:bus_io/ui/widgets/email_input_widget.dart';
+import 'package:bus_io/ui/widgets/name_input.dart';
 import 'package:bus_io/ui/widgets/password_input_widget.dart';
+import 'package:bus_io/ui/widgets/phone.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_code_picker/country_code.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -71,14 +79,14 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   //user name input
-  Widget buildNameInput(String hint, TextEditingController controller) {
+/*  Widget buildNameInput(String hint, TextEditingController controller) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: sixteenDp),
       child: TextFormField(
           keyboardType: TextInputType.name,
           controller: controller,
           validator: (value) =>
-              value!.trim().isNotEmpty || value.length > 3 ? null : requireD,
+          value!.trim().isNotEmpty || value.length > 3 ? null : requireD,
           decoration: InputDecoration(
             hintText: hint,
             fillColor: CustomColors.lightTeal.withOpacity(0.4),
@@ -87,14 +95,14 @@ class _SignupPageState extends State<SignupPage> {
               borderSide: BorderSide(color: Colors.teal.shade400, width: 1),
             ),
             contentPadding:
-                EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
+            EdgeInsets.symmetric(vertical: 0, horizontal: tenDp),
             enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFF5F5F5))),
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFF5F5F5))),
           )),
     );
-  }
+  }*/
 
   /* //email input
   Widget buildEmailInput(TextEditingController controller) {
@@ -123,6 +131,7 @@ class _SignupPageState extends State<SignupPage> {
   }
 */
   //phone number input
+/*
   Widget buildPhoneNumberInput(TextEditingController controller) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: sixteenDp),
@@ -147,35 +156,7 @@ class _SignupPageState extends State<SignupPage> {
           )),
     );
   }
-
-  //---
-  Widget displayPasswordConfirmation(bool isValid, String description) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: sixteenDp),
-      padding: EdgeInsets.all(4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          isValid
-              ? Padding(
-                  padding: const EdgeInsets.only(top: fourDp),
-                  child: Image.asset('assets/icons/checked.png'),
-                )
-              : Padding(
-                  padding: const EdgeInsets.only(top: fourDp),
-                  child: Image.asset('assets/icons/circle.png'),
-                ),
-          Padding(
-            padding: const EdgeInsets.only(
-              left: eightDp,
-            ),
-            child: Text(description),
-          )
-        ],
-      ),
-    );
-  }
+*/
 
   //first column
   Widget buildFirstColumn() {
@@ -194,8 +175,11 @@ class _SignupPageState extends State<SignupPage> {
                 children: [
                   Expanded(
                       flex: 1,
-                      child: buildNameInput(firstName, firstNameController)),
-                  Expanded(child: buildNameInput(lastName, lastNameController)),
+                      child: NameInput(
+                          hint: firstName, controller: firstNameController)),
+                  Expanded(
+                      child: NameInput(
+                          hint: lastName, controller: lastNameController)),
                 ],
               ),
               SizedBox(
@@ -224,7 +208,10 @@ class _SignupPageState extends State<SignupPage> {
                       showOnlyCountryWhenClosed: false,
                     ),
                   ),
-                  Expanded(child: buildPhoneNumberInput(phoneNumberController))
+                  Expanded(
+                      child: PhoneNumberInput(
+                    controller: phoneNumberController,
+                  ))
                 ],
               ),
               SizedBox(
@@ -234,9 +221,6 @@ class _SignupPageState extends State<SignupPage> {
               SizedBox(
                 height: twentyDp,
               ),
-              displayPasswordConfirmation(false, miniEightChar),
-              displayPasswordConfirmation(false, oneUpper),
-              displayPasswordConfirmation(true, oneSpecial),
               SizedBox(
                 height: fortyDp,
               ),
@@ -286,9 +270,7 @@ class _SignupPageState extends State<SignupPage> {
           margin: EdgeInsets.symmetric(horizontal: sixteenDp),
           child: ButtonWidget(
             buttonName: signup,
-            onButtonTapped: () {
-              print('sign up');
-            },
+            onButtonTapped: () async => await anonymousSignup(),
           ),
         ),
         SizedBox(
@@ -296,5 +278,29 @@ class _SignupPageState extends State<SignupPage> {
         ),
       ],
     );
+  }
+
+  Future<void> anonymousSignup() async {
+    if (_formKey.currentState!.validate()) {
+      Dialogs.showLoadingDialog(context, loadingKey, settingUp, Colors.white);
+      await FirebaseAuth.instance.signInAnonymously().then((value) {
+        Users newUser = Users(
+            id: FirebaseAuth.instance.currentUser!.uid.toString(),
+            email: emailController.text,
+            firstName: firstNameController.text,
+            lastName: lastNameController.text,
+            phoneNumber: "$selectedCountryCode${phoneNumberController.text}");
+
+        FirebaseFirestore.instance
+            .collection("Users")
+            .doc(newUser.id)
+            .set(newUser.toJson())
+            .whenComplete(() {
+          Navigator.of(context).pop();
+          Navigator.pushNamedAndRemoveUntil(
+              context, MainPage.routeName, (route) => false);
+        });
+      });
+    }
   }
 }
