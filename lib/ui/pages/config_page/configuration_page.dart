@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+final GlobalKey<State> loadingKey = new GlobalKey<State>();
+
 ///checks if the user is already logs in
 class ConfigPage extends StatefulWidget {
   static const routeName = '/configPage';
@@ -16,18 +18,22 @@ class ConfigPage extends StatefulWidget {
 
 class _ConfigPageState extends State<ConfigPage> {
   bool isLoggedIn = false;
+  User? _user;
 
   @override
   void initState() {
-    var user = Provider.of<User?>(context, listen: false);
-    isLoggedIn = user != null;
+    _user = Provider.of<User?>(context, listen: false);
+    isLoggedIn = _user != null;
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("?? $isLoggedIn");
+    print("?? $isLoggedIn ?? ");
+    if (isLoggedIn) {
+      print("?? ${_user!.uid} ?? ");
+    }
     return WillPopScope(
         onWillPop: () async => false,
         child: Container(
