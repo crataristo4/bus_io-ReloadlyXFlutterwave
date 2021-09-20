@@ -10,8 +10,10 @@ class Users {
   final lastName;
   final email;
   final phoneNumber;
+  String? imageUrl;
   String? from;
   String? to;
+  String? currentCity;
 
   Users(
       {this.id,
@@ -19,24 +21,31 @@ class Users {
       this.lastName,
       this.email,
       this.phoneNumber,
+      this.imageUrl,
+      this.currentCity,
       this.from,
       this.to});
 
   factory Users.fromJson(Map<String, dynamic> json) => Users(
-        firstName: json["firstName"],
+    firstName: json["firstName"],
         lastName: json["lastName"],
         email: json["email"],
         phoneNumber: json["phoneNumber"],
         from: json["from"],
         to: json["to"],
+        imageUrl: json["imageUrl"],
+        currentCity: json["currentCity"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "firstName": firstName,
         "lastName": lastName,
         "email": email,
         "phoneNumber": phoneNumber,
         "from": from,
         "to": to,
+        "imageUrl": imageUrl,
+        "currentCity": currentCity,
       };
 }
