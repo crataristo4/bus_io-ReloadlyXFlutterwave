@@ -1,4 +1,5 @@
 import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
+import 'package:bus_io/ui/pages/home_page/home_page.dart';
 import 'package:bus_io/ui/pages/login_page/login_page.dart';
 import 'package:bus_io/ui/pages/main_page/main_page.dart';
 import 'package:bus_io/ui/pages/onboarding_page/onboarding_page.dart';
@@ -26,9 +27,9 @@ class RouteGenerator {
       //MAIN PAGE
       case MainPage.routeName:
         return MaterialPageRoute(builder: (_) => MainPage());
-      //REVIEW BOOKING
-      /*case ReviewBookingDetails.routeName:
-        return MaterialPageRoute(builder: (_) => ReviewBookingDetails());*/
+      //home
+      case HomePage.routeName:
+        return MaterialPageRoute(builder: (_) => HomePage());
 //search results
       case SearchResultsPage.routeName:
         return MaterialPageRoute(builder: (_) => SearchResultsPage());
