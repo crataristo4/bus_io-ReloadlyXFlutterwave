@@ -1,6 +1,7 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/ui/pages/profile/referrals/referral_page.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -106,7 +107,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 //todo move to profile
               }),
               callProfileMenu("Referrals", () {
-                //todo move to referrals
+                Navigator.restorablePushNamed(context, ReferralsPage.routeName);
               }),
               Padding(
                 padding: const EdgeInsets.only(left: sixteenDp),
