@@ -3,6 +3,7 @@ import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/buses.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BusItem extends StatefulWidget {
   final GetBus bus;
@@ -49,9 +50,14 @@ class _BusItemState extends State<BusItem> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: fourDp, top: eightDp),
-                    child: Image.asset(
-                      widget.bus.busImage,
+                    child: Container(
                       width: thirtyDp,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                '${widget.bus.busImage}',
+                              ),
+                              fit: BoxFit.cover)),
                     ),
                   ),
                   Padding(
@@ -117,7 +123,7 @@ class _BusItemState extends State<BusItem> {
                   left: sixteenDp,
                 ),
                 child: Text(
-                  "${widget.bus.departureDay}",
+                  "${DateFormat.yMMMMEEEEd().format(widget.bus.departureDay)}",
                   style: TextStyle(
                       color: CustomColors.grayMedium,
                       fontSize: sixteenDp,
