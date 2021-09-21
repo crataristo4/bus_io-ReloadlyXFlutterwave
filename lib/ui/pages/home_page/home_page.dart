@@ -161,7 +161,9 @@ class _HomePageState extends State<HomePage> {
                               if (users.from!.isNotEmpty &&
                                   users.to!.isNotEmpty) {
                                 //check if user has input number of passengers
-                                if (_formKey.currentState!.validate()) {
+                                if (_formKey.currentState!.validate() &&
+                                    int.parse(noOfPassengerController.text) >
+                                        0) {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => BusResultsPage(
                                             numberOfPassengers: int.parse(
@@ -170,10 +172,6 @@ class _HomePageState extends State<HomePage> {
                                             date: date,
                                             from: users.from,
                                           )));
-                                } else {
-                                  ShowAction().showToast(
-                                      "Please enter a valid number for passenger",
-                                      Colors.red);
                                 }
                               }
                             }),
