@@ -8,6 +8,12 @@ class AppApiProvider with ChangeNotifier {
   ApiState _apiState = ApiState.Initial;
   List<GetBus> busList = [];
   List<GetCity> cityList = [];
+  String? _cityName;
+  bool _isFrom = false;
+
+  get cityName => _cityName;
+
+  get isFrom => _isFrom;
 
   //getter
   ApiState get apiState => _apiState;
@@ -45,6 +51,18 @@ class AppApiProvider with ChangeNotifier {
 
     notifyListeners();
     return cityList;
+  }
+
+  saveCity(String cityName, bool from) {
+    _cityName = cityName;
+    _isFrom = from;
+
+    notifyListeners();
+    updateCity();
+  }
+
+  updateCity() {
+    AppApiService.instance.updateCity(cityName, isFrom);
   }
 }
 

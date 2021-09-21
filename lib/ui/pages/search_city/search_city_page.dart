@@ -30,6 +30,12 @@ class _SearchCityState extends State<SearchCity> {
   }
 
   @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     state = Provider.of<AppApiProvider>(context);
     return Scaffold(
@@ -75,20 +81,20 @@ class _SearchCityState extends State<SearchCity> {
                 } else
                   return isSearching
                       ? ListView.builder(
-                          itemBuilder: (context, index) {
-                            GetCity cities = state.cityList[index];
+                    itemBuilder: (context, index) {
+                      GetCity cities = state.cityList[index];
 
-                            // Places bus = placeList[index];
-                            return buildCityResults(cities);
-                          },
-                          itemCount: isSearching ? state.cityList.length : 0,
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          primary: true,
-                        )
+                      // Places bus = placeList[index];
+                      return buildCityResults(cities);
+                    },
+                    itemCount: isSearching ? state.cityList.length : 0,
+                    shrinkWrap: true,
+                    physics: ClampingScrollPhysics(),
+                    primary: true,
+                  )
                       : Center(
-                          child: Text("Please search a city"),
-                        );
+                    child: Text("Please search a city"),
+                  );
               }),
             ),
           ],
@@ -144,6 +150,9 @@ class _SearchCityState extends State<SearchCity> {
   Widget buildCityResults(GetCity city) {
     return GestureDetector(
       onTap: () {
+        // add value to db anonymously
+        state.saveCity(city.cityName, widget.isFrom);
+
         Navigator.of(context).pop();
       },
       child: Container(

@@ -1,6 +1,5 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
-import 'package:bus_io/ui/pages/sign_up_page/sign_up_page.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
 import 'package:bus_io/ui/widgets/email_input_widget.dart';
 import 'package:bus_io/ui/widgets/password_input_widget.dart';
@@ -97,8 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: sixteenDp)),
                 WidgetSpan(
                   child: GestureDetector(
-                    onTap: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                        SignupPage.routeName, (route) => false),
+                    onTap: () => Navigator.of(context).pop(),
                     child: Text(
                       createAnAccount,
                       //superscript is usually smaller in size
