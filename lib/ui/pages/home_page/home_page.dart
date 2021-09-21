@@ -4,7 +4,7 @@ import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/user.dart';
 import 'package:bus_io/services/user_service.dart';
-import 'package:bus_io/ui/pages/search_results/search_results_page.dart';
+import 'package:bus_io/ui/pages/search_bus/bus_results_page.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
 import 'package:bus_io/ui/widgets/destination_card.dart';
 import 'package:bus_io/ui/widgets/option_selector_widget.dart';
@@ -162,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                           buttonName: findBuses,
                           onButtonTapped: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SearchResultsPage()));
+                                builder: (context) => BusResultsPage()));
                           }),
                       SizedBox(
                         height: twentyDp,

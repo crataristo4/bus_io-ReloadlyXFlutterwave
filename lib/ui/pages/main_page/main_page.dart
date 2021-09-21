@@ -33,7 +33,6 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("?? $_selectedIndex");
     return Scaffold(
       body: Container(
         child: _widgetOptions.elementAt(_selectedIndex),
