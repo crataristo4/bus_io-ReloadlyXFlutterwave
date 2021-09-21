@@ -9,28 +9,42 @@ class AppApiProvider with ChangeNotifier {
   List<GetBus> busList = [];
   List<GetCity> cityList = [];
 
+  //getter
+  ApiState get apiState => _apiState;
+
   AppApiProvider() {
     //
-    fetchBusList();
+    // fetchCityList();
   }
 
   //get buses
-//fetch users
   Future<List<GetBus>> fetchBusList() async {
     _apiState = ApiState.Loading;
 
     try {
-      busList = await _apiService.getBuses().then((value) {
-        _apiState = ApiState.Loaded;
-
-        return value;
-      });
+      busList = await _apiService.getBuses();
+      _apiState = ApiState.Loaded;
     } catch (e) {
       _apiState = ApiState.Error;
     }
 
     notifyListeners();
     return busList;
+  }
+
+  //get cities
+  Future<List<GetCity>> fetchCityList() async {
+    _apiState = ApiState.Loading;
+
+    try {
+      cityList = await AppApiService.instance.getCity();
+      _apiState = ApiState.Loaded;
+    } catch (e) {
+      _apiState = ApiState.Error;
+    }
+
+    notifyListeners();
+    return cityList;
   }
 }
 
