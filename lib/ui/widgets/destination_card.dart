@@ -1,6 +1,6 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
-import 'package:bus_io/ui/pages/search_bus/search_bus_page.dart';
+import 'package:bus_io/ui/pages/search_city/search_city_page.dart';
 import 'package:flutter/material.dart';
 
 class DestinationCard extends StatefulWidget {
@@ -64,7 +64,7 @@ class _DestinationCardState extends State<DestinationCard> {
                                 onTap: () {
                                   //push to search page
                                   Navigator.of(context).pushNamed(
-                                      SearchBus.routeName,
+                                      SearchCity.routeName,
                                       arguments: false);
                                 },
                                 child: Text(
@@ -90,7 +90,7 @@ class _DestinationCardState extends State<DestinationCard> {
                                 onTap: () {
                                   //push to search page
                                   Navigator.of(context).pushNamed(
-                                      SearchBus.routeName,
+                                      SearchCity.routeName,
                                       arguments: true);
                                 },
                                 child: Text(
@@ -152,7 +152,7 @@ class _DestinationCardState extends State<DestinationCard> {
                               onTap: () {
                                 //push to search page
                                 Navigator.of(context).pushNamed(
-                                    SearchBus.routeName,
+                                    SearchCity.routeName,
                                     arguments: false);
                               },
                               child: Text(
@@ -180,7 +180,7 @@ class _DestinationCardState extends State<DestinationCard> {
                               onTap: () {
                                 //push to search page
                                 Navigator.of(context).pushNamed(
-                                    SearchBus.routeName,
+                                    SearchCity.routeName,
                                     arguments: true);
                               },
                               child: Text(

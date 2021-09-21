@@ -3,8 +3,9 @@ import 'package:bus_io/ui/pages/home_page/home_page.dart';
 import 'package:bus_io/ui/pages/login_page/login_page.dart';
 import 'package:bus_io/ui/pages/main_page/main_page.dart';
 import 'package:bus_io/ui/pages/onboarding_page/onboarding_page.dart';
-import 'package:bus_io/ui/pages/search_bus/search_bus_page.dart';
-import 'package:bus_io/ui/pages/search_results/search_results_page.dart';
+import 'package:bus_io/ui/pages/profile/referrals/referral_page.dart';
+import 'package:bus_io/ui/pages/search_bus/bus_results_page.dart';
+import 'package:bus_io/ui/pages/search_city/search_city_page.dart';
 import 'package:bus_io/ui/pages/sign_up_page/sign_up_page.dart';
 import 'package:flutter/material.dart';
 
@@ -31,8 +32,11 @@ class RouteGenerator {
       case HomePage.routeName:
         return MaterialPageRoute(builder: (_) => HomePage());
 //search results
-      case SearchResultsPage.routeName:
-        return MaterialPageRoute(builder: (_) => SearchResultsPage());
+      case BusResultsPage.routeName:
+        return MaterialPageRoute(builder: (_) => BusResultsPage());
+
+      case ReferralsPage.routeName:
+        return MaterialPageRoute(builder: (_) => ReferralsPage());
 
       //select seats
       /*   case SelectSeat.routeName:
@@ -45,10 +49,10 @@ class RouteGenerator {
                   seatsSelected: data,
                 ));*/
       //SEARCH BUS
-      case SearchBus.routeName:
+      case SearchCity.routeName:
         bool data = args as bool;
         return MaterialPageRoute(
-            builder: (_) => SearchBus(
+            builder: (_) => SearchCity(
                   isFrom: data,
                 ));
 
