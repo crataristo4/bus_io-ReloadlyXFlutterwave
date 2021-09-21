@@ -1,8 +1,11 @@
 import 'package:bus_io/actions/actions.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
-import 'package:bus_io/model/bus.dart';
+import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/model/buses.dart';
+import 'package:bus_io/model/enum_states.dart';
 import 'package:bus_io/model/places.dart';
+import 'package:bus_io/provider/buses_provider.dart';
 import 'package:bus_io/ui/bottom_sheets/filter.dart';
 import 'package:bus_io/ui/pages/select_seat/select_seat.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
@@ -12,19 +15,40 @@ import 'package:bus_io/ui/widgets/modify_filter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class BusResultsPage extends StatefulWidget {
   static const routeName = '/searchBusResultsPage';
+  final from, to, date, numberOfPassengers;
 
-  const BusResultsPage({Key? key}) : super(key: key);
+  const BusResultsPage(
+      {Key? key,
+      required this.from,
+      required this.to,
+      required this.date,
+      required this.numberOfPassengers})
+      : super(key: key);
 
   @override
   _BusResultsPageState createState() => _BusResultsPageState();
 }
 
 class _BusResultsPageState extends State<BusResultsPage> {
+  BusesProvider state = BusesProvider();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    state = Provider.of<BusesProvider>(context);
+    state.fetchBusList();
+
+    print(' -- ${state.busList} ... ');
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(searchResults, () {
@@ -35,17 +59,14 @@ class _BusResultsPageState extends State<BusResultsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: twentyDp,
-            ),
             DestinationCard(
-              from: placeList[1].placeName,
-              to: placeList[1].placeLocation,
+              from: widget.from,
+              to: widget.to,
               color: Colors.black,
               isCard: true,
             ),
             SizedBox(
-              height: sixteenDp,
+              height: tenDp,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -77,7 +98,7 @@ class _BusResultsPageState extends State<BusResultsPage> {
               ],
             ),
             SizedBox(
-              height: thirtyDp,
+              height: twentyDp,
             ),
             Text(
               '$showing 10 $results',
@@ -86,27 +107,49 @@ class _BusResultsPageState extends State<BusResultsPage> {
                   fontWeight: FontWeight.w500,
                   fontSize: sixteenDp),
             ),
-            Expanded(
-                child: ListView.builder(
-              itemBuilder: (context, index) {
-                Bus bus = busList[index];
-
-                return BusItem(
-                  bus: bus,
-                  isBus: true,
-                  isTicket: false,
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => SelectSeat(
-                            bus: bus,
-                          ))),
-                  seatsBooked: 0,
+            Expanded(child: Builder(builder: (context) {
+              //loading
+              if (state.apiState == ApiState.Loading) {
+//show progress
+                return Center(
+                  child: CircularProgressIndicator(),
                 );
-              },
-              itemCount: busList.length,
-              shrinkWrap: true,
-              physics: ClampingScrollPhysics(),
-              primary: true,
-            ))
+              }
+
+              //if there is an error
+              else if (state.apiState == ApiState.Error) {
+//show progress
+                return Center(child: Text("Sorry! an error occurred"));
+              }
+
+              return state.busList.length == 0
+                  ? Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : ListView.builder(
+                      itemBuilder: (context, index) {
+                        GetBus bus = state.busList[index];
+
+                        return BusItem(
+                          bus: bus,
+                          isBus: true,
+                          isTicket: false,
+                          onTap: () =>
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => SelectSeat(
+                                        bus: bus,
+                                      ))),
+                          seatsBooked: 0,
+                        );
+
+                        return buildBusList(bus);
+                      },
+                      itemCount: state.busList.length,
+                      shrinkWrap: true,
+                      physics: ClampingScrollPhysics(),
+                      primary: false,
+                    );
+            }))
           ],
         ),
       ),
@@ -145,7 +188,7 @@ class _BusResultsPageState extends State<BusResultsPage> {
     );
   }*/
 
-  /*Widget buildBusList(Bus bus) {
+  Widget buildBusList(GetBus bus) {
     return Container(
       decoration: BoxDecoration(
           border: Border.all(color: Colors.grey.withOpacity(0.5), width: 0.69),
@@ -164,14 +207,19 @@ class _BusResultsPageState extends State<BusResultsPage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(left: fourDp, top: eightDp),
-                    child: Image.asset(
-                      bus.busImage,
+                    child: Container(
                       width: thirtyDp,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(
+                                '${bus.busImage}',
+                              ),
+                              fit: BoxFit.cover)),
                     ),
                   ),
                   Padding(
                     padding:
-                    const EdgeInsets.only(left: sixDp, top: fourteenDp),
+                        const EdgeInsets.only(left: sixDp, top: fourteenDp),
                     child: Text(
                       bus.source.toString().toUpperCase(),
                       style: TextStyle(
@@ -193,9 +241,9 @@ class _BusResultsPageState extends State<BusResultsPage> {
                     ),
                     Padding(
                       padding:
-                      const EdgeInsets.only(top: fourDp, right: fourDp),
+                          const EdgeInsets.only(top: fourDp, right: fourDp),
                       child: Text(
-                        "${bus.rating}",
+                        "${bus.averageRating}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: CustomColors.grayMedium),
@@ -203,9 +251,9 @@ class _BusResultsPageState extends State<BusResultsPage> {
                     ),
                     Padding(
                       padding:
-                      const EdgeInsets.only(top: fourDp, right: sixteenDp),
+                          const EdgeInsets.only(top: fourDp, right: sixteenDp),
                       child: Text(
-                        '(${bus.numberOfRating})',
+                        '(${bus.numberOfRatings})',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: CustomColors.grayMedium),
@@ -232,7 +280,7 @@ class _BusResultsPageState extends State<BusResultsPage> {
                   left: sixteenDp,
                 ),
                 child: Text(
-                  bus.departureDay,
+                  "${DateFormat.yMMMMEEEEd().format(bus.departureDay)}",
                   style: TextStyle(
                       color: CustomColors.grayMedium,
                       fontSize: sixteenDp,
@@ -307,7 +355,7 @@ class _BusResultsPageState extends State<BusResultsPage> {
                         fontSize: sixteenDp)),
                 WidgetSpan(
                   child: Text(
-                    bus.estimatedTime,
+                    "${bus.estimatedDuration} hrs",
                     //superscript is usually smaller in size
                     style: TextStyle(
                         color: Colors.black,
@@ -432,8 +480,10 @@ class _BusResultsPageState extends State<BusResultsPage> {
                   minWidth: oneTwentyDp,
                   height: fiftyDp,
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => SelectSeat()));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => SelectSeat(
+                              bus: bus,
+                            )));
                   },
                   child: Text(
                     viewSeats,
@@ -447,10 +497,9 @@ class _BusResultsPageState extends State<BusResultsPage> {
         ],
       ),
     );
-  }*/
+  }
 
-  Widget alertButton(
-      title, Color titleColor, Color bgColor, double borderWidth) {
+  Widget alertButton(title, Color titleColor, Color bgColor, double borderWidth) {
     return GestureDetector(
       onTap: () {
         if (title.toString().contains(cancel)) {
@@ -461,7 +510,7 @@ class _BusResultsPageState extends State<BusResultsPage> {
       },
       child: Container(
           margin:
-              EdgeInsets.symmetric(horizontal: sixteenDp, vertical: sixteenDp),
+          EdgeInsets.symmetric(horizontal: sixteenDp, vertical: sixteenDp),
           height: 40,
           width: 80,
           decoration: BoxDecoration(
