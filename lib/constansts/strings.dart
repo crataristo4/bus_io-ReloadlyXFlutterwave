@@ -125,3 +125,9 @@ const busBookingMadeEasy = 'Bus booking made easy';
 const ok = 'OK';
 const editIcon = 'edit.png';
 const filterIcon = 'filter.png';
+
+//-----------------------------------------//
+const busIoBaseUrl = 'https://busbackend.herokuapp.com';
+const buses = '/buses';
+const cities = '/cities';
+const searchCity = '/cities?name=';
