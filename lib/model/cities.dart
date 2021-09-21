@@ -11,7 +11,7 @@ class Cities {
     required this.getCities,
   });
 
-  final List<GetCity> getCities;
+  final List<GetCity>? getCities;
 
   factory Cities.fromJson(Map<String, dynamic> json) => Cities(
         getCities: List<GetCity>.from(
@@ -19,7 +19,7 @@ class Cities {
       );
 
   Map<String, dynamic> toJson() => {
-        "getCities": List<dynamic>.from(getCities.map((x) => x.toJson())),
+        "getCities": List<dynamic>.from(getCities!.map((x) => x.toJson())),
       };
 }
 
