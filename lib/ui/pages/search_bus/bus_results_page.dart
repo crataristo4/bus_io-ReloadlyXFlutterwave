@@ -13,16 +13,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class SearchResultsPage extends StatefulWidget {
+class BusResultsPage extends StatefulWidget {
   static const routeName = '/searchBusResultsPage';
 
-  const SearchResultsPage({Key? key}) : super(key: key);
+  const BusResultsPage({Key? key}) : super(key: key);
 
   @override
-  _SearchResultsPageState createState() => _SearchResultsPageState();
+  _BusResultsPageState createState() => _BusResultsPageState();
 }
 
-class _SearchResultsPageState extends State<SearchResultsPage> {
+class _BusResultsPageState extends State<BusResultsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,8 +88,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             ),
             Expanded(
                 child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    Bus bus = busList[index];
+              itemBuilder: (context, index) {
+                Bus bus = busList[index];
 
                 return BusItem(
                   bus: bus,
@@ -102,11 +102,11 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                   seatsBooked: 0,
                 );
               },
-                  itemCount: busList.length,
-                  shrinkWrap: true,
-                  physics: ClampingScrollPhysics(),
-                  primary: true,
-                ))
+              itemCount: busList.length,
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              primary: true,
+            ))
           ],
         ),
       ),
