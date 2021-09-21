@@ -1,7 +1,7 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
-import 'package:bus_io/model/bus.dart';
+import 'package:bus_io/model/buses.dart';
 import 'package:bus_io/ui/pages/review_booking/review_booking_details.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:bus_io/ui/widgets/passenger_details.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class AddPassengerDetails extends StatefulWidget {
   static const routeName = '/addPassengerDetails';
   final seatsSelected;
-  final Bus bus;
+  final GetBus bus;
   final List<String> passengerList;
   final List<int> seatNumberSelectedList;
 
