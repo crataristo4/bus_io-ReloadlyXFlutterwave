@@ -1,11 +1,11 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
-import 'package:bus_io/model/bus.dart';
+import 'package:bus_io/model/buses.dart';
 import 'package:flutter/material.dart';
 
 class BusItem extends StatefulWidget {
-  final Bus bus;
+  final GetBus bus;
   final Function()? onTap;
   final bool isBus;
   final bool isTicket;
@@ -80,7 +80,7 @@ class _BusItemState extends State<BusItem> {
                       padding:
                           const EdgeInsets.only(top: fourDp, right: fourDp),
                       child: Text(
-                        "${widget.bus.rating}",
+                        "${widget.bus.averageRating}",
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: CustomColors.grayMedium),
@@ -90,7 +90,7 @@ class _BusItemState extends State<BusItem> {
                       padding:
                           const EdgeInsets.only(top: fourDp, right: sixteenDp),
                       child: Text(
-                        '(${widget.bus.numberOfRating})',
+                        '(${widget.bus.numberOfRatings})',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             color: CustomColors.grayMedium),
@@ -117,7 +117,7 @@ class _BusItemState extends State<BusItem> {
                   left: sixteenDp,
                 ),
                 child: Text(
-                  widget.bus.departureDay,
+                  "${widget.bus.departureDay}",
                   style: TextStyle(
                       color: CustomColors.grayMedium,
                       fontSize: sixteenDp,
@@ -192,7 +192,7 @@ class _BusItemState extends State<BusItem> {
                         fontSize: sixteenDp)),
                 WidgetSpan(
                   child: Text(
-                    widget.bus.estimatedTime,
+                    widget.bus.estimatedDuration,
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,

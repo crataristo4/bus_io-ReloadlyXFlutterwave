@@ -1,5 +1,7 @@
 import 'package:bus_io/constansts/strings.dart';
+import 'package:bus_io/provider/app_api_provider.dart';
 import 'package:bus_io/route_generator.dart';
+import 'package:bus_io/services/app_api_service.dart';
 import 'package:bus_io/services/user_service.dart';
 import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
 import 'package:bus_io/ui/pages/onboarding_page/onboarding_page.dart';
@@ -28,8 +30,10 @@ class EntryPoint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserService _userService = UserService.instance;
+    AppApiService _appApi = AppApiService.instance;
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (context) => AppApiProvider()),
         StreamProvider<User?>.value(
           value: FirebaseAuth.instance.authStateChanges(),
           initialData: FirebaseAuth.instance.currentUser,

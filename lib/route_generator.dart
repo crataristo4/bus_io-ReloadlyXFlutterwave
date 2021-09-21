@@ -33,7 +33,14 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HomePage());
 //search results
       case BusResultsPage.routeName:
-        return MaterialPageRoute(builder: (_) => BusResultsPage());
+        final data = args as dynamic;
+        return MaterialPageRoute(
+            builder: (_) => BusResultsPage(
+                  to: data,
+                  from: data,
+                  numberOfPassengers: data,
+                  date: data,
+                ));
 
       case ReferralsPage.routeName:
         return MaterialPageRoute(builder: (_) => ReferralsPage());
