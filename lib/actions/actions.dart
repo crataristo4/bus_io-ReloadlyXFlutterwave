@@ -9,9 +9,9 @@ class ShowAction {
   //get date
   Future<DateTime?> selectDate(BuildContext context) => showDatePicker(
       context: context,
-      initialDate: DateTime.now().add(Duration(seconds: 1)),
+      initialDate: DateTime.now(),
       firstDate: DateTime.now(),
-      lastDate: DateTime(2100));
+      lastDate: DateTime.now().add(Duration(days: 7)));
 
   void showToast(message, Color color) {
     Fluttertoast.showToast(
