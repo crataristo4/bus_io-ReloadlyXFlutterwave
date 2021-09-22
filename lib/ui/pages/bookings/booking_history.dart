@@ -45,15 +45,15 @@ class _BookingHistoryState extends State<BookingHistory> {
                     final selectedDate = await ShowAction().selectDate(context);
                     if (selectedDate == null) return;
                     dateTime = DateTime(
-                      selectedDate.day,
-                      selectedDate.month,
                       selectedDate.year,
+                      selectedDate.month,
+                      selectedDate.day,
                     );
                     setState(() {
                       today = dateFormat.format(dateTime);
                     });
 
-                    print('?? $today');
+                    print('?? $today --- ${selectedDate}');
                   },
                   child: OptionSelector(
                     title: from,
@@ -66,13 +66,13 @@ class _BookingHistoryState extends State<BookingHistory> {
                   onTap: () async {
                     final selectedDate = await ShowAction().selectDate(context);
                     if (selectedDate == null) return;
-                    dateTime = DateTime(
+                    /*  dateTime = DateTime(
                       selectedDate.day,
                       selectedDate.month,
                       selectedDate.year,
-                    );
+                    );*/
                     setState(() {
-                      today = dateFormat.format(dateTime);
+                      today = dateFormat.format(selectedDate);
                     });
 
                     print('?? $today');

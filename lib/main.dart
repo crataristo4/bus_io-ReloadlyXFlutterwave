@@ -1,5 +1,7 @@
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/provider/app_api_provider.dart';
+import 'package:bus_io/provider/buses_provider.dart';
+import 'package:bus_io/provider/cities_provider.dart';
 import 'package:bus_io/route_generator.dart';
 import 'package:bus_io/services/app_api_service.dart';
 import 'package:bus_io/services/user_service.dart';
@@ -34,6 +36,8 @@ class EntryPoint extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => AppApiProvider()),
+        ChangeNotifierProvider(create: (context) => CityProvider()),
+        ChangeNotifierProvider(create: (context) => BusesProvider()),
         StreamProvider<User?>.value(
           value: FirebaseAuth.instance.authStateChanges(),
           initialData: FirebaseAuth.instance.currentUser,

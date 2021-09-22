@@ -1,12 +1,13 @@
 import 'package:bus_io/actions/actions.dart';
+import 'package:bus_io/actions/progress_dialog.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/buses.dart';
 import 'package:bus_io/model/enum_states.dart';
-import 'package:bus_io/model/places.dart';
 import 'package:bus_io/provider/buses_provider.dart';
 import 'package:bus_io/ui/bottom_sheets/filter.dart';
+import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
 import 'package:bus_io/ui/pages/select_seat/select_seat.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:bus_io/ui/widgets/bus_item.dart';
@@ -47,8 +48,6 @@ class _BusResultsPageState extends State<BusResultsPage> {
     state = Provider.of<BusesProvider>(context);
     state.fetchBusList();
 
-    print(' -- ${state.busList} ... ');
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(searchResults, () {
@@ -77,8 +76,8 @@ class _BusResultsPageState extends State<BusResultsPage> {
                     onTap: () {
                       ShowAction.showAlertDialog(
                           DestinationCard(
-                              from: placeList[1].placeName,
-                              to: placeList[1].placeLocation,
+                              from: widget.from,
+                              to: widget.to,
                               color: Colors.black,
                               isCard: false),
                           context,
@@ -101,23 +100,15 @@ class _BusResultsPageState extends State<BusResultsPage> {
               height: twentyDp,
             ),
             Text(
-              '$showing 10 $results',
+              '$showing ${state.busList.length} $results',
               style: TextStyle(
                   color: Colors.teal,
                   fontWeight: FontWeight.w500,
                   fontSize: sixteenDp),
             ),
             Expanded(child: Builder(builder: (context) {
-              //loading
-              if (state.apiState == ApiState.Loading) {
-//show progress
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-
               //if there is an error
-              else if (state.apiState == ApiState.Error) {
+              if (state.apiState == ApiState.Error) {
 //show progress
                 return Center(child: Text("Sorry! an error occurred"));
               }
@@ -134,11 +125,20 @@ class _BusResultsPageState extends State<BusResultsPage> {
                           bus: bus,
                           isBus: true,
                           isTicket: false,
-                          onTap: () =>
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => SelectSeat(
-                                        bus: bus,
-                                      ))),
+                          onTap: () async {
+                            Dialogs.showLoadingDialog(
+                                context, loadingKey, "", Colors.white);
+                            await Future.delayed(Duration(seconds: 3));
+                            Navigator.pop(context);
+                            return Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SelectSeat(
+                                      bus: bus,
+                                      to: widget.to,
+                                      from: widget.from,
+                                      numberOfPassengers:
+                                          widget.numberOfPassengers,
+                                    )));
+                          },
                           seatsBooked: 0,
                         );
 
@@ -482,7 +482,10 @@ class _BusResultsPageState extends State<BusResultsPage> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => SelectSeat(
-                              bus: bus,
+                          bus: bus,
+                              to: widget.to,
+                              from: widget.from,
+                              numberOfPassengers: widget.numberOfPassengers,
                             )));
                   },
                   child: Text(
@@ -499,7 +502,8 @@ class _BusResultsPageState extends State<BusResultsPage> {
     );
   }
 
-  Widget alertButton(title, Color titleColor, Color bgColor, double borderWidth) {
+  Widget alertButton(
+      title, Color titleColor, Color bgColor, double borderWidth) {
     return GestureDetector(
       onTap: () {
         if (title.toString().contains(cancel)) {
@@ -510,7 +514,7 @@ class _BusResultsPageState extends State<BusResultsPage> {
       },
       child: Container(
           margin:
-          EdgeInsets.symmetric(horizontal: sixteenDp, vertical: sixteenDp),
+              EdgeInsets.symmetric(horizontal: sixteenDp, vertical: sixteenDp),
           height: 40,
           width: 80,
           decoration: BoxDecoration(

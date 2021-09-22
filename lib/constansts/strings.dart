@@ -56,7 +56,7 @@ const signOut = 'Sign Out';
 const cancel = 'Cancel';
 const delete = 'Delete';
 const done = 'Done';
-const seats = 'Seats';
+const seats = 'Seat';
 const totalPrices = 'Total Price';
 const totalPassengers = 'Total Passengers: ';
 const passengerDetails = 'Passenger Details';
@@ -125,6 +125,7 @@ const busBookingMadeEasy = 'Bus booking made easy';
 const ok = 'OK';
 const editIcon = 'edit.png';
 const filterIcon = 'filter.png';
+const alreadySelected = 'Already selected';
 
 //-----------------------------------------//
 const busIoBaseUrl = 'https://busbackend.herokuapp.com';
