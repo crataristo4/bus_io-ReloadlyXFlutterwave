@@ -5,7 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  const FilterBottomSheet({Key? key}) : super(key: key);
+  final results;
+
+  const FilterBottomSheet({Key? key, required this.results}) : super(key: key);
 
   @override
   _FilterBottomSheetState createState() => _FilterBottomSheetState();
@@ -15,7 +17,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet>
     with SingleTickerProviderStateMixin {
   TabController? _tabController;
   int? _selectedIndex = 0;
-  double lowestPricesValue = 2000;
+  double lowestPricesValue = 5000;
   List<Map<String, dynamic>> data = [
     {
       'title': earlyMorning,
@@ -162,8 +164,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet>
                         lowestPricesValue = value;
                       });
                     },
-                    min: 2000.0,
-                    max: 10000.0,
+                    min: 5000.0,
+                    max: 30000.0,
                     divisions: 10,
                     activeColor: Colors.teal,
                     inactiveColor: Colors.grey,
@@ -189,7 +191,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet>
                                       fontSize: sixteenDp)),
                               WidgetSpan(
                                 child: Text(
-                                  '5000',
+                                  '$lowestPricesValue',
                                   //superscript is usually smaller in size
                                   style: TextStyle(
                                       color: CustomColors.blackCurrency,
@@ -237,7 +239,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet>
                   // margin: EdgeInsets.symmetric(horizontal: sixteenDp),
                   child: Center(
                     child: Text(
-                      showTen,
+                      "Showing ${widget.results} results",
                       style: TextStyle(
                           color: Colors.teal,
                           fontWeight: FontWeight.bold,
