@@ -75,6 +75,7 @@ const booked = 'Booked';
 const whereAreYouLeavingFrom = 'Where are you leaving from?';
 const whereAreYouGoingTo = 'Where are you going to?';
 const date = 'Date';
+const points = 'Points';
 const noOfPassengers = 'No of Passengers';
 const quickBookings = 'Quick Bookings';
 const findBuses = 'Find Buses';
@@ -124,9 +125,19 @@ const bookABusDes =
     'Book a bus for your next journey. Enjoy seamless rides 👌🏽';
 const busBookingMadeEasy = 'Bus booking made easy';
 const ok = 'OK';
+const mobileTopUp = 'Mobile Top-up';
+const giftCard = 'Gift Card';
+const recentTrans = 'Recent Transactions';
+const viewAll = 'View all';
 const editIcon = 'edit.png';
 const filterIcon = 'filter.png';
 const alreadySelected = 'Already selected';
+const lptBalance = 'Loyalty Points Balance';
+const transferPoints = 'Transfer points';
+const redeemPoints = 'Redeem Points';
+const howToRedeemPoints = 'How would you like to redeem your points?';
+const walletDes =
+    'Get 200 loyalty reward points on every successful booking made. Convert accumulated points into airtime and giftcards!';
 
 //-----------------------------------------//
 const busIoBaseUrl = 'https://busbackend.herokuapp.com';
