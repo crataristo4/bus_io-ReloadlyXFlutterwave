@@ -23,17 +23,14 @@ class CityProvider with ChangeNotifier {
 
   //get cities
   Future<List<GetCity>> fetchCityList() async {
-    _apiState = ApiState.Loading;
-
     try {
-      _apiState = ApiState.Loaded;
+      _apiState = ApiState.Loading;
       cityList = await _citiesService.getCity().then((value) {
+        _apiState = ApiState.Loaded;
         return value;
       });
-      notifyListeners();
     } catch (e) {
       _apiState = ApiState.Error;
-      print(e.toString());
     }
 
     notifyListeners();

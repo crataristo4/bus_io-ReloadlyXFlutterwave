@@ -23,7 +23,6 @@ class _SearchCityState extends State<SearchCity> {
   TextEditingController searchController = TextEditingController();
   CityProvider state = CityProvider();
   bool isSearching = false;
-  List<GetCity>? _listOfCities;
 
   @override
   void initState() {
@@ -39,6 +38,7 @@ class _SearchCityState extends State<SearchCity> {
   @override
   Widget build(BuildContext context) {
     state = Provider.of<CityProvider>(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar('', () {
@@ -58,15 +58,12 @@ class _SearchCityState extends State<SearchCity> {
             Expanded(
               flex: 1,
               child: Builder(builder: (context) {
-                //on first open
-                /*if (state.apiState == ApiState.Initial) {
+                if (state.apiState == ApiState.Initial) {
 //show progress
                   return Center(
                     child: Text("Please search a city"),
-
                   );
                 }
-*/
                 //loading
                 if (state.apiState == ApiState.Loading) {
 //show progress
@@ -76,20 +73,21 @@ class _SearchCityState extends State<SearchCity> {
                 }
 
                 //if there is an error
-                else if (state.apiState == ApiState.Error) {
+                if (state.apiState == ApiState.Error) {
 //show progress
                   return Center(child: Text("Sorry! Please try again"));
-                } else
-                  return isSearching
-                      ? ListView.builder(
-                          itemBuilder: (context, index) {
-                            GetCity cities = state.cityList[index];
+                }
 
-                            // Places bus = placeList[index];
-                            return buildCityResults(cities);
-                          },
-                          itemCount: isSearching ? state.cityList.length : 0,
-                          shrinkWrap: true,
+                return isSearching
+                    ? ListView.builder(
+                        itemBuilder: (context, index) {
+                          GetCity cities = state.cityList[index];
+
+                          // Places bus = placeList[index];
+                          return buildCityResults(cities);
+                        },
+                        itemCount: isSearching ? state.cityList.length : 0,
+                        shrinkWrap: true,
                           physics: ClampingScrollPhysics(),
                           primary: true,
                         )
@@ -114,11 +112,9 @@ class _SearchCityState extends State<SearchCity> {
             if (_formKey.currentState!.validate()) {
               setState(() {
                 isSearching = true;
+                // CALL API
+                state.fetchCityList();
               });
-              // CALL API
-              state
-                  .fetchCityList(); //.then((value) => {_listOfCities = value});
-
             } else {
               setState(() {
                 isSearching = false;

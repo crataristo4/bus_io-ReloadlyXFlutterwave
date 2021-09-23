@@ -32,7 +32,7 @@ class CitiesService {
 
     final listOfCites = Cities.fromJson(jsonDecode(getCity.body));
 
-    return listOfCites.getCities!;
+    return listOfCites.data.getCities!;
   }
 
   //search city by name
@@ -45,7 +45,7 @@ class CitiesService {
 
     final listOfCites = Cities.fromJson(jsonDecode(getCity.body));
 
-    return listOfCites.getCities!;
+    return listOfCites.data.getCities!;
   }
 
   //update city name

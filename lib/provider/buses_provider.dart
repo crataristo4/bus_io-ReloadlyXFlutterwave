@@ -25,7 +25,6 @@ class BusesProvider with ChangeNotifier {
         return value;
       });
 
-      notifyListeners();
     } catch (e) {
       _apiState = ApiState.Error;
     }
