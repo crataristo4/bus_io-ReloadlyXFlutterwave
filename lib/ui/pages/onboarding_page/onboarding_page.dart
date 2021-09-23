@@ -1,11 +1,10 @@
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
-import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
+import 'package:bus_io/ui/pages/onboarding_page/splash_screen.dart';
+import 'package:bus_io/ui/widgets/onboarding_item.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class OnboardingPage extends StatefulWidget {
   static const routeName = '/onboardingPage';
@@ -17,105 +16,114 @@ class OnboardingPage extends StatefulWidget {
 }
 
 class _OnboardingPageState extends State<OnboardingPage> {
+  int currentIndex = 0;
+  PageController? _pageController;
+
   @override
   void initState() {
-    getCounter();
+    _pageController = PageController(initialPage: 0);
     super.initState();
   }
-
-  getCounter() {}
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
-        body: Center(
-            child: Stack(
-      children: [
-        Align(
-          alignment: Alignment.center,
-          child: Container(
-            margin: EdgeInsets.all(thirtyDp),
-            height: fourHundredDp,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                color: CustomColors.lightTeal.withOpacity(0.3),
-                shape: BoxShape.circle),
-            child: Center(
-              child: Container(
-                width: threeHundredDp,
-                height: twoHundredDp,
-                decoration: BoxDecoration(
-                    color: CustomColors.teal.withOpacity(0.1),
-                    shape: BoxShape.circle),
-                child: Center(
-                  child: Container(
-                    width: oneFiftyDp,
-                    height: hundredDp,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        RichText(
-                          text: TextSpan(children: [
-                            TextSpan(
-                                text: appName,
-                                style: TextStyle(
-                                    color: Colors.teal,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 40)),
-                            WidgetSpan(
-                              child: Transform.translate(
-                                offset: const Offset(2, -16),
-                                child: Text(
-                                  tm,
-                                  //superscript is usually smaller in size
-                                  textScaleFactor: 0.7,
-                                  style: TextStyle(
-                                      color: Colors.teal,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                            ),
-                          ]),
-                        ),
-                        Text(busBookingMadeEasy,
-                            style: TextStyle(
-                                color: Colors.teal.withOpacity(0.5),
-                                fontSize: tenDp,
-                                fontWeight: FontWeight.bold)),
-                      ],
-                    ),
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          PageView(
+            controller: _pageController,
+            onPageChanged: (index) {
+              setState(() {
+                currentIndex = index;
+              });
+            },
+            children: [
+              OnboardingSlideItem(
+                image: "assets/svg/ob1.svg",
+                title: bookABus,
+                content: bookDes,
+              ),
+              OnboardingSlideItem(
+                image: "assets/svg/ob2.svg",
+                title: lpr,
+                content: lprDes,
+              ),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: hundredDp),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: indicatorCount(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+                vertical: fiftyDp, horizontal: sixteenDp),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: twentyDp),
+                  child: Text(
+                    skip,
+                    style: TextStyle(fontSize: sixteenDp, color: Colors.black),
                   ),
                 ),
-              ),
+                Container(
+                  height: fiftyDp,
+                  width: fiftyDp,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(thirtyDp),
+                    color: CustomColors.teal,
+                  ),
+                  child: Center(
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
             ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.symmetric(vertical: twentyDp),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: CircularPercentIndicator(
-              radius: 60.0,
-              lineWidth: 2.5,
-              percent: 1,
-              animation: true,
-              animationDuration: 1000,
-              onAnimationEnd: () => Navigator.of(context)
-                  .pushNamedAndRemoveUntil(
-                      ConfigPage.routeName, (route) => false),
-              /*center: Text(
-                "$counter",
-                style:
-                    TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
-              ),*/
-              progressColor: Colors.teal,
-            ),
-          ),
-        )
-      ],
-    )));
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget indicator(bool isActive) {
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 300),
+      height: isActive ? 30 : 8,
+      width: 8,
+      margin: EdgeInsets.only(right: sixDp),
+      decoration: BoxDecoration(
+          color:
+              isActive ? CustomColors.teal : CustomColors.teal.withOpacity(0.5),
+          borderRadius: BorderRadius.circular(fourDp)),
+    );
+  }
+
+  List<Widget> indicatorCount() {
+    List<Widget> indicators = [];
+    for (int i = 0; i < 2; i++) {
+      if (currentIndex == i) {
+        indicators.add(indicator(true));
+      } else {
+        indicators.add(indicator(false));
+      }
+    }
+
+    return indicators;
+  }
+
+  pushToConfigPage() {
+    Navigator.of(context)
+        .pushNamedAndRemoveUntil(SplashScreenPage.routeName, (route) => false);
   }
 }
