@@ -206,7 +206,7 @@ class _WalletPageState extends State<WalletPage> {
     );
   }
 
-  Column items(args1, args2) {
+   Column items(args1, args2) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

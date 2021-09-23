@@ -1,9 +1,12 @@
+import 'package:bus_io/actions/actions.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bookings.dart';
 import 'package:bus_io/ui/widgets/bookings_item.dart';
 import 'package:flutter/material.dart';
+
+import 'custom_cancel_button.dart';
 
 class TicketWidget extends StatelessWidget {
   final Bookings bookings;
@@ -37,7 +40,7 @@ class TicketWidget extends StatelessWidget {
                           iconData: null,
                           iconDataColor: Colors.transparent,
                           textExtra:
-                              "${bookings.departureTime} - ${bookings.departureDay}",
+                          "${bookings.departureTime} - ${bookings.departureDay}",
                           isTicket: true,
                           text: departs,
                           onTap: () {}),
@@ -100,14 +103,14 @@ class TicketWidget extends StatelessWidget {
                       ),
                       Padding(
                         padding:
-                            EdgeInsets.only(top: sixteenDp, bottom: sixteenDp),
+                        EdgeInsets.only(top: sixteenDp, bottom: sixteenDp),
                         child: Image.asset(
                           'assets/images/line.png',
                         ),
                       ),
                       Padding(
                         padding:
-                            const EdgeInsets.only(top: tenDp, left: sixteenDp),
+                        const EdgeInsets.only(top: tenDp, left: sixteenDp),
                         child: Text(
                           fareSummary,
                           style: TextStyle(
@@ -235,7 +238,48 @@ class TicketWidget extends StatelessWidget {
                             minWidth: oneTwentyDp,
                             height: fortyDp,
                             onPressed: () async {
-                              Navigator.pop(context);
+                              ShowAction.showDetails(
+                                  youAreAboutToCancelBookings,
+                                  Colors.red,
+                                  youAreAboutToCancelBookingsDes,
+                                  Colors.grey,
+                                  context,
+                                  Column(
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          CancelButton(),
+                                          SizedBox(
+                                            width: sixteenDp,
+                                          ),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                //todo .. remove bookings from list
+                                              },
+                                              child: Text(delete),
+                                              style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                        CustomColors.customRed),
+                                                shape: MaterialStateProperty.all<
+                                                        RoundedRectangleBorder>(
+                                                    RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(
+                                                                    tenDp),
+                                                        side: BorderSide(
+                                                            color:
+                                                                Colors.red))),
+                                              )),
+                                        ],
+                                      ),
+                                    ],
+                                  ));
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -255,7 +299,7 @@ class TicketWidget extends StatelessWidget {
                                   height: twentyFourDp,
                                   decoration: BoxDecoration(
                                       borderRadius:
-                                          BorderRadius.circular(twentyDp),
+                                      BorderRadius.circular(twentyDp),
                                       color: Colors.white.withOpacity(0.2)),
                                 ),
                                 Padding(
