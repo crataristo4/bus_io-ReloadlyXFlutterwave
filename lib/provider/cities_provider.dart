@@ -1,11 +1,11 @@
 import 'package:bus_io/model/cities.dart';
 import 'package:bus_io/model/enum_states.dart';
-import 'package:bus_io/services/app_api_service.dart';
+import 'package:bus_io/services/cities_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class CityProvider with ChangeNotifier {
   ApiState _apiState = ApiState.Initial;
-  AppApiService _apiService = AppApiService.instance;
+  CitiesService _citiesService = CitiesService.instance;
   List<GetCity> cityList = [];
   String? _cityName;
   bool _isFrom = false;
@@ -18,7 +18,7 @@ class CityProvider with ChangeNotifier {
   ApiState get apiState => _apiState;
 
   CityProvider() {
-    fetchCityList();
+    // fetchCityList();
   }
 
   //get cities
@@ -27,7 +27,7 @@ class CityProvider with ChangeNotifier {
 
     try {
       _apiState = ApiState.Loaded;
-      cityList = await _apiService.getCity().then((value) {
+      cityList = await _citiesService.getCity().then((value) {
         return value;
       });
       notifyListeners();
@@ -49,6 +49,6 @@ class CityProvider with ChangeNotifier {
   }
 
   updateCity() {
-    AppApiService.instance.updateCity(cityName, isFrom);
+    CitiesService.instance.updateCity(cityName, isFrom);
   }
 }

@@ -114,14 +114,11 @@ class _SearchCityState extends State<SearchCity> {
             if (_formKey.currentState!.validate()) {
               setState(() {
                 isSearching = true;
-                // CALL API
-                state
-                    .fetchCityList(); //.then((value) => {_listOfCities = value});
               });
-            } else if (searchController.text.toString() == value) {
-              setState(() {
-                isSearching = false;
-              });
+              // CALL API
+              state
+                  .fetchCityList(); //.then((value) => {_listOfCities = value});
+
             } else {
               setState(() {
                 isSearching = false;

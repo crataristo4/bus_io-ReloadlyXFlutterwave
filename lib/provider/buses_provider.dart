@@ -1,10 +1,10 @@
 import 'package:bus_io/model/buses.dart';
 import 'package:bus_io/model/enum_states.dart';
-import 'package:bus_io/services/app_api_service.dart';
+import 'package:bus_io/services/buses_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class BusesProvider with ChangeNotifier {
-  AppApiService _apiService = AppApiService.instance;
+  BusesService _busService = BusesService.instance;
   ApiState _apiState = ApiState.Initial;
   List<GetBus> busList = [];
 
@@ -21,7 +21,7 @@ class BusesProvider with ChangeNotifier {
 
     try {
       _apiState = ApiState.Loaded;
-      busList = await _apiService.getBuses().then((value) {
+      busList = await _busService.getBuses().then((value) {
         return value;
       });
 

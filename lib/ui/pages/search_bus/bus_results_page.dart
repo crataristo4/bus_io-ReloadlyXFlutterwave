@@ -142,7 +142,6 @@ class _BusResultsPageState extends State<BusResultsPage> {
                           seatsBooked: 0,
                         );
 
-                        return buildBusList(bus);
                       },
                       itemCount: state.busList.length,
                       shrinkWrap: true,
@@ -156,37 +155,6 @@ class _BusResultsPageState extends State<BusResultsPage> {
     );
   }
 
-  /* Widget modifyOrFilterCard(title, icon, Function()? onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: oneSixtyDp,
-        // margin: EdgeInsets.symmetric(horizontal: tenDp),
-        padding: EdgeInsets.all(twelveDp),
-        decoration: BoxDecoration(
-            color: Colors.teal.withOpacity(0.02),
-            borderRadius: BorderRadius.circular(tenDp)),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: eightDp, right: fourDp),
-              child: Text(
-                title,
-                style:
-                TextStyle(color: Colors.teal, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Image.asset(
-              icon,
-              width: thirtyDp,
-            )
-          ],
-        ),
-      ),
-    );
-  }*/
 
   Widget buildBusList(GetBus bus) {
     return Container(
