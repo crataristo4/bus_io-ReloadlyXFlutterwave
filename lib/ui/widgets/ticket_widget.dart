@@ -181,7 +181,7 @@ class TicketWidget extends StatelessWidget {
                                         fontSize: seventeenDp)),
                                 WidgetSpan(
                                   child: Text(
-                                    '24,500',
+                                    '${bookings.ticketPrice}',
                                     //superscript is usually smaller in size
                                     style: TextStyle(
                                         color: Colors.black,
@@ -215,7 +215,7 @@ class TicketWidget extends StatelessWidget {
                                       fontSize: sixteenDp)),
                               WidgetSpan(
                                 child: Text(
-                                  'N73,500',
+                                  '${bookings.totalPrice}',
                                   style: TextStyle(
                                       color: Colors.teal,
                                       fontWeight: FontWeight.bold,
@@ -235,7 +235,7 @@ class TicketWidget extends StatelessWidget {
                             minWidth: oneTwentyDp,
                             height: fortyDp,
                             onPressed: () async {
-                              //todo cancel payment
+                              Navigator.pop(context);
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,

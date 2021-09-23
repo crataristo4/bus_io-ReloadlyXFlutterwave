@@ -15,7 +15,6 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'model/bookings.dart';
 import 'model/user.dart';
 
 int? initScreen;
@@ -50,11 +49,11 @@ class EntryPoint extends StatelessWidget {
           value: _userService.getUsers(),
           lazy: false,
         ),
-        StreamProvider<List<Bookings>>.value(
+      /*  StreamProvider<List<Bookings>>.value(
           initialData: [],
           value: bookingsService.getBookings(),
           lazy: false,
-        ),
+        ),*/
       ],
       child: MaterialApp(
         title: appName,

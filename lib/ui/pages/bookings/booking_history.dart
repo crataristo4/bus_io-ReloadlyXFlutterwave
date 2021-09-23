@@ -3,7 +3,9 @@ import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bookings.dart';
+import 'package:bus_io/services/booking_service.dart';
 import 'package:bus_io/ui/pages/home_page/home_page.dart';
+import 'package:bus_io/ui/widgets/bookings_item.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
 import 'package:bus_io/ui/widgets/option_selector_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/svg.dart';
 
 class BookingHistory extends StatefulWidget {
   const BookingHistory({Key? key}) : super(key: key);
@@ -30,6 +33,8 @@ class _BookingHistoryState extends State<BookingHistory> {
 
   @override
   Widget build(BuildContext context) {
+    //  List<Bookings> bookingList = Provider.of<List<Bookings>>(context);
+
     return Container(
       child: Column(
         children: [
@@ -66,10 +71,10 @@ class _BookingHistoryState extends State<BookingHistory> {
                     final selectedDate = await ShowAction().selectDate(context);
                     if (selectedDate == null) return;
                     /*  dateTime = DateTime(
-                      selectedDate.day,
-                      selectedDate.month,
-                      selectedDate.year,
-                    );*/
+                          selectedDate.day,
+                          selectedDate.month,
+                          selectedDate.year,
+                        );*/
                     setState(() {
                       today = dateFormat.format(selectedDate);
                     });
@@ -90,63 +95,77 @@ class _BookingHistoryState extends State<BookingHistory> {
             padding: const EdgeInsets.symmetric(horizontal: sixteenDp),
             child: ButtonWidget(buttonName: search, onButtonTapped: () {}),
           ),
-          /*Padding(
-            padding: const EdgeInsets.only(top: thirtyDp, bottom: sixteenDp),
-            child: Center(
-                child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  'assets/svg/nobooking.svg',
-                  placeholderBuilder: (BuildContext context) => Container(),
-                ),
-                    SizedBox(height: twentyDp,),
-                    Text(
-                      noPreviousBooking,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: twentyDp),
-                    ),
-                    SizedBox(height: tenDp,),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: thirtyDp),
-                      child: Text(
-                    whenBusesAreBooked,
-                    textAlign: TextAlign.center,
-                    style:
-                        TextStyle(color: Colors.black45, fontSize: sixteenDp),
-                  ),
-                ),
-              ],
-            )),
-          )*/
+          StreamBuilder<List<Bookings>>(
+              stream: BookingsService.instance.getBookings(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Expanded(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
 
-          //todo fetched once user books
-         /* Expanded(
-            child: ListView.builder(
-              itemBuilder: (context, index) {
-                Bookings bookings = bookingList[index];
-                return BookingsItem(
-                  bookings: bookings,
-                  containerBgColor: CustomColors.teal,
-                  iconData: "\$",
-                  iconDataColor: Colors.tealAccent.withOpacity(0.4),
-                  onTap: () {
-                   //todo
-                  },
-                  textExtra: "",
-                  buttonName: reviewThisTicket,
-                  text: "${bookings.bookingDate}",
-                  isTicket: false,
-                );
-              },
-              shrinkWrap: true,
-              primary: true,
-              itemCount: bookingList.length,
-              physics: ClampingScrollPhysics(),
-            ),
-          )*/
+                return snapshot.data!.isNotEmpty
+                    ? Expanded(
+                        child: ListView.builder(
+                          itemBuilder: (context, index) {
+                            Bookings bookings = snapshot.data![index];
+                            return BookingsItem(
+                              bookings: bookings,
+                              containerBgColor: CustomColors.teal,
+                              iconData: "\$",
+                              iconDataColor: Colors.tealAccent.withOpacity(0.4),
+                              onTap: () {
+                                //todo
+                              },
+                              textExtra: "",
+                              buttonName: reviewThisTicket,
+                              text: "${bookings.bookingDate}",
+                              isTicket: false,
+                            );
+                          },
+                          shrinkWrap: true,
+                          primary: true,
+                          itemCount: snapshot.data!.length,
+                          physics: ClampingScrollPhysics(),
+                        ),
+                      )
+                    : Expanded(
+                        child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: thirtyDp, bottom: sixteenDp),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(
+                              'assets/svg/nobooking.svg',
+                            ),
+                            SizedBox(
+                              height: twentyDp,
+                            ),
+                            Text(
+                              noPreviousBooking,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: twentyDp),
+                            ),
+                            SizedBox(
+                              height: tenDp,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: thirtyDp),
+                              child: Text(
+                                whenBusesAreBooked,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                    color: Colors.black45, fontSize: sixteenDp),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ));
+              })
         ],
       ),
     );

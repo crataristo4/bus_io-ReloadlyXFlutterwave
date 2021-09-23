@@ -3,6 +3,7 @@ import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bookings.dart';
 import 'package:bus_io/ui/pages/bookings/ticket_details.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class BookingsItem extends StatefulWidget {
@@ -59,10 +60,11 @@ class _BookingsItemState extends State<BookingsItem> {
                   Padding(
                     padding:
                         const EdgeInsets.only(left: fourDp, top: fourteenDp),
-                    child: Image.asset(
-                      widget.bookings.busImage,
+                    child: CachedNetworkImage(
                       width: thirtyDp,
+                      fit: BoxFit.cover,
                       height: twentyDp,
+                      imageUrl: '${widget.bookings.busImage}',
                     ),
                   ),
                   Padding(
