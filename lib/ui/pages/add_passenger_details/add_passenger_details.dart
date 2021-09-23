@@ -16,22 +16,23 @@ class AddPassengerDetails extends StatefulWidget {
   final seatsSelected;
   final GetBus bus;
   final totalPrice;
-  final to, from;
+  final to, from, date;
 
   //final List<int> seatNumberSelectedList;
 
 //  final double ticketPrice;
 
-  const AddPassengerDetails(
-      {Key? key,
-      //required this.ticketPrice
-      required this.seatsSelected,
-      required this.bus,
-      required this.totalPrice,
-      required this.to,
-      required this.from
-      //  required this.seatNumberSelectedList,
-      }) : super(key: key);
+  const AddPassengerDetails({
+    Key? key,
+    //required this.ticketPrice
+    required this.seatsSelected,
+    required this.bus,
+    required this.totalPrice,
+    required this.to,
+    required this.from,
+    required this.date,
+    //  required this.seatNumberSelectedList,
+  }) : super(key: key);
 
   @override
   _AddPassengerDetailsState createState() => _AddPassengerDetailsState();
@@ -100,7 +101,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                               children: [
                                 Padding(
                                   padding:
-                                  const EdgeInsets.only(left: sixteenDp),
+                                      const EdgeInsets.only(left: sixteenDp),
                                   child: Text(
                                     '${widget.seatsSelected.length} $seats',
                                     style: TextStyle(
@@ -143,7 +144,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.w500,
                                               decoration:
-                                              TextDecoration.lineThrough,
+                                                  TextDecoration.lineThrough,
                                               // fontFamily: 'Mulish',
                                               fontSize: sixteenDp)),
                                       WidgetSpan(
@@ -227,7 +228,8 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                         totalPrice: widget.totalPrice,
                                         passengerList: passengerDetails,
                                         to: widget.to,
-                                        from: widget.from),
+                                        from: widget.from,
+                                        date: widget.date),
                                   ));
                                 } else {
                                   //show error

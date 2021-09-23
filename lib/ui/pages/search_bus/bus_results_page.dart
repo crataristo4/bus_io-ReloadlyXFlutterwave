@@ -137,7 +137,7 @@ class _BusResultsPageState extends State<BusResultsPage> {
                                       from: widget.from,
                                       numberOfPassengers:
                                           widget.numberOfPassengers,
-                                    )));
+                                  date: widget.date)));
                           },
                           seatsBooked: 0,
                         );
@@ -485,6 +485,7 @@ class _BusResultsPageState extends State<BusResultsPage> {
                           bus: bus,
                               to: widget.to,
                               from: widget.from,
+                              date: widget.date,
                               numberOfPassengers: widget.numberOfPassengers,
                             )));
                   },

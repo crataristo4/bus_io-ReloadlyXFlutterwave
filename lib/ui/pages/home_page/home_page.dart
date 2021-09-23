@@ -11,6 +11,7 @@ import 'package:bus_io/ui/widgets/option_selector_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterwave/utils/flutterwave_currency.dart';
 import 'package:intl/intl.dart';
 
 DateFormat dateFormat = DateFormat('dd/MM/yyyy');
@@ -29,13 +30,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TextEditingController noOfPassengerController = TextEditingController();
-  String? date;
+  String? dateSelected;
   String? message;
   final _formKey = GlobalKey<FormState>();
 
+  final String txtRef = "busPayment";
+
+  final String currency = FlutterwaveCurrency.GHS;
+
   @override
   void initState() {
-    date = dateFormat.format(dateTime);
+    dateSelected = dateFormat.format(dateTime);
     greetingMessage();
     super.initState();
   }
@@ -132,13 +137,13 @@ class _HomePageState extends State<HomePage> {
                                 final selectedDate =
                                     await ShowAction().selectDate(context);
                                 if (selectedDate == null) return;
-                                date = dateFormat.format(selectedDate);
+                                dateSelected = dateFormat.format(selectedDate);
                                 setState(() {});
                               },
                               child: OptionSelector(
                                 title: date,
                                 icon: 'assets/icons/calender.png',
-                                widget: Text('$date'),
+                                widget: Text('$dateSelected'),
                                 textColor: Colors.black,
                               ),
                             ),
@@ -155,7 +160,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         ButtonWidget(
                             buttonName: findBuses,
-                            onButtonTapped: () {
+                            onButtonTapped: () async {
                               //if validations then proceed to search buses
                               //check if user has selected destinations
                               if (users.from!.isNotEmpty &&
@@ -169,7 +174,7 @@ class _HomePageState extends State<HomePage> {
                                             numberOfPassengers: int.parse(
                                                 noOfPassengerController.text),
                                             to: users.to,
-                                            date: date,
+                                            date: dateSelected,
                                             from: users.from,
                                           )));
                                 }

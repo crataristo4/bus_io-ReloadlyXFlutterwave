@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:bus_io/model/bus.dart';
+import 'package:bus_io/model/buses.dart';
 
 //final bookings = bookingsFromJson(jsonString);
 
@@ -10,7 +11,8 @@ String bookingsToJson(Bookings data) => json.encode(data.toJson());
 
 class Bookings {
   Bookings({
-    required this.id,
+    required this.bookingId,
+    required this.userId,
     required this.from,
     required this.to,
     required this.bookingDate,
@@ -18,25 +20,29 @@ class Bookings {
     required this.bus,
   });
 
-  final String id;
+  final String bookingId, userId;
   final String from;
   final String to;
   final String bookingDate;
   final List<Details> details;
-  final Bus bus;
+  final GetBus bus;
 
-  factory Bookings.fromJson(Map<String, dynamic> json) => Bookings(
-        id: json["id"],
+  factory Bookings.fromJson(Map<String, dynamic> json) =>
+      Bookings(
+        bookingId: json["bookingId"],
+        userId: json["userId"],
         from: json["from"],
         to: json["to"],
         bookingDate: json["bookingDate"],
         details:
-            List<Details>.from(json["details"].map((x) => Details.fromJson(x))),
-        bus: Bus.fromJson(json["bus"]),
+        List<Details>.from(json["details"].map((x) => Details.fromJson(x))),
+        bus: GetBus.fromJson(json["getBuses"]),
       );
 
-  Map<String, dynamic> toJson() => {
-        "id": id,
+  Map<String, dynamic> toJson() =>
+      {
+        "bookingId": bookingId,
+        "userId": userId,
         "from": from,
         "to": to,
         "bookingDate": bookingDate,
@@ -70,7 +76,7 @@ class Details {
       };
 }
 
-List<Bookings> bookingList = [
+/*List<Bookings> bookingList = [
   Bookings(
       id: 'id',
       from: "Lagos",
@@ -306,4 +312,4 @@ List<Bookings> bookingList = [
             5,
           ],
           price: 36840)),
-];
+];*/

@@ -13,13 +13,15 @@ import 'package:flutter/material.dart';
 class SelectSeat extends StatefulWidget {
   static const routeName = '/selectSeat';
   final GetBus bus;
-  final to, from, numberOfPassengers;
+  final to, from, numberOfPassengers, date;
 
-  const SelectSeat({Key? key,
-    required this.bus,
-    required this.to,
-    required this.from,
-    required this.numberOfPassengers})
+  const SelectSeat(
+      {Key? key,
+      required this.bus,
+      required this.to,
+      required this.from,
+      required this.date,
+      required this.numberOfPassengers})
       : super(key: key);
 
   @override
@@ -524,7 +526,7 @@ class _SelectSeatState extends State<SelectSeat> {
                                     totalPrice: totalPrice,
                                     to: widget.to,
                                     from: widget.from,
-                                  ),
+                                      date: widget.date),
                                 ));
                               }
                             },

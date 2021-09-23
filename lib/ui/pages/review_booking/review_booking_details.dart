@@ -22,7 +22,7 @@ class ReviewBookingDetails extends StatefulWidget {
   final totalPrice;
   final List<Details> passengerList;
   final List seatNumberSelectedList;
-  final to, from;
+  final to, from, date;
 
   const ReviewBookingDetails(
       {Key? key,
@@ -31,6 +31,7 @@ class ReviewBookingDetails extends StatefulWidget {
       required this.totalPrice,
       required this.to,
       required this.from,
+      required this.date,
       required this.seatNumberSelectedList})
       : super(key: key);
 
@@ -43,8 +44,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
   int? totalPrice;
   final String txtRef = "busPayment";
 
-  //final String amount = "200";
-  final String currency = FlutterwaveCurrency.NGN;
+  final String currency = FlutterwaveCurrency.GHS;
   BookingsProvider _bookingsProvider = BookingsProvider();
 
   @override
@@ -55,7 +55,6 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
 
   @override
   Widget build(BuildContext context) {
-    print("pass ..");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(reviewBookingDetails, () {
@@ -174,7 +173,6 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        //todo get seat number
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -191,7 +189,6 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                               padding: const EdgeInsets.only(
                                   top: fourDp, left: tenDp),
                               child: Text(
-                                //todo
                                 '${widget.seatNumberSelectedList.toString().replaceAll('[', '').replaceAll(']', '')}',
                                 style: TextStyle(
                                     color: CustomColors.black,
@@ -285,7 +282,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                             onPressed: () async {
                               Dialogs.showLoadingDialog(
                                   context, loadingKey, "", Colors.white);
-                              await Future.delayed(Duration(seconds: 3));
+                              Future.delayed(Duration(seconds: 3));
                               Navigator.pop(context);
                               //make payment through flutter wave
                               await beginPayment();
@@ -431,15 +428,15 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
   beginPayment() async {
     final Flutterwave flutterWave = Flutterwave.forUIPayment(
         context: this.context,
-        encryptionKey: "FLWSECK_TEST8f7d02feca66",
-        publicKey: "FLWPUBK_TEST-c6f888566a3c8cf190f42cf02ac40eb3-X",
+        encryptionKey: "FLWSECK_TEST9799ca448272",
+        publicKey: "FLWPUBK_TEST-82c0d74c51fecb2bd7e594e1a8ce9bf5-X",
         currency: this.currency,
-        amount: '${widget.totalPrice}',
-        email: "valid@email.com",
-        fullName: "Valid Full Name",
+        amount: '30',
+        email: "crataristo4@gmail.com",
+        fullName: "Test",
         txRef: this.txtRef,
         isDebugMode: true,
-        phoneNumber: "0123456789",
+        phoneNumber: "0207824082",
         acceptCardPayment: true,
         acceptUSSDPayment: true,
         acceptAccountPayment: true,
@@ -447,7 +444,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
         acceptGhanaPayment: true,
         acceptMpesaPayment: false,
         acceptRwandaMoneyPayment: true,
-        acceptUgandaPayment: false,
+        acceptUgandaPayment: true,
         acceptZambiaPayment: false);
 
     try {
@@ -459,10 +456,8 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
         final isSuccessful = checkPaymentIsSuccessful(response);
         if (isSuccessful) {
           // provide value to customer
-
-          //book bus
-          await _bookingsProvider.notifyDetails(
-              to, from, widget.bus.departureDay, widget.bus, context);
+          await _bookingsProvider.notifyDetails(widget.to, widget.from,
+              widget.date, widget.passengerList, widget.bus, context);
         } else {
           // check message
           print(response.message);
@@ -475,14 +470,14 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
         }
       }
     } catch (error, stacktrace) {
-      // handleError(error);
+      print(error);
     }
   }
 
   bool checkPaymentIsSuccessful(final ChargeResponse response) {
     return response.data!.status == FlutterwaveConstants.SUCCESSFUL &&
         response.data!.currency == this.currency &&
-        response.data!.amount == '${widget.bus.price}' &&
+        response.data!.amount == '30' &&
         response.data!.txRef == this.txtRef;
   }
 }
