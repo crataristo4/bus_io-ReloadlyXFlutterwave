@@ -69,7 +69,6 @@ class _MainPageState extends State<MainPage> {
             icon: Container(
               padding: EdgeInsets.all(eightDp),
               child: SvgPicture.asset(
-                //todo add wallet_color.svg
                 widget.selectedIndex! == 2
                     ? 'assets/svg/wallet_color.svg'
                     : 'assets/svg/wallet_grey.svg',
