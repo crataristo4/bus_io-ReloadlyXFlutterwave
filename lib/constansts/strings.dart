@@ -121,6 +121,13 @@ const showTen = 'Show 10 results';
 const createAnAccount = 'Create an Account';
 const bookedSeat = 'Booked Seats: ';
 const forgotPassword = 'Forgot password?';
+const bookABus = 'Book A Bus';
+const skip = 'Skip';
+const lpr = 'Loyalty Points Reward';
+const lprDes =
+    'Get loyalty points on every booking made, and have collected as airtime or giftcards';
+const bookDes =
+    'A whole new experience on Africa’s leading bus booking platform';
 const bookABusDes =
     'Book a bus for your next journey. Enjoy seamless rides 👌🏽';
 const busBookingMadeEasy = 'Bus booking made easy';
