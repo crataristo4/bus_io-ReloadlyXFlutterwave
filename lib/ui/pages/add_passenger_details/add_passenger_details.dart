@@ -11,8 +11,9 @@ class AddPassengerDetails extends StatefulWidget {
   static const routeName = '/addPassengerDetails';
   final seatsSelected;
   final GetBus bus;
-  final List<String> passengerList;
-  final List<int> seatNumberSelectedList;
+  final totalPrice;
+
+  //final List<int> seatNumberSelectedList;
 
 //  final double ticketPrice;
 
@@ -21,8 +22,8 @@ class AddPassengerDetails extends StatefulWidget {
     //required this.ticketPrice
     required this.seatsSelected,
     required this.bus,
-    required this.passengerList,
-    required this.seatNumberSelectedList,
+    required this.totalPrice,
+    //  required this.seatNumberSelectedList,
   }) : super(key: key);
 
   @override
@@ -45,7 +46,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
   TextEditingController ageController3 = TextEditingController();
   TextEditingController phoneController3 = TextEditingController();
 
-  List<String> _seatSelected = ['Seat 1', 'Seat 8', 'Seat 16'];
+  List<String> _seatSelected = ['Seat 2', 'Seat 3'];
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +94,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                   padding:
                                       const EdgeInsets.only(left: sixteenDp),
                                   child: Text(
-                                    '3 $seats',
+                                    '${widget.seatsSelected.length} $seats',
                                     style: TextStyle(
                                         color: CustomColors.grayMedium,
                                         fontWeight: FontWeight.w400),
@@ -103,7 +104,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                   padding: const EdgeInsets.only(
                                       left: sixteenDp, top: fourDp),
                                   child: Text(
-                                    '1,8,16',
+                                    '${widget.seatsSelected.toString().replaceAll('[', '').replaceAll(']', '')}',
                                     style: TextStyle(
                                         color: CustomColors.black,
                                         fontSize: sixteenDp,
@@ -139,7 +140,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                               fontSize: sixteenDp)),
                                       WidgetSpan(
                                         child: Text(
-                                          '24,500',
+                                          '${widget.bus.price}',
                                           //superscript is usually smaller in size
                                           style: TextStyle(
                                               color: Colors.black,
@@ -174,7 +175,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                         fontSize: sixteenDp)),
                                 WidgetSpan(
                                   child: Text(
-                                    'N73,500',
+                                    '${widget.totalPrice}',
                                     style: TextStyle(
                                         color: Colors.teal,
                                         fontWeight: FontWeight.bold,
@@ -226,8 +227,8 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                   builder: (context) => ReviewBookingDetails(
                                     bus: widget.bus,
                                     seatNumberSelectedList:
-                                        widget.seatNumberSelectedList,
-                                    passengerList: widget.passengerList,
+                                        widget.seatsSelected,
+                                    passengerList: [], //todo
                                   ),
                                 ));
                               },
@@ -280,7 +281,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                 },
                 dropDownList: _seatSelected),
             PassengerDetails(
-                title: '$passenger $seatSelected}',
+                title: '$passenger $seatSelected',
                 nameController: nameController2,
                 ageController: ageController2,
                 phoneController: phoneController2,
@@ -290,7 +291,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                 dropDownList: _seatSelected)
           ],
         );
-      case 3:
+    /* case 3:
         return Column(
           children: [
             PassengerDetails(
@@ -322,7 +323,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                 dropDownList: _seatSelected)
           ],
         );
-
+*/
       default:
         PassengerDetails(
             title: '$passenger $seatSelected',

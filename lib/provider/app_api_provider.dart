@@ -1,11 +1,11 @@
-import 'package:bus_io/model/buses.dart';
-import 'package:bus_io/model/cities.dart';
+import 'package:bus_io/model/enum_states.dart';
 import 'package:bus_io/services/app_api_service.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppApiProvider with ChangeNotifier {
   AppApiService _apiService = AppApiService.instance;
   ApiState _apiState = ApiState.Initial;
+/*
   List<GetBus> busList = [];
   List<GetCity> cityList = [];
   String? _cityName;
@@ -20,7 +20,7 @@ class AppApiProvider with ChangeNotifier {
 
   AppApiProvider() {
     //
-    // fetchCityList();
+     //fetchCityList();
   }
 
   //get buses
@@ -63,8 +63,6 @@ class AppApiProvider with ChangeNotifier {
 
   updateCity() {
     AppApiService.instance.updateCity(cityName, isFrom);
-  }
+  }*/
 }
 
-//states
-enum ApiState { Initial, Loading, Loaded, Error }

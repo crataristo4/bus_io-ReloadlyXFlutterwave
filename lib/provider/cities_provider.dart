@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 class CityProvider with ChangeNotifier {
   ApiState _apiState = ApiState.Initial;
+  AppApiService _apiService = AppApiService.instance;
   List<GetCity> cityList = [];
   String? _cityName;
   bool _isFrom = false;
@@ -26,7 +27,10 @@ class CityProvider with ChangeNotifier {
 
     try {
       _apiState = ApiState.Loaded;
-      cityList = await AppApiService.instance.getCity();
+      cityList = await _apiService.getCity().then((value) {
+        return value;
+      });
+      notifyListeners();
     } catch (e) {
       _apiState = ApiState.Error;
       print(e.toString());

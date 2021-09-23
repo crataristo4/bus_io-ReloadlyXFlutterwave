@@ -15,8 +15,8 @@ import 'package:flutterwave/utils/flutterwave_currency.dart';
 class ReviewBookingDetails extends StatefulWidget {
   static const routeName = '/reviewBookingDetails';
   final GetBus bus;
-  final List<String> passengerList;
-  final List<int> seatNumberSelectedList;
+  final List passengerList;
+  final List seatNumberSelectedList;
 
   const ReviewBookingDetails(
       {Key? key,

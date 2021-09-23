@@ -2,7 +2,8 @@ import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/cities.dart';
-import 'package:bus_io/provider/app_api_provider.dart';
+import 'package:bus_io/model/enum_states.dart';
+import 'package:bus_io/provider/cities_provider.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,7 @@ class SearchCity extends StatefulWidget {
 class _SearchCityState extends State<SearchCity> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController searchController = TextEditingController();
-  AppApiProvider state = AppApiProvider();
+  CityProvider state = CityProvider();
   bool isSearching = false;
   List<GetCity>? _listOfCities;
 
@@ -37,7 +38,7 @@ class _SearchCityState extends State<SearchCity> {
 
   @override
   Widget build(BuildContext context) {
-    state = Provider.of<AppApiProvider>(context);
+    state = Provider.of<CityProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar('', () {
@@ -81,20 +82,20 @@ class _SearchCityState extends State<SearchCity> {
                 } else
                   return isSearching
                       ? ListView.builder(
-                    itemBuilder: (context, index) {
-                      GetCity cities = state.cityList[index];
+                          itemBuilder: (context, index) {
+                            GetCity cities = state.cityList[index];
 
-                      // Places bus = placeList[index];
-                      return buildCityResults(cities);
-                    },
-                    itemCount: isSearching ? state.cityList.length : 0,
-                    shrinkWrap: true,
-                    physics: ClampingScrollPhysics(),
-                    primary: true,
-                  )
+                            // Places bus = placeList[index];
+                            return buildCityResults(cities);
+                          },
+                          itemCount: isSearching ? state.cityList.length : 0,
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          primary: true,
+                        )
                       : Center(
-                    child: Text("Please search a city"),
-                  );
+                          child: Text("Please search a city"),
+                        );
               }),
             ),
           ],

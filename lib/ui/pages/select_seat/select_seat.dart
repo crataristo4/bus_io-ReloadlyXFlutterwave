@@ -1,9 +1,10 @@
+import 'package:bus_io/actions/progress_dialog.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
-import 'package:bus_io/model/bus.dart';
 import 'package:bus_io/model/buses.dart';
 import 'package:bus_io/ui/pages/add_passenger_details/add_passenger_details.dart';
+import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,23 +12,47 @@ import 'package:flutter/material.dart';
 class SelectSeat extends StatefulWidget {
   static const routeName = '/selectSeat';
   final GetBus bus;
+  final to, from, numberOfPassengers;
 
-  const SelectSeat({Key? key, required this.bus}) : super(key: key);
+  const SelectSeat(
+      {Key? key,
+      required this.bus,
+      required this.to,
+      required this.from,
+      required this.numberOfPassengers})
+      : super(key: key);
 
   @override
   _SelectSeatState createState() => _SelectSeatState();
 }
 
 class _SelectSeatState extends State<SelectSeat> {
-  bool isBooked = false;
-  bool isAvailable = true;
   bool isSelected = false;
-  int seatsSelected = 3;
-  int ticketFair = 3;
-  int totalPrice = 3;
+  bool isSelected1 = false;
+  bool isSelected2 = false;
+
+  //generated seats
+  var seatNumbers = new List<int>.generate(25, (i) => i + 1);
+  List<int> selectedSeats = [];
+  var totalPrice;
+
+  @override
+  void initState() {
+    var set1 = Set.from(seatNumbers);
+    var set2 = Set.from(widget.bus.remainingSeats);
+    print(" ... ${List.from(set1.difference(set2))}");
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (selectedSeats.isNotEmpty) {
+      totalPrice = selectedSeats.length * widget.bus.price;
+    } else {
+      totalPrice = widget.bus.price;
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(selectSeat, () {
@@ -98,18 +123,40 @@ class _SelectSeatState extends State<SelectSeat> {
                                   children: [
                                     Row(
                                       children: [
-                                        buildSeats(1, Colors.white, Colors.teal,
-                                            0, Colors.teal),
-                                        buildSeats(2, Colors.teal, Colors.white,
-                                            1.5, Colors.teal),
+                                        buildSeats(
+                                            1,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
+                                        buildSeats(
+                                            2,
+                                            isSelected
+                                                ? Colors.white
+                                                : Colors.teal,
+                                            isSelected
+                                                ? Colors.teal
+                                                : Colors.white,
+                                            1.5,
+                                            isSelected
+                                                ? Colors.white
+                                                : Colors.teal),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        buildSeats(8, Colors.white, Colors.teal,
-                                            0, Colors.teal),
-                                        buildSeats(7, Colors.teal, Colors.white,
-                                            1.5, Colors.teal),
+                                        buildSeats(
+                                            8,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
+                                        buildSeats(
+                                            7,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
                                       ],
                                     ),
                                     Row(
@@ -130,10 +177,18 @@ class _SelectSeatState extends State<SelectSeat> {
                                     ),
                                     Row(
                                       children: [
-                                        buildSeats(16, Colors.white,
-                                            Colors.teal, 0, Colors.teal),
-                                        buildSeats(15, Colors.teal,
-                                            Colors.white, 1.5, Colors.teal),
+                                        buildSeats(
+                                            16,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
+                                        buildSeats(
+                                            15,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
                                       ],
                                     ),
                                     Row(
@@ -144,8 +199,12 @@ class _SelectSeatState extends State<SelectSeat> {
                                             Colors.grey.withOpacity(0.5),
                                             0,
                                             Colors.white),
-                                        buildSeats(18, Colors.teal,
-                                            Colors.white, 1.5, Colors.teal),
+                                        buildSeats(
+                                            18,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
                                       ],
                                     ),
                                     Row(
@@ -172,8 +231,18 @@ class _SelectSeatState extends State<SelectSeat> {
                                   children: [
                                     Row(
                                       children: [
-                                        buildSeats(3, Colors.teal, Colors.white,
-                                            1.5, Colors.teal),
+                                        buildSeats(
+                                            3,
+                                            isSelected1
+                                                ? Colors.white
+                                                : Colors.teal,
+                                            isSelected1
+                                                ? Colors.teal
+                                                : Colors.white,
+                                            1.5,
+                                            isSelected1
+                                                ? Colors.white
+                                                : Colors.teal),
                                         buildSeats(
                                             4,
                                             Colors.black,
@@ -190,14 +259,22 @@ class _SelectSeatState extends State<SelectSeat> {
                                             Colors.grey.withOpacity(0.5),
                                             0,
                                             Colors.white),
-                                        buildSeats(5, Colors.teal, Colors.white,
-                                            1.5, Colors.teal),
+                                        buildSeats(
+                                            5,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
                                       ],
                                     ),
                                     Row(
                                       children: [
-                                        buildSeats(11, Colors.teal,
-                                            Colors.white, 1.5, Colors.teal),
+                                        buildSeats(
+                                            11,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
                                         buildSeats(
                                             12,
                                             Colors.black,
@@ -208,8 +285,12 @@ class _SelectSeatState extends State<SelectSeat> {
                                     ),
                                     Row(
                                       children: [
-                                        buildSeats(14, Colors.teal,
-                                            Colors.white, 1.5, Colors.teal),
+                                        buildSeats(
+                                            14,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
                                         buildSeats(
                                             13,
                                             Colors.black,
@@ -220,8 +301,18 @@ class _SelectSeatState extends State<SelectSeat> {
                                     ),
                                     Row(
                                       children: [
-                                        buildSeats(19, Colors.teal,
-                                            Colors.white, 1.5, Colors.teal),
+                                        buildSeats(
+                                            19,
+                                            isSelected2
+                                                ? Colors.white
+                                                : Colors.teal,
+                                            isSelected2
+                                                ? Colors.teal
+                                                : Colors.white,
+                                            1.5,
+                                            isSelected2
+                                                ? Colors.white
+                                                : Colors.teal),
                                         buildSeats(
                                             20,
                                             Colors.black,
@@ -238,8 +329,12 @@ class _SelectSeatState extends State<SelectSeat> {
                                             Colors.grey.withOpacity(0.5),
                                             0,
                                             Colors.white),
-                                        buildSeats(21, Colors.teal,
-                                            Colors.white, 1.5, Colors.teal),
+                                        buildSeats(
+                                            21,
+                                            Colors.black,
+                                            Colors.grey.withOpacity(0.5),
+                                            0,
+                                            Colors.white),
                                       ],
                                     ),
                                   ],
@@ -278,7 +373,11 @@ class _SelectSeatState extends State<SelectSeat> {
                               Padding(
                                 padding: const EdgeInsets.only(left: sixteenDp),
                                 child: Text(
-                                  '$seatsSelected $seats',
+                                  selectedSeats.length == 0
+                                      ? "No seat selected"
+                                      : selectedSeats.length < 1
+                                          ? '${selectedSeats.length} $seat'
+                                          : '${selectedSeats.length} $seats',
                                   style: TextStyle(
                                       color: CustomColors.grayMedium,
                                       fontWeight: FontWeight.w400),
@@ -288,7 +387,9 @@ class _SelectSeatState extends State<SelectSeat> {
                                 padding: const EdgeInsets.only(
                                     top: fourDp, left: sixteenDp),
                                 child: Text(
-                                  '1,8,16',
+                                  selectedSeats.length == 0
+                                      ? ""
+                                      : "${selectedSeats.toString().replaceAll("[", "").replaceAll("]", "")}",
                                   style: TextStyle(
                                       color: CustomColors.black,
                                       fontSize: sixteenDp,
@@ -324,7 +425,7 @@ class _SelectSeatState extends State<SelectSeat> {
                                             fontSize: sixteenDp)),
                                     WidgetSpan(
                                       child: Text(
-                                        '24,500',
+                                        '${widget.bus.price}',
                                         //superscript is usually smaller in size
                                         style: TextStyle(
                                             color: Colors.black,
@@ -359,7 +460,7 @@ class _SelectSeatState extends State<SelectSeat> {
                                       fontSize: sixteenDp)),
                               WidgetSpan(
                                 child: Text(
-                                  'N73,500',
+                                  "$totalPrice",
                                   style: TextStyle(
                                       color: Colors.teal,
                                       fontWeight: FontWeight.bold,
@@ -378,18 +479,23 @@ class _SelectSeatState extends State<SelectSeat> {
                                 borderRadius: BorderRadius.circular(tenDp)),
                             minWidth: oneTwentyDp,
                             height: fiftyDp,
-                            onPressed: () {
+                            onPressed: () async {
+                              Dialogs.showLoadingDialog(
+                                  context, loadingKey, "", Colors.white);
+                              await Future.delayed(Duration(seconds: 3));
+                              Navigator.pop(context);
+
                               Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => AddPassengerDetails(
-                                  seatsSelected: 2,
+                                  seatsSelected: selectedSeats,
                                   bus: widget.bus,
-                                  passengerList: [
+                                  totalPrice: totalPrice,
+                                  /*  passengerList: [
                                     // todo -- get from controllers
                                     'Tobiloba Adekunle',
                                     'Mildred Egenti',
                                     'Max Luvran'
-                                  ],
-                                  seatNumberSelectedList: [1, 8, 16],
+                                  ],*/
                                 ),
                               ));
                               /*ShowAction.showDetails(
@@ -470,18 +576,47 @@ class _SelectSeatState extends State<SelectSeat> {
   //seat numbering
   Widget buildSeats(int seatNumber, Color textColor, Color bgColor,
       double borderWidth, Color borderColor) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: sixteenDp, vertical: tenDp),
-      width: fortyDp,
-      height: fortyDp,
-      decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(eightDp),
-          border: Border.all(width: borderWidth, color: borderColor)),
-      child: Center(
-        child: Text(
-          '$seatNumber',
-          style: TextStyle(color: textColor),
+    return GestureDetector(
+      onTap: () {
+        if (bgColor == Colors.teal || bgColor == Colors.grey.withOpacity(0.5)) {
+          SnackBar snackBar = SnackBar(
+            content: Text(
+              alreadySelected,
+              style: TextStyle(color: Colors.white),
+            ),
+            duration: Duration(milliseconds: 800),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        } else if (seatNumber == 2) {
+          selectedSeats.add(seatNumber);
+          setState(() {
+            isSelected = true;
+          });
+        } else if (seatNumber == 3) {
+          selectedSeats.add(seatNumber);
+          setState(() {
+            isSelected1 = true;
+          });
+        } else if (seatNumber == 19) {
+          selectedSeats.add(seatNumber);
+          setState(() {
+            isSelected2 = true;
+          });
+        }
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: sixteenDp, vertical: tenDp),
+        width: fortyDp,
+        height: fortyDp,
+        decoration: BoxDecoration(
+            color: bgColor,
+            borderRadius: BorderRadius.circular(eightDp),
+            border: Border.all(width: borderWidth, color: borderColor)),
+        child: Center(
+          child: Text(
+            '$seatNumber',
+            style: TextStyle(color: textColor),
+          ),
         ),
       ),
     );
