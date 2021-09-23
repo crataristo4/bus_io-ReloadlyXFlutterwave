@@ -62,7 +62,37 @@ class ShowAction {
     showDialog(
       context: context,
       builder: (_) => alertDialog,
-      barrierDismissible: false,
+      barrierDismissible: true,
+    );
+  }
+
+  static void walletPopUp(String title, String content,
+      Function()? onContentTap, BuildContext context, Widget widgetA) {
+    var alertDialog = AlertDialog(
+      title: Text(title,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.black45,
+              fontSize: fourteenDp),
+          textAlign: TextAlign.center),
+      content: GestureDetector(
+        onTap: onContentTap,
+        child: Text(content,
+            style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.w400,
+                fontSize: fourteenDp),
+            textAlign: TextAlign.center),
+      ),
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(twentyDp)),
+      actions: <Widget>[widgetA],
+    );
+
+    showDialog(
+      context: context,
+      builder: (_) => alertDialog,
+      barrierDismissible: true,
     );
   }
 
