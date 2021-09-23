@@ -30,22 +30,16 @@ class _ConfigPageState extends State<ConfigPage> {
 
   @override
   Widget build(BuildContext context) {
-    print("?? $isLoggedIn ?? ");
-    if (isLoggedIn) {
-      print("?? ${_user!.uid} ?? ");
-    }
-    return WillPopScope(
-        onWillPop: () async => false,
-        child: Container(
-            child: SafeArea(
-                top: false,
-                bottom: false,
-                child: Scaffold(
-                    body: isLoggedIn
-                        ? MainPage(
-                            selectedIndex: 0,
-                          )
-                        : SignupPage()))));
+    return Container(
+        child: SafeArea(
+            top: false,
+            bottom: false,
+            child: Scaffold(
+                body: isLoggedIn
+                    ? MainPage(
+                        selectedIndex: 0,
+                      )
+                    : SignupPage())));
   }
 
 /* getCurrentUser() async {

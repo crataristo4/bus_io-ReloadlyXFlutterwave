@@ -74,17 +74,20 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     style: TextStyle(fontSize: sixteenDp, color: Colors.black),
                   ),
                 ),
-                Container(
-                  height: fiftyDp,
-                  width: fiftyDp,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(thirtyDp),
-                    color: CustomColors.teal,
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.arrow_forward,
-                      color: Colors.white,
+                GestureDetector(
+                  onTap: pushToSplash,
+                  child: Container(
+                    height: fiftyDp,
+                    width: fiftyDp,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(thirtyDp),
+                      color: CustomColors.teal,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 )
@@ -122,7 +125,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return indicators;
   }
 
-  pushToConfigPage() {
+  pushToSplash() {
     Navigator.of(context)
         .pushNamedAndRemoveUntil(SplashScreenPage.routeName, (route) => false);
   }
