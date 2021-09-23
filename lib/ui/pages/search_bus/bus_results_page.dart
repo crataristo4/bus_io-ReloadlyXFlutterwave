@@ -67,18 +67,20 @@ class _BusResultsPageState extends State<BusResultsPage> {
             SizedBox(
               height: tenDp,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ModifyOrFilter(
-                    title: modifyResults,
-                    icon: '$iconAssetPrefix$editIcon',
-                    onTap: () {
-                      ShowAction.showAlertDialog(
-                          DestinationCard(
-                              from: widget.from,
-                              to: widget.to,
-                              color: Colors.black,
+            state.busList.length == 0
+                ? Container()
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ModifyOrFilter(
+                          title: modifyResults,
+                          icon: '$iconAssetPrefix$editIcon',
+                          onTap: () {
+                            ShowAction.showAlertDialog(
+                                DestinationCard(
+                                    from: widget.from,
+                                    to: widget.to,
+                                    color: Colors.black,
                               isCard: false),
                           context,
                           alertButton(cancel, Colors.teal,
@@ -86,15 +88,16 @@ class _BusResultsPageState extends State<BusResultsPage> {
                           alertButton(done, Colors.white, Colors.teal, 1.2));
                     }),
                 ModifyOrFilter(
-                    title: filterResults,
-                    icon: '$iconAssetPrefix$filterIcon',
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) => FilterBottomSheet(),
-                      );
-                    })
-              ],
+                          title: filterResults,
+                          icon: '$iconAssetPrefix$filterIcon',
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (context) => FilterBottomSheet(
+                                  results: state.busList.length),
+                            );
+                          })
+                    ],
             ),
             SizedBox(
               height: twentyDp,

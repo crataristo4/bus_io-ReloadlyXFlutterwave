@@ -431,11 +431,11 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
         encryptionKey: "FLWSECK_TEST9799ca448272",
         publicKey: "FLWPUBK_TEST-82c0d74c51fecb2bd7e594e1a8ce9bf5-X",
         currency: this.currency,
-        amount: '30',
+        amount: '${widget.totalPrice}',
         email: "crataristo4@gmail.com",
         fullName: "Test",
         txRef: this.txtRef,
-        isDebugMode: true,
+        isDebugMode: false,
         phoneNumber: "0207824082",
         acceptCardPayment: true,
         acceptUSSDPayment: true,
@@ -488,7 +488,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
   bool checkPaymentIsSuccessful(final ChargeResponse response) {
     return response.data!.status == FlutterwaveConstants.SUCCESSFUL &&
         response.data!.currency == this.currency &&
-        response.data!.amount == '30' &&
+        response.data!.amount == '${widget.totalPrice}' &&
         response.data!.txRef == this.txtRef;
   }
 }
