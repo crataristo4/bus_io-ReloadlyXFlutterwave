@@ -3,6 +3,7 @@ import 'package:bus_io/ui/pages/home_page/home_page.dart';
 import 'package:bus_io/ui/pages/login_page/login_page.dart';
 import 'package:bus_io/ui/pages/main_page/main_page.dart';
 import 'package:bus_io/ui/pages/onboarding_page/onboarding_page.dart';
+import 'package:bus_io/ui/pages/onboarding_page/splash_screen.dart';
 import 'package:bus_io/ui/pages/profile/referrals/referral_page.dart';
 import 'package:bus_io/ui/pages/search_bus/bus_results_page.dart';
 import 'package:bus_io/ui/pages/search_city/search_city_page.dart';
@@ -19,6 +20,9 @@ class RouteGenerator {
       //ONBOARDING
       case OnboardingPage.routeName:
         return MaterialPageRoute(builder: (_) => OnboardingPage());
+      //Splash screen
+      case SplashScreenPage.routeName:
+        return MaterialPageRoute(builder: (_) => SplashScreenPage());
       //LOGIN
       case LoginPage.routeName:
         return MaterialPageRoute(builder: (_) => LoginPage());
