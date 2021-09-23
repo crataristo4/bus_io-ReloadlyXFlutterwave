@@ -27,7 +27,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => SignupPage());
       //MAIN PAGE
       case MainPage.routeName:
-        return MaterialPageRoute(builder: (_) => MainPage());
+        return MaterialPageRoute(
+            builder: (_) => MainPage(
+                  selectedIndex: 0,
+                ));
       //home
       case HomePage.routeName:
         return MaterialPageRoute(builder: (_) => HomePage());

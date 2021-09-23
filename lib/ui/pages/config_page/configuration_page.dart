@@ -40,8 +40,12 @@ class _ConfigPageState extends State<ConfigPage> {
             child: SafeArea(
                 top: false,
                 bottom: false,
-                child:
-                    Scaffold(body: isLoggedIn ? MainPage() : SignupPage()))));
+                child: Scaffold(
+                    body: isLoggedIn
+                        ? MainPage(
+                            selectedIndex: 0,
+                          )
+                        : SignupPage()))));
   }
 
 /* getCurrentUser() async {

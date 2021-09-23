@@ -60,7 +60,7 @@ class _BookingsItemState extends State<BookingsItem> {
                     padding:
                         const EdgeInsets.only(left: fourDp, top: fourteenDp),
                     child: Image.asset(
-                      widget.bookings.bus.busImage,
+                      widget.bookings.busImage,
                       width: thirtyDp,
                       height: twentyDp,
                     ),
@@ -69,7 +69,7 @@ class _BookingsItemState extends State<BookingsItem> {
                     padding:
                         const EdgeInsets.only(left: sixDp, top: fourteenDp),
                     child: Text(
-                      widget.bookings.bus.source.toString().toUpperCase(),
+                      widget.bookings.source.toString().toUpperCase(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -126,7 +126,7 @@ class _BookingsItemState extends State<BookingsItem> {
               Padding(
                 padding: const EdgeInsets.only(right: twelveDp),
                 child: Text(
-                  widget.bookings.bus.busName,
+                  widget.bookings.busName,
                   style: TextStyle(
                       color: CustomColors.grayMedium,
                       fontSize: fourteenDp,
@@ -152,7 +152,7 @@ class _BookingsItemState extends State<BookingsItem> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: sixteenDp, vertical: eightDp),
                 child: Text(
-                  "${widget.bookings.bus.numberOfSeats} Seats",
+                  "${widget.bookings.details.length} Seats",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: sixteenDp,
@@ -227,7 +227,7 @@ class _BookingsItemState extends State<BookingsItem> {
                                 fontSize: sixteenDp)),
                         WidgetSpan(
                           child: Text(
-                            '${widget.bookings.bus.price}',
+                            '${widget.bookings.ticketPrice}',
                             //superscript is usually smaller in size
                             style: TextStyle(
                                 color: Colors.teal,

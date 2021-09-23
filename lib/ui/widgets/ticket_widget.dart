@@ -37,7 +37,7 @@ class TicketWidget extends StatelessWidget {
                           iconData: null,
                           iconDataColor: Colors.transparent,
                           textExtra:
-                              "${bookings.bus.departureTime} - ${bookings.bus.departureDay}",
+                              "${bookings.departureTime} - ${bookings.departureDay}",
                           isTicket: true,
                           text: departs,
                           onTap: () {}),

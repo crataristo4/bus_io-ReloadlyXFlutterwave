@@ -1,8 +1,5 @@
 import 'dart:convert';
 
-import 'package:bus_io/model/bus.dart';
-import 'package:bus_io/model/buses.dart';
-
 //final bookings = bookingsFromJson(jsonString);
 
 Bookings bookingsFromJson(String str) => Bookings.fromJson(json.decode(str));
@@ -17,41 +14,67 @@ class Bookings {
     required this.to,
     required this.bookingDate,
     required this.details,
-    required this.bus,
+    required this.source,
+    required this.busName,
+    required this.busImage,
+    required this.ticketPrice,
+    required this.totalPrice,
+    required this.departureTime,
+    required this.departureDay,
   });
 
   final String bookingId, userId;
   final String from;
   final String to;
   final String bookingDate;
+  final source;
+  final busName;
+  final busImage;
+  final departureTime;
+  final departureDay;
+  final ticketPrice;
+  final totalPrice;
   final List<Details> details;
-  final GetBus bus;
 
-  factory Bookings.fromJson(Map<String, dynamic> json) =>
-      Bookings(
+  // final GetBus bus;
+
+  factory Bookings.fromJson(Map<String, dynamic> json) => Bookings(
         bookingId: json["bookingId"],
         userId: json["userId"],
         from: json["from"],
         to: json["to"],
+        source: json["source"],
+        departureDay: json["departureDay"],
+        departureTime: json["departureTime"],
+        busName: json["busName"],
+        busImage: json["busImage"],
+        ticketPrice: json["ticketPrice"],
+        totalPrice: json["totalPrice"],
         bookingDate: json["bookingDate"],
         details:
-        List<Details>.from(json["details"].map((x) => Details.fromJson(x))),
-        bus: GetBus.fromJson(json["getBuses"]),
+            List<Details>.from(json["details"].map((x) => Details.fromJson(x))),
+        //   bus: GetBus.fromJson(json["getBuses"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "bookingId": bookingId,
         "userId": userId,
         "from": from,
         "to": to,
+        "departureTime": departureTime,
+        "departureDay": departureDay,
         "bookingDate": bookingDate,
+        "source": source,
+        "busName": busName,
+        "busImage": busImage,
+        "ticketPrice": ticketPrice,
+        "totalPrice": totalPrice,
         "details": List<dynamic>.from(details.map((x) => x.toJson())),
-        "bus": bus.toJson(),
+        //  "bus": bus.toJson(),
       };
 
   int getTotalFair() {
-    return bus.price * details.length;
+    return ticketPrice * details.length;
   }
 }
 

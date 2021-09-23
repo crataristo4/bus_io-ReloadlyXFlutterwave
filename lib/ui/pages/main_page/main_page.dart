@@ -9,15 +9,16 @@ import 'package:flutter_svg/svg.dart';
 
 class MainPage extends StatefulWidget {
   static const routeName = '/';
+  int? selectedIndex;
 
-  const MainPage({Key? key}) : super(key: key);
+  MainPage({Key? key, this.selectedIndex}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 0;
+  //int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     BookingsPage(),
@@ -27,7 +28,7 @@ class _MainPageState extends State<MainPage> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      widget.selectedIndex = index;
     });
   }
 
@@ -35,7 +36,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions.elementAt(widget.selectedIndex!),
       ),
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
@@ -44,7 +45,7 @@ class _MainPageState extends State<MainPage> {
             icon: Container(
               padding: EdgeInsets.all(eightDp),
               child: SvgPicture.asset(
-                _selectedIndex == 0
+                widget.selectedIndex! == 0
                     ? 'assets/svg/home_color.svg'
                     : 'assets/svg/home_grey.svg',
               ),
@@ -56,7 +57,7 @@ class _MainPageState extends State<MainPage> {
               icon: Container(
                 padding: EdgeInsets.all(eightDp),
                 child: SvgPicture.asset(
-                  _selectedIndex == 1
+                  widget.selectedIndex! == 1
                       ? 'assets/svg/ticket_color.svg'
                       : 'assets/svg/ticket_grey.svg',
                   // placeholderBuilder: (BuildContext context) => Container(),
@@ -69,7 +70,7 @@ class _MainPageState extends State<MainPage> {
               padding: EdgeInsets.all(eightDp),
               child: SvgPicture.asset(
                 //todo add wallet_color.svg
-                _selectedIndex == 2
+                widget.selectedIndex! == 2
                     ? 'assets/svg/wallet_color.svg'
                     : 'assets/svg/wallet_grey.svg',
                 // placeholderBuilder: (BuildContext context) => Container(),
@@ -82,7 +83,7 @@ class _MainPageState extends State<MainPage> {
             icon: Container(
               padding: EdgeInsets.all(eightDp),
               child: SvgPicture.asset(
-                _selectedIndex == 3
+                widget.selectedIndex! == 3
                     ? 'assets/svg/profile_color.svg'
                     : 'assets/svg/profile_grey.svg',
                 // placeholderBuilder: (BuildContext context) => Container(),
@@ -92,7 +93,7 @@ class _MainPageState extends State<MainPage> {
             tooltip: profile,
           ),
         ],
-        currentIndex: _selectedIndex,
+        currentIndex: widget.selectedIndex!,
         selectedItemColor: Theme.of(context).primaryColor,
         backgroundColor: Color(0xFFFFFFFF),
         unselectedItemColor: Color(0xFFAFAFAF),

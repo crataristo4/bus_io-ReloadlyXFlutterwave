@@ -7,6 +7,7 @@ import 'package:bus_io/ui/widgets/bookings_item.dart';
 import 'package:bus_io/ui/widgets/custom_cancel_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class UpcomingBooking extends StatefulWidget {
   const UpcomingBooking({Key? key}) : super(key: key);
@@ -20,7 +21,11 @@ class _UpcomingBookingState extends State<UpcomingBooking> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final bookings = Provider.of<List<Bookings>>(context);
+
+    print(" ??? ${bookings.length}");
+    return Container();
+    /*return Container(
         child: ListView.builder(
       itemBuilder: (context, index) {
         Bookings bookings = bookingList[index];
@@ -77,6 +82,6 @@ class _UpcomingBookingState extends State<UpcomingBooking> {
       primary: true,
       itemCount: bookingList.length,
       physics: ClampingScrollPhysics(),
-    ));
+    ));*/
   }
 }

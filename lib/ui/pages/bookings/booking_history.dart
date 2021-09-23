@@ -4,7 +4,6 @@ import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/bookings.dart';
 import 'package:bus_io/ui/pages/home_page/home_page.dart';
-import 'package:bus_io/ui/widgets/bookings_item.dart';
 import 'package:bus_io/ui/widgets/button_controller.dart';
 import 'package:bus_io/ui/widgets/option_selector_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -124,7 +123,7 @@ class _BookingHistoryState extends State<BookingHistory> {
           )*/
 
           //todo fetched once user books
-          Expanded(
+         /* Expanded(
             child: ListView.builder(
               itemBuilder: (context, index) {
                 Bookings bookings = bookingList[index];
@@ -147,7 +146,7 @@ class _BookingHistoryState extends State<BookingHistory> {
               itemCount: bookingList.length,
               physics: ClampingScrollPhysics(),
             ),
-          )
+          )*/
         ],
       ),
     );
@@ -174,7 +173,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                   Padding(
                     padding: const EdgeInsets.only(left: fourDp, top: eightDp),
                     child: Image.asset(
-                      bookings.bus.busImage,
+                      bookings.busImage,
                       width: thirtyDp,
                     ),
                   ),
@@ -182,7 +181,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                     padding:
                         const EdgeInsets.only(left: sixDp, top: fourteenDp),
                     child: Text(
-                      bookings.bus.source.toString().toUpperCase(),
+                      bookings.source.toString().toUpperCase(),
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -225,7 +224,7 @@ class _BookingHistoryState extends State<BookingHistory> {
               Padding(
                 padding: const EdgeInsets.only(right: twelveDp),
                 child: Text(
-                  bookings.bus.busName,
+                  bookings.busName,
                   style: TextStyle(
                       color: CustomColors.grayMedium,
                       fontSize: fourteenDp,
@@ -251,7 +250,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                 padding: const EdgeInsets.symmetric(
                     horizontal: sixteenDp, vertical: eightDp),
                 child: Text(
-                  "${bookings.bus.numberOfSeats} Seats",
+                  "${bookings.details.length} Seats",
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: sixteenDp,
@@ -327,7 +326,7 @@ class _BookingHistoryState extends State<BookingHistory> {
                               fontSize: sixteenDp)),
                       WidgetSpan(
                         child: Text(
-                          '${bookings.bus.price}',
+                          '${bookings.ticketPrice}',
                           //superscript is usually smaller in size
                           style: TextStyle(
                               color: Colors.teal,

@@ -1,8 +1,10 @@
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/model/bookings.dart';
+import 'package:bus_io/ui/pages/main_page/main_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class BookingsService {
   final firestoreService = FirebaseFirestore.instance;
@@ -24,18 +26,26 @@ class BookingsService {
         .add(newBookings.toJson())
         .whenComplete(() {
       //navigate to bookings
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder: (context) => MainPage(
+              selectedIndex: 1,
+            ),
+          ),
+          (route) => false);
     });
   }
 
   Stream<List<Bookings>> getBookings() {
     return firestoreService
         .collection(bookings)
-        .orderBy('bookingsDate', descending: true)
+        .orderBy('bookingDate', descending: true)
         .where('userId', isEqualTo: uid)
         .snapshots()
-        .map((snapshots) => snapshots.docs
-            .map((document) => Bookings.fromJson(document.data()))
-            .toList(growable: true))
+        .map((snapshots) => snapshots.docs.map((document) {
+              print("${document.data()}");
+              return Bookings.fromJson(document.data());
+            }).toList(growable: true))
         .handleError((error) {
       print("error --- $error");
     });

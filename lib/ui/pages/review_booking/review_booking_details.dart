@@ -201,7 +201,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                         ),
                         Padding(
                           padding:
-                          const EdgeInsets.symmetric(horizontal: sixteenDp),
+                              const EdgeInsets.symmetric(horizontal: sixteenDp),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             // mainAxisAlignment: MainAxisAlignment.end,
@@ -221,7 +221,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
                                           decoration:
-                                          TextDecoration.lineThrough,
+                                              TextDecoration.lineThrough,
                                           fontFamily: 'Mulish',
                                           fontSize: seventeenDp)),
                                   WidgetSpan(
@@ -293,7 +293,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                               children: [
                                 Padding(
                                   padding:
-                                  const EdgeInsets.only(right: eightDp),
+                                      const EdgeInsets.only(right: eightDp),
                                   child: Text(
                                     payForTickets,
                                     style: TextStyle(
@@ -449,15 +449,26 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
 
     try {
       final ChargeResponse response =
-      await flutterWave.initializeForUiPayments();
+          await flutterWave.initializeForUiPayments();
       if (response == null) {
         // user didn't complete the transaction.
       } else {
         final isSuccessful = checkPaymentIsSuccessful(response);
         if (isSuccessful) {
           // provide value to customer
-          await _bookingsProvider.notifyDetails(widget.to, widget.from,
-              widget.date, widget.passengerList, widget.bus, context);
+          await _bookingsProvider.notifyDetails(
+              widget.to,
+              widget.from,
+              widget.date,
+              widget.passengerList,
+              context,
+              widget.bus.source,
+              widget.bus.departureTime,
+              widget.bus.departureDay,
+              widget.bus.busName,
+              widget.bus.busImage,
+              widget.bus.price,
+              widget.totalPrice);
         } else {
           // check message
           print(response.message);
