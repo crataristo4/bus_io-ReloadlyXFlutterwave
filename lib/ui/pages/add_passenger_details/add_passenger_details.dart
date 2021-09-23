@@ -1,7 +1,11 @@
+import 'package:bus_io/actions/actions.dart';
+import 'package:bus_io/actions/progress_dialog.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/model/bookings.dart';
 import 'package:bus_io/model/buses.dart';
+import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
 import 'package:bus_io/ui/pages/review_booking/review_booking_details.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:bus_io/ui/widgets/passenger_details.dart';
@@ -12,19 +16,22 @@ class AddPassengerDetails extends StatefulWidget {
   final seatsSelected;
   final GetBus bus;
   final totalPrice;
+  final to, from;
 
   //final List<int> seatNumberSelectedList;
 
 //  final double ticketPrice;
 
-  const AddPassengerDetails({
-    Key? key,
-    //required this.ticketPrice
-    required this.seatsSelected,
-    required this.bus,
-    required this.totalPrice,
-    //  required this.seatNumberSelectedList,
-  }) : super(key: key);
+  const AddPassengerDetails(
+      {Key? key,
+      //required this.ticketPrice
+      required this.seatsSelected,
+      required this.bus,
+      required this.totalPrice,
+      required this.to,
+      required this.from
+      //  required this.seatNumberSelectedList,
+      }) : super(key: key);
 
   @override
   _AddPassengerDetailsState createState() => _AddPassengerDetailsState();
@@ -41,12 +48,13 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
   TextEditingController ageController2 = TextEditingController();
   TextEditingController phoneController2 = TextEditingController();
 
-  //passenger 3
-  TextEditingController nameController3 = TextEditingController();
-  TextEditingController ageController3 = TextEditingController();
-  TextEditingController phoneController3 = TextEditingController();
-
   List<String> _seatSelected = ['Seat 2', 'Seat 3'];
+  List<Details> passengerDetails = [];
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +100,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                               children: [
                                 Padding(
                                   padding:
-                                      const EdgeInsets.only(left: sixteenDp),
+                                  const EdgeInsets.only(left: sixteenDp),
                                   child: Text(
                                     '${widget.seatsSelected.length} $seats',
                                     style: TextStyle(
@@ -135,7 +143,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                               color: Colors.black,
                                               fontWeight: FontWeight.w500,
                                               decoration:
-                                                  TextDecoration.lineThrough,
+                                              TextDecoration.lineThrough,
                                               // fontFamily: 'Mulish',
                                               fontSize: sixteenDp)),
                                       WidgetSpan(
@@ -194,43 +202,66 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                                   borderRadius: BorderRadius.circular(tenDp)),
                               minWidth: oneTwentyDp,
                               height: fiftyDp,
-                              onPressed: () {
-                                //todo uncomment for errors
-                                /*  ShowAction.showDetails(
-                                  oops,
-                                  pleaseSelectAllSeats,
-                                  context,
-                                  Center(
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: sixDp),
-                                      child: MaterialButton(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(tenDp)),
-                                        minWidth: ninetyDp,
-                                        height: thirtyEightDp,
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text(
-                                          ok,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: sixteenDp),
+                              onPressed: () async {
+                                //validate inputs
+                                if (_formKey.currentState!.validate()) {
+                                  //passenger details
+                                  passengerDetails.add(Details(
+                                      passengerName: nameController1.text,
+                                      seatNo: "Seat 2"));
+                                  passengerDetails.add(Details(
+                                      passengerName: nameController2.text,
+                                      seatNo: "Seat 3"));
+
+                                  Dialogs.showLoadingDialog(
+                                      context, loadingKey, "", Colors.white);
+                                  await Future.delayed(Duration(seconds: 3));
+                                  Navigator.pop(context);
+
+                                  //goto review page
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => ReviewBookingDetails(
+                                        bus: widget.bus,
+                                        seatNumberSelectedList:
+                                            widget.seatsSelected,
+                                        totalPrice: widget.totalPrice,
+                                        passengerList: passengerDetails,
+                                        to: widget.to,
+                                        from: widget.from),
+                                  ));
+                                } else {
+                                  //show error
+                                  ShowAction.showDetails(
+                                      oops,
+                                      Colors.black,
+                                      pleaseSelectAllSeats,
+                                      Colors.red,
+                                      context,
+                                      Center(
+                                        child: Container(
+                                          margin: EdgeInsets.symmetric(
+                                              vertical: sixDp),
+                                          child: MaterialButton(
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        tenDp)),
+                                            minWidth: ninetyDp,
+                                            height: thirtyEightDp,
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text(
+                                              ok,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: sixteenDp),
+                                            ),
+                                            color: Colors.teal,
+                                          ),
                                         ),
-                                        color: Colors.teal,
-                                      ),
-                                    ),
-                                  ));*/
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => ReviewBookingDetails(
-                                    bus: widget.bus,
-                                    seatNumberSelectedList:
-                                        widget.seatsSelected,
-                                    passengerList: [], //todo
-                                  ),
-                                ));
+                                      ));
+                                }
                               },
                               child: Text(
                                 reviewBookingDetails,

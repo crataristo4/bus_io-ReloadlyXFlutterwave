@@ -1,3 +1,4 @@
+import 'package:bus_io/actions/actions.dart';
 import 'package:bus_io/actions/progress_dialog.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
@@ -14,12 +15,11 @@ class SelectSeat extends StatefulWidget {
   final GetBus bus;
   final to, from, numberOfPassengers;
 
-  const SelectSeat(
-      {Key? key,
-      required this.bus,
-      required this.to,
-      required this.from,
-      required this.numberOfPassengers})
+  const SelectSeat({Key? key,
+    required this.bus,
+    required this.to,
+    required this.from,
+    required this.numberOfPassengers})
       : super(key: key);
 
   @override
@@ -376,8 +376,8 @@ class _SelectSeatState extends State<SelectSeat> {
                                   selectedSeats.length == 0
                                       ? "No seat selected"
                                       : selectedSeats.length < 1
-                                          ? '${selectedSeats.length} $seat'
-                                          : '${selectedSeats.length} $seats',
+                                      ? '${selectedSeats.length} $seat'
+                                      : '${selectedSeats.length} $seats',
                                   style: TextStyle(
                                       color: CustomColors.grayMedium,
                                       fontWeight: FontWeight.w400),
@@ -420,7 +420,7 @@ class _SelectSeatState extends State<SelectSeat> {
                                             color: Colors.black,
                                             fontWeight: FontWeight.w500,
                                             decoration:
-                                                TextDecoration.lineThrough,
+                                            TextDecoration.lineThrough,
                                             // fontFamily: 'Mulish',
                                             fontSize: sixteenDp)),
                                     WidgetSpan(
@@ -480,51 +480,53 @@ class _SelectSeatState extends State<SelectSeat> {
                             minWidth: oneTwentyDp,
                             height: fiftyDp,
                             onPressed: () async {
-                              Dialogs.showLoadingDialog(
-                                  context, loadingKey, "", Colors.white);
-                              await Future.delayed(Duration(seconds: 3));
-                              Navigator.pop(context);
-
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => AddPassengerDetails(
-                                  seatsSelected: selectedSeats,
-                                  bus: widget.bus,
-                                  totalPrice: totalPrice,
-                                  /*  passengerList: [
-                                    // todo -- get from controllers
-                                    'Tobiloba Adekunle',
-                                    'Mildred Egenti',
-                                    'Max Luvran'
-                                  ],*/
-                                ),
-                              ));
-                              /*ShowAction.showDetails(
-                                  oops,
-                                  oopsDes,
-                                  context,
-                                  Center(
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: sixDp),
-                                      child: MaterialButton(
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(tenDp)),
-                                        minWidth: ninetyDp,
-                                        height: thirtyEightDp,
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text(
-                                          ok,
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: sixteenDp),
+                              if (selectedSeats.isEmpty ||
+                                  selectedSeats.length < 2) {
+                                ShowAction.showDetails(
+                                    oops,
+                                    Colors.black,
+                                    oopsDes,
+                                    Colors.red,
+                                    context,
+                                    Center(
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(
+                                            vertical: sixDp),
+                                        child: MaterialButton(
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(tenDp)),
+                                          minWidth: ninetyDp,
+                                          height: thirtyEightDp,
+                                          onPressed: () {
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: Text(
+                                            ok,
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: sixteenDp),
+                                          ),
+                                          color: Colors.teal,
                                         ),
-                                        color: Colors.teal,
                                       ),
-                                    ),
-                                  ));*/
+                                    ));
+                              } else {
+                                Dialogs.showLoadingDialog(
+                                    context, loadingKey, "", Colors.white);
+                                await Future.delayed(Duration(seconds: 3));
+                                Navigator.pop(context);
+
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => AddPassengerDetails(
+                                    seatsSelected: selectedSeats,
+                                    bus: widget.bus,
+                                    totalPrice: totalPrice,
+                                    to: widget.to,
+                                    from: widget.from,
+                                  ),
+                                ));
+                              }
                             },
                             child: Text(
                               conTiNue,
@@ -547,8 +549,7 @@ class _SelectSeatState extends State<SelectSeat> {
   }
 
   //seat status with color codes
-  Widget buildSeatStatus(
-      Color bgColor, String title, double borderWidth, Color borderColor) {
+  Widget buildSeatStatus(Color bgColor, String title, double borderWidth, Color borderColor) {
     return Row(
       children: [
         Container(

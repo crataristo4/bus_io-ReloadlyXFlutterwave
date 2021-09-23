@@ -1,7 +1,11 @@
+import 'package:bus_io/actions/progress_dialog.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
+import 'package:bus_io/model/bookings.dart';
 import 'package:bus_io/model/buses.dart';
+import 'package:bus_io/provider/bookings_provider.dart';
+import 'package:bus_io/ui/pages/config_page/configuration_page.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:bus_io/ui/widgets/bus_item.dart';
 import 'package:bus_io/ui/widgets/modify_filter.dart';
@@ -15,13 +19,18 @@ import 'package:flutterwave/utils/flutterwave_currency.dart';
 class ReviewBookingDetails extends StatefulWidget {
   static const routeName = '/reviewBookingDetails';
   final GetBus bus;
-  final List passengerList;
+  final totalPrice;
+  final List<Details> passengerList;
   final List seatNumberSelectedList;
+  final to, from;
 
   const ReviewBookingDetails(
       {Key? key,
       required this.bus,
       required this.passengerList,
+      required this.totalPrice,
+      required this.to,
+      required this.from,
       required this.seatNumberSelectedList})
       : super(key: key);
 
@@ -33,8 +42,10 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
   int? index;
   int? totalPrice;
   final String txtRef = "busPayment";
-  final String amount = "200";
+
+  //final String amount = "200";
   final String currency = FlutterwaveCurrency.NGN;
+  BookingsProvider _bookingsProvider = BookingsProvider();
 
   @override
   void initState() {
@@ -44,6 +55,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
 
   @override
   Widget build(BuildContext context) {
+    print("pass ..");
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appBar(reviewBookingDetails, () {
@@ -57,7 +69,6 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                //todo - check overflow
                 ListView(
                   shrinkWrap: true,
                   primary: true,
@@ -150,7 +161,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                     ),
 
                     fareItems('$ticketPrice x ${widget.passengerList.length}',
-                        '$totalPrice'),
+                        '${widget.bus.price}'),
                     fareItems('$tax ${widget.passengerList.length}', '${0}'),
                     fareItems('$totalFare', '$totalPrice'),
                   ],
@@ -181,7 +192,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                                   top: fourDp, left: tenDp),
                               child: Text(
                                 //todo
-                                '${widget.seatNumberSelectedList.toString()}',
+                                '${widget.seatNumberSelectedList.toString().replaceAll('[', '').replaceAll(']', '')}',
                                 style: TextStyle(
                                     color: CustomColors.black,
                                     fontSize: sixteenDp,
@@ -193,7 +204,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                         ),
                         Padding(
                           padding:
-                              const EdgeInsets.symmetric(horizontal: sixteenDp),
+                          const EdgeInsets.symmetric(horizontal: sixteenDp),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             // mainAxisAlignment: MainAxisAlignment.end,
@@ -213,12 +224,12 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                                           color: Colors.black,
                                           fontWeight: FontWeight.w500,
                                           decoration:
-                                              TextDecoration.lineThrough,
+                                          TextDecoration.lineThrough,
                                           fontFamily: 'Mulish',
                                           fontSize: seventeenDp)),
                                   WidgetSpan(
                                     child: Text(
-                                      '24,500',
+                                      '${widget.bus.price}',
                                       //superscript is usually smaller in size
                                       style: TextStyle(
                                           color: Colors.black,
@@ -252,7 +263,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                                       fontSize: sixteenDp)),
                               WidgetSpan(
                                 child: Text(
-                                  'N73,500',
+                                  '${widget.totalPrice}',
                                   style: TextStyle(
                                       color: Colors.teal,
                                       fontWeight: FontWeight.bold,
@@ -272,6 +283,10 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                             minWidth: oneTwentyDp,
                             height: fiftyTwoDp,
                             onPressed: () async {
+                              Dialogs.showLoadingDialog(
+                                  context, loadingKey, "", Colors.white);
+                              await Future.delayed(Duration(seconds: 3));
+                              Navigator.pop(context);
                               //make payment through flutter wave
                               await beginPayment();
                             },
@@ -281,7 +296,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                               children: [
                                 Padding(
                                   padding:
-                                      const EdgeInsets.only(right: eightDp),
+                                  const EdgeInsets.only(right: eightDp),
                                   child: Text(
                                     payForTickets,
                                     style: TextStyle(
@@ -333,7 +348,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
                     left: fourDp,
                   ),
                   child: Text(
-                    widget.passengerList[index!],
+                    '${widget.passengerList[index].passengerName}',
                     //superscript is usually smaller in size
                     style: TextStyle(
                         color: CustomColors.grayMedium,
@@ -419,7 +434,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
         encryptionKey: "FLWSECK_TEST8f7d02feca66",
         publicKey: "FLWPUBK_TEST-c6f888566a3c8cf190f42cf02ac40eb3-X",
         currency: this.currency,
-        amount: this.amount,
+        amount: '${widget.totalPrice}',
         email: "valid@email.com",
         fullName: "Valid Full Name",
         txRef: this.txtRef,
@@ -437,13 +452,17 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
 
     try {
       final ChargeResponse response =
-          await flutterWave.initializeForUiPayments();
+      await flutterWave.initializeForUiPayments();
       if (response == null) {
         // user didn't complete the transaction.
       } else {
         final isSuccessful = checkPaymentIsSuccessful(response);
         if (isSuccessful) {
           // provide value to customer
+
+          //book bus
+          await _bookingsProvider.notifyDetails(
+              to, from, widget.bus.departureDay, widget.bus, context);
         } else {
           // check message
           print(response.message);

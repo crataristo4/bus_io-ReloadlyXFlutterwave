@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+///for testing
 Bus slotsFromJson(String str) => Bus.fromJson(json.decode(str));
 
 class Bus {
