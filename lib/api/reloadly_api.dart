@@ -62,18 +62,13 @@ class ReloadLyApiService {
     };
 
     //get token
-    final token = await http
-        .post(Uri.parse(reloadLyTokenUrl),
-            headers: {
-              'Content-type': 'application/json',
-            },
-            body: json.encode(tokenOption))
-        .then((value) {
-      return value.body;
-    });
+    final token = await http.post(Uri.parse(reloadLyTokenUrl),
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: json.encode(tokenOption));
 
-    Token getToken = tokenFromJson(token);
-    print('token is ${getToken.accessToken}');
+    Token getToken = tokenFromJson(token.body);
 
     //get all products
     final response = await http.get(
@@ -86,6 +81,7 @@ class ReloadLyApiService {
 
     final contents = GiftCard.fromJson(json.decode(response.body));
 
+    print('contents ... ${contents.content}');
     return contents.content;
   }
 }
