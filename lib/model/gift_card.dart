@@ -12,8 +12,8 @@ class GiftCard {
   GiftCard({
     required this.content,
     required this.pageable,
-    required this.totalPages,
     required this.last,
+    required this.totalPages,
     required this.totalElements,
     required this.sort,
     required this.first,
@@ -25,8 +25,8 @@ class GiftCard {
 
   final List<Content> content;
   final Pageable pageable;
-  final int totalPages;
   final bool last;
+  final int totalPages;
   final int totalElements;
   final Sort sort;
   final bool first;
@@ -39,8 +39,8 @@ class GiftCard {
         content:
             List<Content>.from(json["content"].map((x) => Content.fromJson(x))),
         pageable: Pageable.fromJson(json["pageable"]),
-        totalPages: json["totalPages"],
         last: json["last"],
+        totalPages: json["totalPages"],
         totalElements: json["totalElements"],
         sort: Sort.fromJson(json["sort"]),
         first: json["first"],
@@ -50,11 +50,12 @@ class GiftCard {
         empty: json["empty"],
       );
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() =>
+      {
         "content": List<dynamic>.from(content.map((x) => x.toJson())),
         "pageable": pageable.toJson(),
-        "totalPages": totalPages,
         "last": last,
+        "totalPages": totalPages,
         "totalElements": totalElements,
         "sort": sort.toJson(),
         "first": first,
