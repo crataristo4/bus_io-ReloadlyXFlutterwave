@@ -428,14 +428,14 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
   beginPayment() async {
     final Flutterwave flutterWave = Flutterwave.forUIPayment(
         context: this.context,
-        encryptionKey: "FLWSECK_TEST9799ca448272",
-        publicKey: "FLWPUBK_TEST-82c0d74c51fecb2bd7e594e1a8ce9bf5-X",
+        encryptionKey: "FLWSECK_TEST8b996dd62456",
+        publicKey: "FLWPUBK_TEST-b2ce63d2a8a289258be56702c2e02cb2-X",
         currency: this.currency,
-        amount: '${widget.totalPrice}',
+        amount: '300',
         email: "crataristo4@gmail.com",
         fullName: "Test",
         txRef: this.txtRef,
-        isDebugMode: false,
+        isDebugMode: true,
         phoneNumber: "0207824082",
         acceptCardPayment: true,
         acceptUSSDPayment: true,
@@ -488,7 +488,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
   bool checkPaymentIsSuccessful(final ChargeResponse response) {
     return response.data!.status == FlutterwaveConstants.SUCCESSFUL &&
         response.data!.currency == this.currency &&
-        response.data!.amount == '${widget.totalPrice}' &&
+        response.data!.amount == '300' &&
         response.data!.txRef == this.txtRef;
   }
 }
