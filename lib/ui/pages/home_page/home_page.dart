@@ -1,4 +1,5 @@
 import 'package:bus_io/actions/actions.dart';
+import 'package:bus_io/api/reloadly_api.dart';
 import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
@@ -40,6 +41,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    ReloadLyApiService.instance.fetchGiftCards();
     dateSelected = dateFormat.format(dateTime);
     greetingMessage();
     super.initState();
@@ -179,6 +181,8 @@ class _HomePageState extends State<HomePage> {
                                           )));
                                 }
                               }
+
+                              //   beginPayment();
                             }),
                         SizedBox(
                           height: twentyDp,
@@ -387,4 +391,58 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+/* beginPayment() async {
+    final Flutterwave flutterWave = Flutterwave.forUIPayment(
+        context: this.context,
+        encryptionKey: "FLWSECK_TEST8b996dd62456",
+        publicKey: "FLWPUBK_TEST-b2ce63d2a8a289258be56702c2e02cb2-X",
+        currency: this.currency,
+        amount: '100',
+        email: "crataristo4@gmail.com",
+        fullName: "Test",
+        txRef: this.txtRef,
+        isDebugMode: true,
+        phoneNumber: "0207824082",
+        acceptCardPayment: true,
+        acceptUSSDPayment: true,
+        acceptAccountPayment: true,
+        acceptFrancophoneMobileMoney: false,
+        acceptGhanaPayment: true,
+        acceptMpesaPayment: false,
+        acceptRwandaMoneyPayment: true,
+        acceptUgandaPayment: true,
+        acceptZambiaPayment: false);
+
+    try {
+      final ChargeResponse response =
+      await flutterWave.initializeForUiPayments();
+      if (response == null) {
+        // user didn't complete the transaction.
+      } else {
+        final isSuccessful = checkPaymentIsSuccessful(response);
+        if (isSuccessful) {
+      print("woooww");
+        } else {
+          // check message
+          print(response.message);
+
+          // check status
+          print(response.status);
+
+          // check processor error
+          print(response.data!.processorResponse);
+        }
+      }
+    } catch (error, stacktrace) {
+      print(error);
+    }
+  }
+
+  bool checkPaymentIsSuccessful(final ChargeResponse response) {
+    return response.data!.status == FlutterwaveConstants.SUCCESSFUL &&
+        response.data!.currency == this.currency &&
+        response.data!.amount == '100' &&
+        response.data!.txRef == this.txtRef;
+  }*/
 }

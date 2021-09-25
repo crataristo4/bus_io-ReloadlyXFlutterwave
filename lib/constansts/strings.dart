@@ -151,3 +151,12 @@ const busIoBaseUrl = 'https://busbackend.herokuapp.com';
 const buses = '/buses';
 const cities = '/cities';
 const searchCity = '/cities?name=';
+
+//....................RELOADLY ..................//
+const reloadLyTokenUrl = 'https://auth.reloadly.com/oauth/token';
+const reloadLyTopUpAudience = 'https://topups.reloadly.com';
+const reloadLyGiftCardProducts = 'https://giftcards.reloadly.com/products';
+const reloadLyGiftCardAudience = 'https://giftcards.reloadly.com';
+const reloadLyClientId = 'tImutaWvn3DDiJpeYlXDCyT65r4x1pqP';
+const reloadLySecretId =
+    'DhF3C3H9Gz-yodyvd6L9mcfQM9FdEc-T7Gof9X8TJBdrdrMxrlXx8wKf0XYGKsH';

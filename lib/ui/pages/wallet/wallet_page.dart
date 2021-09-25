@@ -3,6 +3,7 @@ import 'package:bus_io/constansts/dimens.dart';
 import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/constansts/theme_color.dart';
 import 'package:bus_io/model/points.dart';
+import 'package:bus_io/ui/pages/wallet/redeem_gift_cards/redeem_gift_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -100,7 +101,12 @@ class _WalletPageState extends State<WalletPage> {
                         child: Container(
                           margin: const EdgeInsets.only(bottom: thirtyDp),
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context).pop();
+                              //view gift cards
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => RedeemGiftCards()));
+                            },
                             child: Text(
                               giftCard,
                               style: TextStyle(

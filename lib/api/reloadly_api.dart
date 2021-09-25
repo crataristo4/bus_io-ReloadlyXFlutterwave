@@ -81,7 +81,6 @@ class ReloadLyApiService {
 
     final contents = GiftCard.fromJson(json.decode(response.body));
 
-    print('contents ... ${contents.content}');
     return contents.content;
   }
 }
