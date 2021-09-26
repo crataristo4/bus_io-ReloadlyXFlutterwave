@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:bus_io/constansts/dimens.dart';
+import 'package:bus_io/constansts/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ShowAction {
   //get date
@@ -96,11 +96,18 @@ class ShowAction {
     );
   }
 
-  static Future<void> makePhoneCall(String? url) async {
-    if (await canLaunch(url!)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+  static SnackBar showSnackBar(String content) {
+    SnackBar snackBar = SnackBar(
+      content: Text(
+        content,
+        style: TextStyle(color: Colors.white),
+      ),
+      backgroundColor: CustomColors.customRed,
+      elevation: 0,
+      padding: EdgeInsets.all(30),
+      duration: Duration(seconds: 3),
+    );
+
+    return snackBar;
   }
 }
