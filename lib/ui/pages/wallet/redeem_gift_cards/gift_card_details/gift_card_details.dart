@@ -1,3 +1,4 @@
+import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/model/gift_card.dart';
 import 'package:bus_io/ui/widgets/app_bar.dart';
 import 'package:bus_io/ui/widgets/gift_cards.dart';
@@ -17,7 +18,7 @@ class _GiftCardDetailsState extends State<GiftCardDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBar('Redeem Gift Cards', () {
+      appBar: appBar(redeemGiftCards, () {
         Navigator.pop(context);
       }),
       body: CustomScrollView(
@@ -36,7 +37,7 @@ class _GiftCardDetailsState extends State<GiftCardDetails> {
                           mainAxisSpacing: 30,
                           crossAxisSpacing: 0),
                       itemCount:
-                          widget.content.fixedRecipientDenominations.length,
+                      widget.content.fixedRecipientDenominations.length,
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return GiftCardWidget(

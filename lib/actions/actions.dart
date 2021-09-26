@@ -71,7 +71,7 @@ class ShowAction {
     var alertDialog = AlertDialog(
       title: Text(title,
           style: TextStyle(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
               color: Colors.black45,
               fontSize: fourteenDp),
           textAlign: TextAlign.center),
@@ -80,7 +80,7 @@ class ShowAction {
         child: Text(content,
             style: TextStyle(
                 color: Colors.black,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.bold,
                 fontSize: fourteenDp),
             textAlign: TextAlign.center),
       ),

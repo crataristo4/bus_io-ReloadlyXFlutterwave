@@ -111,7 +111,7 @@ class _WalletPageState extends State<WalletPage> {
                               giftCard,
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w600),
                             ),
                           ),
                         ),

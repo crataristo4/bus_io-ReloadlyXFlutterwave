@@ -1,4 +1,5 @@
 import 'package:bus_io/actions/progress_dialog.dart';
+import 'package:bus_io/constansts/strings.dart';
 import 'package:bus_io/model/enum_states.dart';
 import 'package:bus_io/model/gift_card.dart';
 import 'package:bus_io/provider/reloadly_provider.dart';
@@ -30,7 +31,7 @@ class _RedeemGiftCardsState extends State<RedeemGiftCards> {
 
     return Scaffold(
       backgroundColor: CupertinoColors.white,
-      appBar: appBar('Redeem Gift Cards', () {
+      appBar: appBar(redeemGiftCards, () {
         Navigator.pop(context);
       }),
       body: CustomScrollView(
@@ -70,19 +71,17 @@ class _RedeemGiftCardsState extends State<RedeemGiftCards> {
                           content: content,
                           isCardDetails: false,
                           index: null,
-                          onTap: () {
+                          onTap: () async {
                             Dialogs.showLoadingDialog(
-                                    context, loadingKey, '', Colors.white)
-                                .then((value) {
-                              Future.delayed(Duration(seconds: 3));
-
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        GiftCardDetails(content: content),
-                                  ));
-                            });
+                                context, loadingKey, '', Colors.white);
+                            await Future.delayed(Duration(seconds: 3));
+                            Navigator.of(context, rootNavigator: false).pop();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      GiftCardDetails(content: content),
+                                ));
                           },
                         );
                       },
