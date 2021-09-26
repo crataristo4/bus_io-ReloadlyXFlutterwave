@@ -38,7 +38,7 @@ class _GiftCardDetailsState extends State<GiftCardDetails> {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          mainAxisSpacing: 20,
+                          mainAxisSpacing: 10,
                           crossAxisSpacing: 0),
                       itemCount:
                       widget.content.fixedRecipientDenominations.length,
