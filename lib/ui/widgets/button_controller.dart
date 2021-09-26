@@ -6,7 +6,7 @@ class ButtonWidget extends StatelessWidget {
   final buttonName;
   final Function() onButtonTapped;
 
-  const ButtonWidget(
+  ButtonWidget(
       {Key? key, required this.buttonName, required this.onButtonTapped})
       : super(key: key);
 
