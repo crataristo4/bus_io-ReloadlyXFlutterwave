@@ -82,7 +82,6 @@ class _HomePageState extends State<HomePage> {
         child: StreamBuilder<Users>(
             stream: UserService.instance.getUser(),
             builder: (context, snapshot) {
-              setState(() {});
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(),
