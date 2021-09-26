@@ -27,12 +27,13 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Card(
+        color: Colors.white,
         margin: EdgeInsets.symmetric(horizontal: 6),
         semanticContainer: true,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             ClipRRect(
               clipBehavior: Clip.hardEdge,
@@ -43,14 +44,14 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
                   placeholder: (context, url) =>
                       Center(child: CircularProgressIndicator()),
                   imageUrl: widget.content.logoUrls[0],
-                  height: oneFiftyDp,
+                  height: 140,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: widget.isCardDetails ? 55 : 52,
+              height: widget.isCardDetails ? 56 : 53,
               padding: EdgeInsets.all(4),
               decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.3),
@@ -59,32 +60,33 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
                       bottomLeft: Radius.circular(tenDp)),
                   border: Border.all(color: Colors.grey, width: 0.2)),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Expanded(
-                    child: Text(
-                      widget.content.productName,
-                      textAlign: TextAlign.center,
-                      maxLines: widget.isCardDetails ? 1 : 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 13),
+                    child: Center(
+                      child: Text(
+                        widget.content.productName,
+                        textAlign: TextAlign.center,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 10),
+                      ),
                     ),
                   ),
                   widget.isCardDetails
-                      ? SizedBox(
-                          height: tenDp,
-                        )
-                      : Container(),
-                  widget.isCardDetails
-                      ? Expanded(
-                          child: Center(
+                      ? Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
                             child: Text(
                               "${recipientCurrencyCodeValues.reverse[widget.content.recipientCurrencyCode]} ${widget.content.fixedRecipientDenominations[widget.index]}",
-                              style: TextStyle(color: Colors.black),
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         )

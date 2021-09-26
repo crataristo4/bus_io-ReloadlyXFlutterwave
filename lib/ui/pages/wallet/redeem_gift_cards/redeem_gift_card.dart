@@ -61,7 +61,7 @@ class _RedeemGiftCardsState extends State<RedeemGiftCards> {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          mainAxisSpacing: 30,
+                          mainAxisSpacing: 20,
                           crossAxisSpacing: 6),
                       itemCount: state.contentList.length,
                       shrinkWrap: true,

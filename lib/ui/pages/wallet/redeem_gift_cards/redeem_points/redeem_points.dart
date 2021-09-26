@@ -51,19 +51,21 @@ class _RedeemPointsState extends State<RedeemPoints> {
       appBar: appBar(redeemGiftCards, () {
         Navigator.pop(context);
       }),
-      body: CustomScrollView(
-        slivers: [
-          SliverFillRemaining(
-            hasScrollBody: true,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                SingleChildScrollView(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: sixteenDp),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+      body: Container(
+        decoration: BoxDecoration(color: Colors.white),
+        margin: EdgeInsets.symmetric(horizontal: sixteenDp),
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: ListView(
+                      // crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text.rich(
                           TextSpan(
@@ -78,70 +80,69 @@ class _RedeemPointsState extends State<RedeemPoints> {
                           ),
                         ),
                         SizedBox(
-                          height: sixteenDp,
+                          height: tenDp,
                         ),
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 220,
-                              width: 200,
-                              child: Column(
-                                children: [
-                                  ClipRRect(
-                                    clipBehavior: Clip.hardEdge,
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(10),
-                                        topLeft: Radius.circular(10)),
-                                    child: Container(
-                                      height: 120,
-                                      width: 250,
-                                      child: CachedNetworkImage(
-                                        placeholder: (context, url) => Center(
-                                            child: CircularProgressIndicator()),
-                                        imageUrl: widget.content.logoUrls[0],
-                                        // height: oneFiftyDp,
-                                        fit: BoxFit.cover,
-                                      ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                ClipRRect(
+                                  clipBehavior: Clip.hardEdge,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                      topLeft: Radius.circular(10)),
+                                  child: Container(
+                                    height: 100,
+                                    width: 180,
+                                    child: CachedNetworkImage(
+                                      placeholder: (context, url) => Center(
+                                          child: CircularProgressIndicator()),
+                                      imageUrl: widget.content.logoUrls[0],
+                                      // height: oneFiftyDp,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Container(
-                                    width: 250,
-                                    height: 70,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.withOpacity(0.3),
-                                        borderRadius: BorderRadius.only(
-                                            bottomRight: Radius.circular(tenDp),
-                                            bottomLeft:
-                                                Radius.circular(tenDp))),
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              top: eightDp, left: 8, right: 8),
-                                          child: Text(
-                                            widget.content.productName,
+                                ),
+                                Container(
+                                  width: 180,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey.withOpacity(0.3),
+                                      borderRadius: BorderRadius.only(
+                                          bottomRight: Radius.circular(tenDp),
+                                          bottomLeft: Radius.circular(tenDp))),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: eightDp, left: 8, right: 8),
+                                        child: Text(
+                                          widget.content.productName,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 12),
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 2),
+                                        child: Text(
+                                            "${recipientCurrencyCodeValues.reverse[widget.content.recipientCurrencyCode]} ${widget.content.fixedRecipientDenominations[widget.index].toString()}",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 color: Colors.black,
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 12),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 8),
-                                          child: Text(
-                                              "${recipientCurrencyCodeValues.reverse[widget.content.recipientCurrencyCode]} ${widget.content.fixedRecipientDenominations[widget.index].toString()}",
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.bold)),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              ],
                             ),
                             Container(
                               margin:
@@ -177,6 +178,9 @@ class _RedeemPointsState extends State<RedeemPoints> {
                             )
                           ],
                         ),
+                        SizedBox(
+                          height: tenDp,
+                        ),
                         Text(
                           requiredPoints,
                           style: TextStyle(
@@ -207,7 +211,7 @@ class _RedeemPointsState extends State<RedeemPoints> {
                           ),
                         ),
                         SizedBox(
-                          height: sixteenDp,
+                          height: tenDp,
                         ),
                         textTy(
                             '*eGift voucher is non-refundable / exchange and cannot be exchanged for cash or full and is valid for a single transaction only.'),
@@ -241,56 +245,59 @@ class _RedeemPointsState extends State<RedeemPoints> {
                         SizedBox(
                           height: tenDp,
                         ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Checkbox(
-                              value: isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  isChecked = value!;
-                                });
-                              },
-
-                              checkColor: Colors.white,
-                              // activeColor:Colors.white ,
-                              tristate: false,
-                              side: BorderSide(color: CustomColors.teal),
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 8),
-                                child: Text(
-                                    'By clicking ‘Add Recipient’, you agree to our Terms and Condition, including our Cancellation Policy'),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Center(
-                          child: SvgPicture.asset(
-                            'assets/svg/powerbyreloadly.svg',
-                            placeholderBuilder: (context) => Container(),
-                          ),
-                        ),
                       ],
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: sixteenDp, vertical: tenDp),
-                    child: ButtonWidget(
-                      buttonName: 'Add Recipients',
-                      onButtonTapped: () {},
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ],
+                  Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                            value: isChecked,
+                            onChanged: (value) {
+                              setState(() {
+                                isChecked = value!;
+                              });
+                            },
+
+                            checkColor: Colors.white,
+                            // activeColor:Colors.white ,
+                            tristate: false,
+                            side: BorderSide(color: CustomColors.teal),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: Text(
+                                  'By clicking ‘Add Recipient’, you agree to our Terms and Condition, including our Cancellation Policy'),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Center(
+                        child: SvgPicture.asset(
+                          'assets/svg/powerbyreloadly.svg',
+                          width: MediaQuery.of(context).size.width,
+                          height: 40,
+                          placeholderBuilder: (context) => Container(),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: tenDp),
+                        child: ButtonWidget(
+                          buttonName: 'Add Recipients',
+                          onButtonTapped: () {},
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

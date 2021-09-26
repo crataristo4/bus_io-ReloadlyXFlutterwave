@@ -21,6 +21,7 @@ class _GiftCardDetailsState extends State<GiftCardDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: appBar(availableGiftCards, () {
         Navigator.pop(context);
       }),
@@ -37,7 +38,7 @@ class _GiftCardDetailsState extends State<GiftCardDetails> {
                     return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
-                          mainAxisSpacing: 30,
+                          mainAxisSpacing: 20,
                           crossAxisSpacing: 0),
                       itemCount:
                       widget.content.fixedRecipientDenominations.length,
