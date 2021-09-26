@@ -12,7 +12,7 @@ class ReloadLyProvider with ChangeNotifier {
   ApiState get apiState => _apiState;
 
   ReloadLyProvider() {
-     fetchCards();
+    fetchCards();
   }
 
   //fetch gift cards
@@ -20,10 +20,27 @@ class ReloadLyProvider with ChangeNotifier {
     _apiState = ApiState.Loading;
 
     try {
-      contentList = await _reloadLyApiService.fetchGiftCards().then((value) {
+      contentList =
+          await ReloadLyApiService.instance.fetchGiftCards().then((value) {
         _apiState = ApiState.Loaded;
+        notifyListeners();
         return value;
       });
+    } catch (e) {
+      _apiState = ApiState.Error;
+    }
+
+    notifyListeners();
+    return contentList;
+  }
+
+  //fetch gift card by id
+  Future<List<Content>> fetchCardsById(int productId) async {
+    _apiState = ApiState.Loading;
+    try {
+      _apiState = ApiState.Loaded;
+      contentList =
+          await ReloadLyApiService.instance.fetchGiftCardById(productId);
     } catch (e) {
       _apiState = ApiState.Error;
     }
