@@ -26,11 +26,8 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: widget.onTap,
-      child: Card(
-        color: Colors.white,
-        margin: EdgeInsets.symmetric(horizontal: 6),
-        semanticContainer: true,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -44,15 +41,16 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
                   placeholder: (context, url) =>
                       Center(child: CircularProgressIndicator()),
                   imageUrl: widget.content.logoUrls[0],
-                  height: 140,
+                  height: 150,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: widget.isCardDetails ? 56 : 53,
-              padding: EdgeInsets.all(4),
+              // height: 50,
+
+              padding: EdgeInsets.all(6),
               decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.3),
                   borderRadius: BorderRadius.only(
@@ -63,29 +61,30 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Expanded(
-                    child: Center(
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 2, left: 2, right: 2),
                       child: Text(
                         widget.content.productName,
                         textAlign: TextAlign.center,
-                        maxLines: 2,
+                        maxLines: widget.isCardDetails ? 1 : 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 10),
+                            fontSize: 12),
                       ),
                     ),
                   ),
                   widget.isCardDetails
                       ? Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
+                            padding: const EdgeInsets.only(top: 2),
                             child: Text(
                               "${recipientCurrencyCodeValues.reverse[widget.content.recipientCurrencyCode]} ${widget.content.fixedRecipientDenominations[widget.index]}",
                               style: TextStyle(
                                   color: Colors.black,
-                                  fontSize: 10,
+                                  fontSize: 13,
                                   fontWeight: FontWeight.bold),
                             ),
                           ),

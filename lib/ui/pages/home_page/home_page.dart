@@ -82,6 +82,7 @@ class _HomePageState extends State<HomePage> {
         child: StreamBuilder<Users>(
             stream: UserService.instance.getUser(),
             builder: (context, snapshot) {
+              setState(() {});
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: CircularProgressIndicator(),
@@ -137,7 +138,7 @@ class _HomePageState extends State<HomePage> {
                             GestureDetector(
                               onTap: () async {
                                 final selectedDate =
-                                    await ShowAction().selectDate(context);
+                                await ShowAction().selectDate(context);
                                 if (selectedDate == null) return;
                                 dateSelected = dateFormat.format(selectedDate);
                                 setState(() {});
@@ -173,12 +174,12 @@ class _HomePageState extends State<HomePage> {
                                         0) {
                                   Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) => BusResultsPage(
-                                            numberOfPassengers: int.parse(
-                                                noOfPassengerController.text),
-                                            to: users.to,
-                                            date: dateSelected,
-                                            from: users.from,
-                                          )));
+                                        numberOfPassengers: int.parse(
+                                            noOfPassengerController.text),
+                                        to: users.to,
+                                        date: dateSelected,
+                                        from: users.from,
+                                      )));
                                 }
                               }
 
