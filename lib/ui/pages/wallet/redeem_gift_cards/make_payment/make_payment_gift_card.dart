@@ -119,7 +119,7 @@ class _MakePaymentForGiftCardState extends State<MakePaymentForGiftCard> {
                       margin: EdgeInsets.symmetric(
                           vertical: tenDp, horizontal: sixteenDp),
                       child: ButtonWidget(
-                        buttonName: 'Make Payment from wallet',
+                        buttonName: 'Make Payment from my wallet',
                         onButtonTapped: () async {},
                       ),
                     ),
