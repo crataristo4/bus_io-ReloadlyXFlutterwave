@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave">
-    <img src="images/bus.io.png" alt="Logo" width="80" height="80">
+    <img src="assets/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Bus.io</h3>
@@ -88,7 +88,9 @@ git clone https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave.git
 ## Known Issues
 
 When testing this app on your local simulator or device, Please note the below:
+
 Number of passengers should be set to 2.
+
 On seat selection, please ensure you select at least 2 seats to continue. Selecting just one would not move to the next screen.
 
 
