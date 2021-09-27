@@ -59,7 +59,6 @@ This project is team L's submission for the ReloadlyxFlutterwave Hackathon, runn
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 * [Flutter](https://flutter.dev)
 * [Nodejs](https://nodejs.org)
 * [MongoDB](https://mongodb.com)
@@ -69,7 +68,6 @@ This section should list any major frameworks that you built your project using.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
@@ -83,7 +81,6 @@ To install this on Android studio, type below in terminal.
 git clone https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave.git
 
 
-<!-- USAGE EXAMPLES -->
 
 ## Known Issues
 
