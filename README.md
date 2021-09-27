@@ -79,6 +79,7 @@ Follow the steps here  to do so, if you haven't done yet. https://flutter.dev/do
 
 ### Installation
 To install this on Android studio, type below in terminal.
+
 git clone https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave.git
 
 
