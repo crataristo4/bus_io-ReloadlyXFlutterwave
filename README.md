@@ -10,14 +10,7 @@
   <p align="center">
     Bus Booking Made Easy
     <br />
-    <a href="#"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="#">View Demo</a>
-    ·
-    <a href="#">Report Bug</a>
-    ·
-    <a href="#">Request Feature</a>
+   This is the backend for Team L's ReloadlyXFlutterwave Hackathon, hosted by #reloadly and #flutterwave
   </p>
 </p>
 
