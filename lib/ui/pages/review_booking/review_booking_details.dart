@@ -431,12 +431,15 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
         encryptionKey: "FLWSECK_TEST8b996dd62456",
         publicKey: "FLWPUBK_TEST-b2ce63d2a8a289258be56702c2e02cb2-X",
         currency: this.currency,
-        amount: '300',
+        amount: '${widget.totalPrice}',
         email: "crataristo4@gmail.com",
+        //todo for testing and to be removed
         fullName: "Test",
+        //todo for testing and to be removed
         txRef: this.txtRef,
         isDebugMode: true,
         phoneNumber: "0207824082",
+        //todo for testing and to be removed
         acceptCardPayment: true,
         acceptUSSDPayment: true,
         acceptAccountPayment: true,
@@ -455,7 +458,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
       } else {
         final isSuccessful = checkPaymentIsSuccessful(response);
         if (isSuccessful) {
-          // provide value to customer
+          //when payment is successful then create bookings
           await _bookingsProvider.notifyDetails(
               widget.to,
               widget.from,
@@ -488,7 +491,7 @@ class _ReviewBookingDetailsState extends State<ReviewBookingDetails> {
   bool checkPaymentIsSuccessful(final ChargeResponse response) {
     return response.data!.status == FlutterwaveConstants.SUCCESSFUL &&
         response.data!.currency == this.currency &&
-        response.data!.amount == '300' &&
+        response.data!.amount == '${widget.totalPrice}' &&
         response.data!.txRef == this.txtRef;
   }
 }
