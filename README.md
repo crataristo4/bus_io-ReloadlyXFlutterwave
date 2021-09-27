@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave">
-    <img src="images/bus.io.png" alt="Logo" width="80" height="80">
+    <img src="assets/logo/logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Bus.io</h3>
