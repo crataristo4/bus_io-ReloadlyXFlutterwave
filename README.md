@@ -40,12 +40,8 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
+<li><a href="#Issues">Known Issues</a></li>
+    
   </ol>
 </details>
 
@@ -89,6 +85,7 @@ git clone https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave.git
 <!-- USAGE EXAMPLES -->
 
 ## Known Issues
+
 When testing this app on your local simulator or device, Please note the below:
 Number of passengers should be set to 2.
 On seat selection, please ensure you select at least 2 seats to continue. Selecting just one would not move to the next screen.
