@@ -3,7 +3,7 @@
 <p align="center">
   <a href="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave">
     <img src="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave/tree/master/assets/logo/logo.png" alt="Logo" width="80" height="80">
-    This is the backend for Team L's ReloadlyXFlutterwave Hackathon, hosted by #reloadly and #flutterwave
+    This is the frontend code repo for Team L's ReloadlyXFlutterwave Hackathon, hosted by #reloadly and #flutterwave
   </a>
 
   <h3 align="center">Bus.io</h3>
