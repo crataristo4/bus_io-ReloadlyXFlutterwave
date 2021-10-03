@@ -122,7 +122,9 @@ class _HomePageState extends State<HomePage> {
                           from: users.from.toString().isEmpty
                               ? whereAreYouLeavingFrom
                               : users.from.toString(),
-                          to: users.to.toString().isEmpty
+                          to: users.to
+                              .toString()
+                              .isEmpty
                               ? whereAreYouGoingTo
                               : users.to.toString(),
                           color: Colors.grey,
@@ -130,9 +132,8 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(
                           height: twentyDp,
                         ),
-                        Wrap(
-                          direction: Axis.horizontal,
-                          spacing: 0,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             GestureDetector(
                               onTap: () async {
@@ -172,13 +173,14 @@ class _HomePageState extends State<HomePage> {
                                     int.parse(noOfPassengerController.text) >
                                         0) {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => BusResultsPage(
-                                        numberOfPassengers: int.parse(
-                                            noOfPassengerController.text),
-                                        to: users.to,
-                                        date: dateSelected,
-                                        from: users.from,
-                                      )));
+                                      builder: (context) =>
+                                          BusResultsPage(
+                                            numberOfPassengers: int.parse(
+                                                noOfPassengerController.text),
+                                            to: users.to,
+                                            date: dateSelected,
+                                            from: users.from,
+                                          )));
                                 }
                               }
 
@@ -200,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                           height: sixteenDp,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             buildQuickBookings(lagosToAccra, '09/10/2021'),
                             buildQuickBookings(lagosToBenin, '09/10/2021'),
@@ -235,7 +237,7 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildNoOfPassengerInput() {
     return Container(
-      width: hundredDp,
+      width: 100,
       child: TextFormField(
           keyboardType: TextInputType.number,
           textAlign: TextAlign.center,

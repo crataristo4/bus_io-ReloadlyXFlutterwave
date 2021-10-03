@@ -49,7 +49,12 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
   TextEditingController ageController2 = TextEditingController();
   TextEditingController phoneController2 = TextEditingController();
 
-  List<String> _seatSelected = ['Seat 2', 'Seat 3'];
+  //passenger
+  TextEditingController nameController3 = TextEditingController();
+  TextEditingController ageController3 = TextEditingController();
+  TextEditingController phoneController3 = TextEditingController();
+
+  List<String> _seatSelected = ['Seat 2', 'Seat 3', 'Seat 19'];
   List<Details> passengerDetails = [];
 
   @override
@@ -81,7 +86,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                         SizedBox(
                           height: twentyDp,
                         ),
-                        pl(_seatSelected.length),
+                        pl(widget.seatsSelected.length),
                       ],
                     ),
                   ),
@@ -286,7 +291,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
     );
   }
 
-  //todo not dynamic
+  //todo not dynamic -- to be re implemented properly in future
   //list of passenger details
   pl(int seatSelected) {
     switch (seatSelected) {
@@ -299,7 +304,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
             onTap: () {
               //todo
             },
-            dropDownList: _seatSelected);
+            dropDownList: widget.seatsSelected[0]);
         break;
       case 2:
         return Column(
@@ -324,7 +329,7 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                 dropDownList: _seatSelected)
           ],
         );
-    /* case 3:
+      case 3:
         return Column(
           children: [
             PassengerDetails(
@@ -356,7 +361,6 @@ class _AddPassengerDetailsState extends State<AddPassengerDetails> {
                 dropDownList: _seatSelected)
           ],
         );
-*/
       default:
         PassengerDetails(
             title: '$passenger $seatSelected',

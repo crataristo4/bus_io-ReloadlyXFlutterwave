@@ -23,7 +23,7 @@ class _OptionSelectorState extends State<OptionSelector> {
   Widget build(BuildContext context) {
     //date card
     return Container(
-      width: 180,
+      width: 150,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -48,7 +48,7 @@ class _OptionSelectorState extends State<OptionSelector> {
                     padding: const EdgeInsets.all(eightDp),
                     child: Image.asset(widget.icon),
                   ),
-                  widget.widget
+                  Expanded(child: widget.widget)
                 ],
               ),
             ),

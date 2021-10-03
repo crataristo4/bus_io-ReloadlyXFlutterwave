@@ -48,9 +48,9 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              // height: 50,
+              // height: 60,
 
-              padding: EdgeInsets.all(6),
+              padding: EdgeInsets.all(2),
               decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.3),
                   borderRadius: BorderRadius.only(
@@ -63,16 +63,18 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
                 children: [
                   Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 2, left: 2, right: 2),
-                      child: Text(
-                        widget.content.productName,
-                        textAlign: TextAlign.center,
-                        maxLines: widget.isCardDetails ? 1 : 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12),
+                      padding: const EdgeInsets.only(left: 2, right: 2),
+                      child: Expanded(
+                        child: Text(
+                          widget.content.productName,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12),
+                        ),
                       ),
                     ),
                   ),
@@ -80,12 +82,14 @@ class _GiftCardWidgetState extends State<GiftCardWidget> {
                       ? Center(
                           child: Padding(
                             padding: const EdgeInsets.only(top: 2),
-                            child: Text(
-                              "${recipientCurrencyCodeValues.reverse[widget.content.recipientCurrencyCode]} ${widget.content.fixedRecipientDenominations[widget.index]}",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.bold),
+                            child: Expanded(
+                              child: Text(
+                                "${recipientCurrencyCodeValues.reverse[widget.content.recipientCurrencyCode]} ${widget.content.fixedRecipientDenominations[widget.index]}",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ),
                         )

@@ -590,7 +590,8 @@ class _SelectSeatState extends State<SelectSeat> {
             duration: Duration(milliseconds: 800),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else if (seatNumber == 2) {
+        }
+        if (seatNumber == 2) {
           selectedSeats.add(seatNumber);
           setState(() {
             isSelected = true;

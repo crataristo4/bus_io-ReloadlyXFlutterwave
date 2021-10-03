@@ -18,7 +18,6 @@ class ReloadLyApiService {
   }
 
   //top ups
-  //get token
   Future<String> fetchTopUpToken() async {
     var options = {
       "client_id": clientId,
