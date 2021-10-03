@@ -4,6 +4,7 @@
     <br>
     <img src="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave/blob/master/assets/logo/logo.png" alt="Logo" width="80" height="80">
     This is the frontend code repo for Team L's ReloadlyXFlutterwave Hackathon, hosted by #reloadly and #flutterwave
+      APK for test https://drive.google.com/file/d/1dCb_jRY9mfz24Cce8IuO4TRkguOaODYb/view?usp=sharing
   </a>
   <h3 align="center">Bus.io</h3>
 
