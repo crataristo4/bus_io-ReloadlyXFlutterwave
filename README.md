@@ -1,40 +1,39 @@
-<!-- PROJECT LOGO -->
-<br />
+
 <p align="center">
-  <a href="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave">
-    <img src="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave/tree/master/assets/logo/logo.png" alt="Logo" width="80" height="80">
-    This is the backend for Team L's ReloadlyXFlutterwave Hackathon, hosted by #reloadly and #flutterwave
-  </a>
+  <a href="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave">
+    <br>
+    <img src="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave/blob/master/assets/logo/logo.png" alt="Logo" width="80" height="80">
+    This is the frontend code repo for Team L's ReloadlyXFlutterwave Hackathon, hosted by #reloadly and #flutterwave
+  </a>
+  <h3 align="center">Bus.io</h3>
 
-  <h3 align="center">Bus.io</h3>
-
-  <p align="center">
-    Bus Booking Made Easy
-    <br />
+  <p align="center">
+    Bus Booking Made Easy
+    <br />
 </p>
 
 
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
 <li><a href="#Issues">Known Issues</a></li>
-    
-  </ol>
+    
+  </ol>
 </details>
 
 
@@ -67,7 +66,7 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 To run this flutter app on your local computer, you need to have Android studio installed, as well as install an SDK Emulator.
-Follow the steps here  to do so, if you haven't done yet. https://flutter.dev/docs/get-started/install
+Follow the steps here  to do so, if you haven't done yet. https://flutter.dev/docs/get-started/install
 
 ### Installation
 To install this on Android studio, type below in terminal.
