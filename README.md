@@ -1,5 +1,5 @@
 <!-- PROJECT LOGO -->
-<br />
+<br>
 <p align="center">
   <a href="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave">
     <img src="https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave/blob/master/assets/logo/logo.png" alt="Logo" width="80" height="80">
