@@ -33,7 +33,8 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-<li><a href="#Issues">Known Issues</a></li>
+<li><a href="#Issues">How It Works</a></li>
+ <li><a href="#Issues">Known Issues</a></li>
     
   </ol>
 </details>
@@ -77,6 +78,21 @@ git clone https://github.com/crataristo4/bus_io-ReloadlyXFlutterwave.git
 
 
 <!-- USAGE EXAMPLES -->
+
+## How It Works
+
+Create An account
+
+On Dashboard, Search for your trip by inputing required fields - destination, date, number of passengers
+
+Select preferred provider, and book via flutterwave.
+
+Earn loyalty points upon each booking
+
+Return to Dashboard and Select Wallet Icon
+
+Redeem your points via giftcards or airtime.
+
 
 ## Known Issues
 
