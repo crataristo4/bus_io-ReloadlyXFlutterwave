@@ -34,6 +34,7 @@
       </ul>
     </li>
 <li><a href="#Issues">How It Works</a></li>
+      
  <li><a href="#Issues">Known Issues</a></li>
     
   </ol>
